@@ -1,0 +1,9 @@
+.footer {
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    bottom: 0;
+    padding: var(--g-spacing-5);
+    min-width: 600px;
+    max-width: 800px;
+}

@@ -10,18 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.4",
+    "mobx-react": "^9.1.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.0",
+    "sort-by": "^1.2.0"
   },
   "devDependencies": {
+    "@gravity-ui/components": "^3.6.0",
+    "@gravity-ui/uikit": "^6.14.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "mobx": "^6.12.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
