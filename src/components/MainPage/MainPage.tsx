@@ -38,18 +38,10 @@ export const MainPage: React.FC = () => {
                 <Button className={styles.pageButton} view="outlined" size="l">
                     🗿 Atrifact foundry
                 </Button>
-                <Button
-                    className={styles.helpersButton}
-                    view="outlined"
-                    size="l"
-                >
+                <Button className={styles.helpersButton} view="outlined" size="l">
                     ⚙️ Servers{" "}
                 </Button>
-                <Button
-                    className={styles.helpersButton}
-                    view="outlined"
-                    size="l"
-                >
+                <Button className={styles.helpersButton} view="outlined" size="l">
                     ❓ FAQ
                 </Button>
             </div>

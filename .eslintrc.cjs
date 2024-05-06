@@ -11,15 +11,14 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     plugins: ["react-refresh"],
     rules: {
-        "react-refresh/only-export-components": [
-            "warn",
-            { allowConstantExport: true },
-        ],
+        "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
         "max-len": [
             "error",
             {
                 code: 90,
                 tabWidth: 4,
+                ignorePattern: "^(import\\s.+\\sfrom\\s.+|\\} from)",
+                ignoreUrls: true,
             },
         ],
     },

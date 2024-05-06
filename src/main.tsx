@@ -10,15 +10,21 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ProfitTreePage } from "./components/ProfitTreePage/ProfitTreePage.tsx";
 import { userStore } from "./store/index.ts";
 import { observer } from "mobx-react";
+import { routes } from "./routes.ts";
+import { TransporatationsPage } from "./components/TransporatationsPage/TransporatationsPage.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: routes.home,
         element: <MainPage />,
     },
     {
-        path: "/tree",
+        path: routes.profitTree,
         element: <ProfitTreePage />,
+    },
+    {
+        path: routes.transporatations,
+        element: <TransporatationsPage />,
     },
 ]);
 
