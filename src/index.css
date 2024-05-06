@@ -1,87 +1,107 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  height: 100%;
+    height: 100%;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
 /* Reset and base styles  */
 * {
-	padding: 0px;
-	margin: 0px;
-	border: none;
+    padding: 0px;
+    margin: 0px;
+    border: none;
 }
 
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* Links */
 
-a, a:link, a:visited  {
+a,
+a:link,
+a:visited {
     text-decoration: none;
 }
 
-a:hover  {
+a:hover {
     text-decoration: none;
 }
 
 /* Common */
 
-aside, nav, footer, header, section, main {
-	display: block;
+aside,
+nav,
+footer,
+header,
+section,
+main {
+    display: block;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     font-size: inherit;
-	font-weight: inherit;
+    font-weight: inherit;
 }
 
-ul, ul li {
-	list-style: none;
+ul,
+ul li {
+    list-style: none;
 }
 
 img {
-	vertical-align: top;
+    vertical-align: top;
 }
 
-img, svg {
-	max-width: 100%;
-	height: auto;
+img,
+svg {
+    max-width: 100%;
+    height: auto;
 }
 
 address {
-  font-style: normal;
+    font-style: normal;
 }
 
 /* Form */
 
-input, textarea, button, select {
-	font-family: inherit;
+input,
+textarea,
+button,
+select {
+    font-family: inherit;
     font-size: inherit;
     color: inherit;
     background-color: transparent;
 }
 
 input::-ms-clear {
-	display: none;
+    display: none;
 }
 
-button, input[type="submit"] {
+button,
+input[type="submit"] {
     display: inline-block;
     box-shadow: none;
     background-color: transparent;
@@ -89,20 +109,22 @@ button, input[type="submit"] {
     cursor: pointer;
 }
 
-input:focus, input:active,
-button:focus, button:active {
+input:focus,
+input:active,
+button:focus,
+button:active {
     outline: none;
 }
 
 button::-moz-focus-inner {
-	padding: 0;
-	border: 0;
+    padding: 0;
+    border: 0;
 }
 
 label {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 legend {
-	display: block;
+    display: block;
 }

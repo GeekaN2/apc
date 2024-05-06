@@ -1,7 +1,9 @@
+import { Sidebar } from "../SIdebar/Sidebar";
+
 export const ProfitTreePage: React.FC = () => {
     return (
-        <div>
-            Profit tree
-        </div>
-    )
-}
+        <Sidebar>
+            <div>Profit tree</div>
+        </Sidebar>
+    );
+};
