@@ -115,5 +115,23 @@
         "resourcesCity": "Покупать ресурсы в",
         "componentsCity": "Покупать артефакты и компоненты в",
         "journalsCity": "Журналы в"
+    },
+    "prices": {
+        "title": "Свои цены",
+        "ownCount_one": "{{count}} своя",
+        "ownCount_few": "{{count}} свои",
+        "ownCount_many": "{{count}} своих",
+        "ownCount_other": "{{count}} своих",
+        "hint": "Своя цена заменяет рыночную при покупке и продаже в любом городе сервера. Очистите поле, чтобы вернуть рыночную.",
+        "reset": "Сбросить все",
+        "own": "своя",
+        "groups": {
+            "products": "Продукты крафта",
+            "raw": "Сырьё",
+            "materials": "Ресурсы",
+            "resources": "Ресурсы",
+            "components": "Артефакты и компоненты",
+            "journals": "Журналы"
+        }
     }
 }

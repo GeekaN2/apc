@@ -8,41 +8,17 @@ import {
     enchantmentLevels,
     itemMarketId,
     familyMarketIds,
-    hasPrice,
-    pickSalePrice,
     recipeVariantCount,
 } from "@apc/calc";
 import { useMemo } from "react";
-import {
-    type QuoteMap,
-    mergedQuote,
-    quoteKey,
-    useAverages,
-    usePrices,
-} from "../../api/prices";
-import {
-    type City,
-    clusterIdOf,
-    useEquipmentCatalog,
-    useNames,
-} from "../../catalog/catalog";
+import { useAverages, usePrices } from "../../api/prices";
+import { clusterIdOf, useEquipmentCatalog, useNames } from "../../catalog/catalog";
+import { type PriceGroup, createPriceBook } from "../../prices/priceBook";
+import { useManualPrices } from "../../store/manualPrices";
 import { useTreeStore } from "../../store/tree";
-import type { ProfitTableCell, UsedPrice } from "../ProfitTable/ProfitTable";
+import type { ProfitTableCell } from "../ProfitTable/ProfitTable";
 
 export type TreeCell = FamilyCell & ProfitTableCell;
-
-/** Lowest sell order: resources are bought instantly */
-function buyPrice(
-    quotes: QuoteMap | undefined,
-    marketId: string,
-    city: City,
-): UsedPrice | undefined {
-    const quote = quotes?.get(quoteKey(marketId, city));
-
-    return quote && hasPrice(quote.sellPriceMin)
-        ? { price: quote.sellPriceMin, date: new Date(quote.sellPriceMinDate ?? 0) }
-        : undefined;
-}
 
 /** Refined resources are bought in their city, everything else with the artifacts */
 function isRefined(catalog: Catalog, marketId: string): boolean {
@@ -73,6 +49,7 @@ export function useTree() {
     const { family: familyKey, variant, settings } = useTreeStore();
     const catalog = useEquipmentCatalog();
     const names = useNames();
+    const manual = useManualPrices();
     const families = useMemo(
         () => (catalog.data ? craftableFamilies(catalog.data, EQUIPMENT_CATEGORIES) : []),
         [catalog.data],
@@ -105,29 +82,27 @@ export function useTree() {
     /** Prices are as old as of their loading, not of each render */
     const now = prices.dataUpdatedAt;
 
-    const cells = useMemo((): TreeCell[] => {
+    const { cells, priceGroups } = useMemo(() => {
         const data = catalog.data;
 
         if (!data || !family) {
-            return [];
+            return { cells: [], priceGroups: [] };
         }
 
-        const { marketPlace } = data.constants;
-        const options = { marketPlace, now, premium: settings.premium };
+        const book = createPriceBook({
+            quotes,
+            manual,
+            marketPlace: data.constants.marketPlace,
+            premium: settings.premium,
+            now,
+        });
         const buyCity = (marketId: string) =>
             isRefined(data, marketId) ? cities.resources : cities.components;
-        const saleOf = (marketId: string) => {
-            const quote = mergedQuote(quotes, marketId, cities.sell, qualities, now);
+        const products = new Set(productIds);
+        const isJournal = (marketId: string) =>
+            /_JOURNAL_.+_(EMPTY|FULL)$/.test(marketId);
 
-            return quote ? pickSalePrice(quote, options) : undefined;
-        };
-        const journalFull = (marketId: string) => {
-            const quote = quotes?.get(quoteKey(marketId, cities.journals));
-
-            return quote ? pickSalePrice(quote, options) : undefined;
-        };
-
-        return craftFamily({
+        const cells: TreeCell[] = craftFamily({
             catalog: data,
             family,
             variant: recipeVariant,
@@ -140,17 +115,17 @@ export function useTree() {
             feePer100Nutrition: settings.fee,
             premium: settings.premium,
             crafts: settings.crafts,
-            resourcePrice: (marketId) =>
-                buyPrice(quotes, marketId, buyCity(marketId))?.price,
-            sale: (marketId) => saleOf(marketId) ?? { kind: "sellOrder" },
+            resourcePrice: (marketId) => book.buy(marketId, buyCity(marketId))?.price,
+            sale: (marketId) =>
+                book.sell(marketId, cities.sell, qualities) ?? { kind: "sellOrder" },
             journal: settings.useJournals
                 ? (journal) => ({
-                      emptyPrice: buyPrice(
-                          quotes,
-                          `${journal.uniqueName}_EMPTY`,
+                      emptyPrice: book.buy(`${journal.uniqueName}_EMPTY`, cities.journals)
+                          ?.price,
+                      fullSale: book.sell(
+                          `${journal.uniqueName}_FULL`,
                           cities.journals,
-                      )?.price,
-                      fullSale: journalFull(`${journal.uniqueName}_FULL`) ?? {
+                      ) ?? {
                           kind: "sellOrder",
                       },
                   })
@@ -160,30 +135,71 @@ export function useTree() {
 
             return {
                 ...cell,
-                sale: saleOf(cell.marketId),
+                sale: book.sell(cell.marketId, cities.sell, qualities),
                 soldPerDay: averages.data?.get(cell.marketId)?.averageItems,
                 buyPrices: new Map(
                     cell.result.resources.flatMap(({ marketId }) => {
-                        const price = buyPrice(quotes, marketId, buyCity(marketId));
+                        const price = book.buy(marketId, buyCity(marketId));
 
                         return price ? [[marketId, price] as const] : [];
                     }),
                 ),
                 journal: journal && {
-                    empty: buyPrice(
-                        quotes,
-                        `${journal.uniqueName}_EMPTY`,
-                        cities.journals,
-                    ),
-                    full: journalFull(`${journal.uniqueName}_FULL`),
+                    empty: book.buy(`${journal.uniqueName}_EMPTY`, cities.journals),
+                    full: book.sell(`${journal.uniqueName}_FULL`, cities.journals),
                 },
             };
         });
+
+        const resources = marketIds.filter((id) => !products.has(id) && !isJournal(id));
+        const priceGroups: PriceGroup[] = [
+            {
+                key: "products",
+                rows: productIds.map((marketId) => ({
+                    marketId,
+                    market: book.marketSell(marketId, cities.sell, qualities),
+                })),
+            },
+            {
+                key: "resources",
+                rows: resources
+                    .filter((id) => isRefined(data, id))
+                    .map((marketId) => ({
+                        marketId,
+                        market: book.marketBuy(marketId, cities.resources),
+                    })),
+            },
+            {
+                key: "components",
+                rows: resources
+                    .filter((id) => !isRefined(data, id))
+                    .map((marketId) => ({
+                        marketId,
+                        market: book.marketBuy(marketId, cities.components),
+                    })),
+            },
+            {
+                key: "journals",
+                rows: settings.useJournals
+                    ? marketIds.filter(isJournal).map((marketId) => ({
+                          marketId,
+                          market: marketId.endsWith("_EMPTY")
+                              ? book.marketBuy(marketId, cities.journals)
+                              : book.marketSell(marketId, cities.journals),
+                      }))
+                    : [],
+            },
+        ];
+
+        return { cells, priceGroups };
     }, [
         catalog.data,
         family,
         recipeVariant,
+        marketIds,
+        productIds,
         quotes,
+        manual,
         averages.data,
         now,
         cities,
@@ -199,6 +215,7 @@ export function useTree() {
         variants,
         recipeVariant,
         cells,
+        priceGroups,
         now,
         isCatalogPending: catalog.isPending || names.isPending,
         isPricesFetching: prices.isFetching,

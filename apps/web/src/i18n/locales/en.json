@@ -115,5 +115,21 @@
         "resourcesCity": "Buy resources in",
         "componentsCity": "Buy artifacts and components in",
         "journalsCity": "Journals in"
+    },
+    "prices": {
+        "title": "Own prices",
+        "ownCount_one": "{{count}} own",
+        "ownCount_other": "{{count}} own",
+        "hint": "An own price replaces the market one for buying and selling in any city of the server. Clear the field to use the market price again.",
+        "reset": "Reset all",
+        "own": "own",
+        "groups": {
+            "products": "Crafted items",
+            "raw": "Raw resources",
+            "materials": "Refined resources",
+            "resources": "Refined resources",
+            "components": "Artifacts and components",
+            "journals": "Journals"
+        }
     }
 }

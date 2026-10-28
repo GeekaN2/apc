@@ -1,18 +1,16 @@
 import {
     type Catalog,
     type RefiningRow,
-    hasPrice,
-    pickSalePrice,
+    itemMarketId,
+    refinedItems,
     refining,
     refiningMarketIds,
 } from "@apc/calc";
 import { useMemo } from "react";
-import { type QuoteMap, quoteKey, usePrices } from "../../api/prices";
-import {
-    type CraftingCity,
-    clusterIdOf,
-    useResourceCatalog,
-} from "../../catalog/catalog";
+import { usePrices } from "../../api/prices";
+import { clusterIdOf, useNames, useResourceCatalog } from "../../catalog/catalog";
+import { type PriceGroup, createPriceBook } from "../../prices/priceBook";
+import { useManualPrices } from "../../store/manualPrices";
 import { useRefiningStore } from "../../store/refining";
 import type { ProfitTableCell } from "../ProfitTable/ProfitTable";
 
@@ -23,18 +21,11 @@ function isRefined(catalog: Catalog, marketId: string): boolean {
     return catalog.item(marketId.split("@")[0]!)?.shopSubcategory1 === "refinedresources";
 }
 
-/** Lowest sell order: resources are bought instantly */
-function buyPrice(quotes: QuoteMap | undefined, marketId: string, city: CraftingCity) {
-    const quote = quotes?.get(quoteKey(marketId, city));
-
-    return quote && hasPrice(quote.sellPriceMin)
-        ? { price: quote.sellPriceMin, date: new Date(quote.sellPriceMinDate ?? 0) }
-        : undefined;
-}
-
 export function useRefining() {
     const settings = useRefiningStore();
     const { data: catalog, isPending: isCatalogPending } = useResourceCatalog();
+    const names = useNames();
+    const manual = useManualPrices();
     const marketIds = useMemo(
         () => (catalog ? refiningMarketIds(catalog, settings.resource) : []),
         [catalog, settings.resource],
@@ -49,23 +40,25 @@ export function useRefining() {
     /** Prices are as old as of their loading, not of each render */
     const now = prices.dataUpdatedAt;
 
-    const cells = useMemo((): RefiningCell[] => {
+    const { cells, priceGroups } = useMemo(() => {
         if (!catalog) {
-            return [];
+            return { cells: [], priceGroups: [] };
         }
 
-        const { marketPlace } = catalog.constants;
+        const book = createPriceBook({
+            quotes,
+            manual,
+            marketPlace: catalog.constants.marketPlace,
+            premium: settings.premium,
+            now,
+        });
         const buyCity = (marketId: string) =>
             isRefined(catalog, marketId) ? cities.buyMaterials : cities.buyRaw;
-        const saleOf = (marketId: string) => {
-            const quote = quotes?.get(quoteKey(marketId, cities.sell));
+        const products = new Set(
+            refinedItems(catalog, settings.resource).map((item) => itemMarketId(item)),
+        );
 
-            return quote
-                ? pickSalePrice(quote, { marketPlace, now, premium: settings.premium })
-                : undefined;
-        };
-
-        return refining({
+        const cells: RefiningCell[] = refining({
             catalog,
             resource: settings.resource,
             clusterId: clusterIdOf(catalog, cities.refine),
@@ -76,24 +69,47 @@ export function useRefining() {
                     : settings.ownReturnRate / 100,
             feePer100Nutrition: settings.fee,
             premium: settings.premium,
-            resourcePrice: (marketId) =>
-                buyPrice(quotes, marketId, buyCity(marketId))?.price,
-            sale: (marketId) => saleOf(marketId) ?? { kind: "sellOrder" },
+            resourcePrice: (marketId) => book.buy(marketId, buyCity(marketId))?.price,
+            sale: (marketId) => book.sell(marketId, cities.sell) ?? { kind: "sellOrder" },
         }).map((row) => ({
             ...row,
-            sale: saleOf(row.marketId),
+            sale: book.sell(row.marketId, cities.sell),
             buyPrices: new Map(
                 row.result.resources.flatMap(({ marketId }) => {
-                    const price = buyPrice(quotes, marketId, buyCity(marketId));
+                    const price = book.buy(marketId, buyCity(marketId));
 
                     return price ? [[marketId, price] as const] : [];
                 }),
             ),
         }));
-    }, [catalog, quotes, now, cities, settings]);
+
+        // Refined resources are both sold and bought as the tier below: list them once
+        const priceGroups: PriceGroup[] = [
+            {
+                key: "products",
+                rows: [...products].map((marketId) => ({
+                    marketId,
+                    market: book.marketSell(marketId, cities.sell),
+                })),
+            },
+            {
+                key: "raw",
+                rows: marketIds
+                    .filter((id) => !isRefined(catalog, id))
+                    .map((marketId) => ({
+                        marketId,
+                        market: book.marketBuy(marketId, cities.buyRaw),
+                    })),
+            },
+        ];
+
+        return { cells, priceGroups };
+    }, [catalog, quotes, manual, now, cities, settings, marketIds]);
 
     return {
         cells,
+        priceGroups,
+        names: names.data,
         now,
         isCatalogPending,
         isPricesPending: prices.isPending && prices.fetchStatus !== "idle",

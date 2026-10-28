@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { itemIconUrl } from "../../catalog/catalog";
 import { useTreeStore } from "../../store/tree";
 import { useTreeSettingsSync } from "../../store/useTreeSettingsSync";
+import { PriceEditor } from "../PriceEditor/PriceEditor";
 import { ProfitTable } from "../ProfitTable/ProfitTable";
 import { ItemPicker } from "./ItemPicker";
 import { TreeSettingsPanel } from "./TreeSettingsPanel";
@@ -147,6 +148,11 @@ export const TreePage: React.FC = () => {
                                 cells={tree.cells}
                                 now={tree.now}
                                 name={familyName(tree.family, tree.names?.items)}
+                            />
+                            <PriceEditor
+                                groups={tree.priceGroups}
+                                names={tree.names}
+                                now={tree.now}
                             />
                         </>
                     ) : (

@@ -1,14 +1,9 @@
-import type { CraftResult, PickedPrice } from "@apc/calc";
+import type { CraftResult } from "@apc/calc";
 import { Tooltip } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { itemIconUrl } from "../../catalog/catalog";
+import type { SalePrice, UsedPrice } from "../../prices/priceBook";
 import { formatAge, formatNumber, formatPercent, formatSilver, isStale } from "./format";
-
-/** A price used in a calculation and how old it is */
-export interface UsedPrice {
-    price: number;
-    date: Date;
-}
 
 /** One tier and enchantment level of a crafted item */
 export interface ProfitTableCell {
@@ -19,10 +14,10 @@ export interface ProfitTableCell {
     /** Focus per craft without focus efficiency */
     focus?: number;
     result: CraftResult;
-    sale?: PickedPrice;
+    sale?: SalePrice;
     /** Buy prices of the recipe resources by market id */
     buyPrices: ReadonlyMap<string, UsedPrice>;
-    journal?: { empty?: UsedPrice; full?: PickedPrice };
+    journal?: { empty?: UsedPrice; full?: SalePrice };
     /** Average items sold per day in the selling city */
     soldPerDay?: number;
 }
@@ -68,7 +63,12 @@ const Breakdown: React.FC<{ cell: ProfitTableCell; name?: string; now: number }>
     const priceOf = (price: UsedPrice | undefined) =>
         price && price.price > 0 ? (
             <>
-                {silver(price.price)} · <PriceAge date={price.date} now={now} />
+                {silver(price.price)} ·{" "}
+                {price.manual ? (
+                    <span className="text-accent">{t("prices.own")}</span>
+                ) : (
+                    <PriceAge date={price.date} now={now} />
+                )}
             </>
         ) : (
             <span className="text-danger">{t("profit.noPrices")}</span>
