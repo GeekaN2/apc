@@ -19,6 +19,9 @@ const lazySections: Partial<Record<string, () => Promise<{ Component: React.FC }
     [routes.transportations]: async () => ({
         Component: (await import("./components/Transport/TransportPage")).TransportPage,
     }),
+    [routes.servers]: async () => ({
+        Component: (await import("./components/Servers/ServersPage")).ServersPage,
+    }),
     [routes.transmutations]: async () => ({
         Component: (await import("./components/Transmutations/TransmutationsPage"))
             .TransmutationsPage,

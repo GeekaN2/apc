@@ -4,6 +4,11 @@ import {
     bestPrices,
     cityAverages,
     cityPrices,
+    createPrivateServer,
+    deletePrivateServer,
+    getServer,
+    listPrivateServers,
+    updatePrivateServer,
     getAveragePrices,
     getTreeSettings,
     listVisibleServers,
@@ -75,17 +80,50 @@ export interface AppOptions {
     now?: () => Date;
     /** Without auth every request is anonymous */
     auth?: Auth;
+    /** Who sends a request; the better-auth session by default */
+    user?: (headers: Headers) => Promise<RequestUser | undefined>;
     /** Frontend origins allowed to send cookies; any origin without credentials otherwise */
     trustedOrigins?: string[];
 }
 
-interface Env {
-    Variables: { userId: string | undefined };
+/** Who sends a request, as far as the API cares */
+export interface RequestUser {
+    id: string;
+    role?: string | null;
 }
+
+interface Env {
+    Variables: { userId: string | undefined; user: RequestUser | undefined };
+}
+
+/** Private servers a supporter may run */
+export const MAX_PRIVATE_SERVERS = 5;
+
+const SERVER_ROLES = ["supporter", "admin"];
+
+const serverInput = z.object({
+    name: z.string().trim().min(1).max(64),
+    description: z.string().trim().max(500).nullish(),
+    natsUrl: z
+        .string()
+        .trim()
+        .refine((value) => {
+            try {
+                const url = new URL(value);
+
+                return url.protocol === "nats:" && url.hostname !== "";
+            } catch {
+                return false;
+            }
+        }, "Expected nats://user:password@host:port"),
+    access: z.array(z.string().trim().min(1).max(64)).max(100).default([]),
+});
+
+const serverId = z.string().regex(/^[a-z0-9][a-z0-9-]{2,31}$/);
 
 export function createApp(
     db: Db,
-    { now = () => new Date(), auth, trustedOrigins }: AppOptions = {},
+    { now = () => new Date(), auth, user: getUser, trustedOrigins }: AppOptions = {},
 ) {
     const marketCache = new Map<string, { expires: number; snapshot: MarketSnapshot }>();
 
@@ -126,6 +164,21 @@ export function createApp(
         return snapshot;
     }
 
+    /** Only the owner of a private server or an admin may change it */
+    async function checkOwner(id: string, user: RequestUser | undefined) {
+        const server = await getServer(db, id);
+
+        if (!server || server.isPublic) {
+            return { error: `Unknown private server ${id}`, status: 404 as const };
+        }
+
+        if (!user || (user.role !== "admin" && server.ownerId !== user.id)) {
+            return { error: "Only the owner can change a server", status: 403 as const };
+        }
+
+        return undefined;
+    }
+
     /** Public servers and private ones of the signed in user */
     async function isVisible(serverId: string, userId: string | undefined) {
         const servers = await listVisibleServers(db, userId);
@@ -146,9 +199,21 @@ export function createApp(
             auth ? auth.handler(c.req.raw) : c.json({ error: "Auth is disabled" }, 404),
         )
         .use(async (c, next) => {
-            const session = await auth?.api.getSession({ headers: c.req.raw.headers });
+            const user = getUser
+                ? await getUser(c.req.raw.headers)
+                : await auth?.api
+                      .getSession({ headers: c.req.raw.headers })
+                      // The admin plugin adds the role, its type doesn't reach here
+                      .then(
+                          (session) =>
+                              session && {
+                                  id: session.user.id,
+                                  role: (session.user as { role?: string | null }).role,
+                              },
+                      );
 
-            c.set("userId", session?.user.id);
+            c.set("user", user ? { id: user.id, role: user.role } : undefined);
+            c.set("userId", user?.id);
             await next();
         })
         .get("/health", (c) => c.json({ ok: true }))
@@ -156,9 +221,89 @@ export function createApp(
             const servers = await listVisibleServers(db, c.get("userId"));
 
             return c.json(
-                servers.map(({ id, name, isPublic }) => ({ id, name, isPublic })),
+                // Private servers show their NATS URL: users send data to it
+                servers.map(({ id, name, isPublic, natsUrl }) =>
+                    isPublic ? { id, name, isPublic } : { id, name, isPublic, natsUrl },
+                ),
             );
         })
+        .get("/servers/private", async (c) => {
+            const user = c.get("user");
+
+            if (!user || !SERVER_ROLES.includes(user.role ?? "")) {
+                return c.json({ error: "Private servers are for supporters" }, 403);
+            }
+
+            return c.json(
+                await listPrivateServers(db, {
+                    ownerId: user.role === "admin" ? undefined : user.id,
+                }),
+                200,
+            );
+        })
+        .post(
+            "/servers",
+            zValidator("json", serverInput.extend({ id: serverId })),
+            async (c) => {
+                const user = c.get("user");
+                const { id, ...input } = c.req.valid("json");
+
+                if (!user || !SERVER_ROLES.includes(user.role ?? "")) {
+                    return c.json({ error: "Private servers are for supporters" }, 403);
+                }
+
+                if (await getServer(db, id)) {
+                    return c.json({ error: `Server ${id} already exists` }, 409);
+                }
+
+                if (
+                    user.role !== "admin" &&
+                    (await listPrivateServers(db, { ownerId: user.id })).length >=
+                        MAX_PRIVATE_SERVERS
+                ) {
+                    return c.json(
+                        { error: `At most ${MAX_PRIVATE_SERVERS} private servers` },
+                        403,
+                    );
+                }
+
+                return c.json(await createPrivateServer(db, id, user.id, input), 201);
+            },
+        )
+        .put(
+            "/servers/:id",
+            zValidator("param", z.object({ id: serverId })),
+            zValidator("json", serverInput),
+            async (c) => {
+                const { id } = c.req.valid("param");
+                const forbidden = await checkOwner(id, c.get("user"));
+
+                if (forbidden) {
+                    return c.json({ error: forbidden.error }, forbidden.status);
+                }
+
+                return c.json(
+                    await updatePrivateServer(db, id, c.req.valid("json")),
+                    200,
+                );
+            },
+        )
+        .delete(
+            "/servers/:id",
+            zValidator("param", z.object({ id: serverId })),
+            async (c) => {
+                const { id } = c.req.valid("param");
+                const forbidden = await checkOwner(id, c.get("user"));
+
+                if (forbidden) {
+                    return c.json({ error: forbidden.error }, forbidden.status);
+                }
+
+                await deletePrivateServer(db, id);
+
+                return c.json({ ok: true }, 200);
+            },
+        )
         .get("/prices", zValidator("query", pricesQuery), async (c) => {
             const query = c.req.valid("query");
 

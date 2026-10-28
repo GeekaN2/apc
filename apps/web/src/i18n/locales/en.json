@@ -198,5 +198,32 @@
         "count_other": "{{count}} profitable routes",
         "empty": "No profitable routes with these filters",
         "loading": "Loading markets"
+    },
+    "serversPage": {
+        "available": "Price servers",
+        "availableHint": "Pick a server in the header: calculators use its prices.",
+        "public": "public",
+        "private": "private",
+        "client": "Sending data to a private server",
+        "clientHint": "Start the Albion Data Client with -i and the server's address. -i replaces where the client sends data, so list every destination separated by commas.",
+        "copy": "Copy",
+        "copied": "Copied",
+        "mine": "My servers",
+        "add": "Add server",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleteConfirm": "Delete {{name}} with all its prices?",
+        "id": "Id",
+        "idHint": "Lowercase letters, digits and dashes, can't be changed",
+        "name": "Name",
+        "description": "Description",
+        "natsUrl": "NATS URL",
+        "access": "Access by nickname",
+        "accessHint": "Nicknames separated by commas or spaces; they see the server in the header",
+        "save": "Save",
+        "cancel": "Cancel",
+        "unknown": "No users with nicknames: {{names}}",
+        "supportersOnly": "Private servers are available to supporters.",
+        "none": "No private servers yet"
     }
 }

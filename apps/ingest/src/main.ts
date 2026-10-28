@@ -18,6 +18,7 @@ import { type Subscriber, subscribe } from "./subscriber.ts";
 const STATS_INTERVAL_MS = 60 * 1000;
 const CLEANUP_INTERVAL_MS = 10 * 60 * 1000;
 const RECONNECT_DELAY_MS = 60 * 1000;
+const SERVERS_SYNC_MS = 60 * 1000;
 const AVERAGES_MAX_AGE_MS = 20 * 60 * 60 * 1000;
 const AVERAGES_CHECK_MS = 60 * 60 * 1000;
 
@@ -30,30 +31,91 @@ if (!url) {
 const log = (message: string) => console.log(`${new Date().toISOString()} ${message}`);
 const { db, close } = createDb(url);
 const subscribers = new Map<string, Subscriber>();
-const retryTimers = new Set<NodeJS.Timeout>();
+const retryTimers = new Map<string, NodeJS.Timeout>();
+/** NATS URL each server was started with, to restart it when the URL changes */
+const started = new Map<string, string>();
 
 /** Connects to a server, retrying until the first connection succeeds */
 async function start(server: Server) {
+    started.set(server.id, server.natsUrl);
+
     try {
-        subscribers.set(
-            server.id,
-            await subscribe(server, (orders) => upsertOrders(db, orders), log),
+        const subscriber = await subscribe(
+            server,
+            (orders) => upsertOrders(db, orders),
+            log,
         );
+
+        // Stopped or changed while connecting
+        if (started.get(server.id) !== server.natsUrl) {
+            await subscriber.close();
+
+            return;
+        }
+
+        subscribers.set(server.id, subscriber);
     } catch (error) {
         log(`[${server.id}] failed to connect, retrying in a minute: ${String(error)}`);
 
-        const timer = setTimeout(() => {
-            retryTimers.delete(timer);
-            void start(server);
-        }, RECONNECT_DELAY_MS);
+        retryTimers.set(
+            server.id,
+            setTimeout(() => {
+                retryTimers.delete(server.id);
 
-        retryTimers.add(timer);
+                if (started.get(server.id) === server.natsUrl) {
+                    void start(server);
+                }
+            }, RECONNECT_DELAY_MS),
+        );
     }
 }
 
-for (const server of await listServers(db)) {
-    void start(server);
+async function stop(serverId: string) {
+    started.delete(serverId);
+    clearTimeout(retryTimers.get(serverId));
+    retryTimers.delete(serverId);
+    await subscribers.get(serverId)?.close();
+    subscribers.delete(serverId);
 }
+
+/**
+ * Follows the servers in the database: supporters add, change and delete private
+ * servers while the ingest runs
+ */
+async function syncServers() {
+    try {
+        const servers = await listServers(db);
+        const ids = new Set(servers.map((server) => server.id));
+
+        for (const serverId of started.keys()) {
+            if (!ids.has(serverId)) {
+                log(`[${serverId}] removed, disconnecting`);
+                await stop(serverId);
+            }
+        }
+
+        for (const server of servers) {
+            const natsUrl = started.get(server.id);
+
+            if (natsUrl === server.natsUrl) {
+                continue;
+            }
+
+            if (natsUrl !== undefined) {
+                log(`[${server.id}] NATS URL changed, reconnecting`);
+                await stop(server.id);
+            }
+
+            void start(server);
+        }
+    } catch (error) {
+        log(`failed to sync servers: ${String(error)}`);
+    }
+}
+
+await syncServers();
+
+const syncTimer = setInterval(syncServers, SERVERS_SYNC_MS);
 
 const statsTimer = setInterval(() => {
     for (const [serverId, { stats }] of subscribers) {
@@ -124,6 +186,7 @@ async function shutdown() {
     clearInterval(statsTimer);
     clearInterval(cleanupTimer);
     clearInterval(averagesTimer);
+    clearInterval(syncTimer);
     retryTimers.forEach(clearTimeout);
     await Promise.all([...subscribers.values()].map((s) => s.close()));
     await close();
