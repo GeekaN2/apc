@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { CRAFTING_CITIES, type CraftingCity, type Names } from "../../catalog/catalog";
 import { useTreeStore } from "../../store/tree";
 import { type IconOption, IconPicker } from "../IconPicker/IconPicker";
-import { familyName } from "./useTree";
+import { familyIcon, familyName } from "../Craft/familyName";
 
 /** A typical item of each category for its icon */
 const CATEGORY_ICONS: Record<(typeof EQUIPMENT_CATEGORIES)[number], string> = {
@@ -24,10 +24,6 @@ function capeCity(id: string, name: (city: CraftingCity) => string): string | un
     );
 
     return city && name(city);
-}
-
-function iconOf(family: ItemFamily): string {
-    return (family.items.find((item) => item.tier === 4) ?? family.items[0]!).uniqueName;
 }
 
 /** Category → subcategory → item as rows of icons, like the old tree */
@@ -55,12 +51,12 @@ export const ItemPicker: React.FC<{ families: ItemFamily[]; names?: Names }> = (
     }));
     const subcategoryOptions: IconOption<string>[] = subcategories.map((id) => ({
         id,
-        icon: iconOf(inCategory.find((f) => f.shopSubcategory1 === id)!),
+        icon: familyIcon(inCategory.find((f) => f.shopSubcategory1 === id)!),
         label: categoryName(id),
     }));
     const itemOptions: IconOption<string>[] = items.map((f) => ({
         id: f.key,
-        icon: iconOf(f),
+        icon: familyIcon(f),
         label: familyName(f, names?.items),
     }));
 

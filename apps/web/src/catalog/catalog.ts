@@ -17,6 +17,7 @@ const ITEM_FILES = {
     consumableitem: () => import("@apc/game-data/generated/items/consumableitem.json"),
     consumablefrominventoryitem: () =>
         import("@apc/game-data/generated/items/consumablefrominventoryitem.json"),
+    farmableitem: () => import("@apc/game-data/generated/items/farmableitem.json"),
 };
 
 type ItemFile = keyof typeof ITEM_FILES;
@@ -54,7 +55,21 @@ export function useResourceCatalog() {
 
 /** Craftable equipment with everything its recipes take and journals */
 export function useEquipmentCatalog() {
-    return useCatalog("equipment", Object.keys(ITEM_FILES) as ItemFile[]);
+    return useCatalog("equipment", [
+        "simpleitem",
+        "journalitem",
+        "weapon",
+        "equipmentitem",
+        "transformationweapon",
+        "trackingitem",
+        "consumableitem",
+        "consumablefrominventoryitem",
+    ]);
+}
+
+/** Food, potions and their ingredients */
+export function useConsumablesCatalog() {
+    return useCatalog("consumables", ["simpleitem", "consumableitem", "farmableitem"]);
 }
 
 const NAME_FILES = {
