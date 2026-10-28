@@ -35,6 +35,11 @@ export interface CraftInput {
     /** Share of returnable resources given back, see `returnRate` */
     returnRate: number;
     feePer100Nutrition: number;
+    /**
+     * Multiplier of the recipe `silver` (transmutations). The game applies a global
+     * discount that is not in the dumps, see `calibrateSilverFactor`.
+     */
+    silverFactor?: number;
     /** Number of crafts */
     crafts?: number;
     premium?: boolean;
@@ -65,6 +70,8 @@ export interface CraftResult {
     resources: ResourceLine[];
     itemValue: number;
     stationFee: number;
+    /** Recipe silver after the silver factor */
+    silver: number;
     journal?: JournalLine;
     cost?: number;
     profit?: number;
@@ -108,7 +115,15 @@ function journalLine(
 
 /** Profit of crafting an item by a recipe variant */
 export function craft(input: CraftInput): CraftResult {
-    const { catalog, recipe, returnRate, sale, crafts = 1, premium = true } = input;
+    const {
+        catalog,
+        recipe,
+        returnRate,
+        sale,
+        crafts = 1,
+        premium = true,
+        silverFactor = 1,
+    } = input;
     const missingPrices: string[] = [];
     const amountCrafted = (recipe.amountCrafted ?? 1) * crafts;
 
@@ -138,6 +153,7 @@ export function craft(input: CraftInput): CraftResult {
     const { marketPlace, itemValueToNutrition } = catalog.constants;
     const fee =
         stationFee(itemValue, input.feePer100Nutrition, itemValueToNutrition) * crafts;
+    const silver = (recipe.silver ?? 0) * silverFactor * crafts;
     const journal =
         input.journal &&
         journalLine(
@@ -162,6 +178,7 @@ export function craft(input: CraftInput): CraftResult {
         resources,
         itemValue,
         stationFee: fee,
+        silver,
         journal,
         missingPrices,
     };
@@ -170,7 +187,8 @@ export function craft(input: CraftInput): CraftResult {
         return result;
     }
 
-    const cost = resources.reduce((sum, line) => sum + (line.cost ?? 0), 0) + fee;
+    const cost =
+        resources.reduce((sum, line) => sum + (line.cost ?? 0), 0) + fee + silver;
     const profit = income - cost + (journal?.profit ?? 0);
 
     return { ...result, cost, profit, profitPercentage: (profit / cost) * 100 };

@@ -8,6 +8,7 @@ import type {
 
 /** Lookup over the game-data catalog */
 export interface Catalog {
+    items: readonly Item[];
     item(uniqueName: string): Item | undefined;
     /** Journal filled by crafting the item, from `famefillingmissions.craftitemfame` */
     journalFor(uniqueName: string): Item | undefined;
@@ -31,6 +32,7 @@ export function createCatalog(
     }
 
     return {
+        items,
         item: (uniqueName) => byName.get(uniqueName),
         journalFor: (uniqueName) => journals.get(uniqueName),
         modifiers,
