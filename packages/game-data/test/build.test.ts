@@ -3,6 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
     buildCategories,
+    buildCraftingModifiers,
     buildItems,
     buildNames,
     findUnknownMarketIds,
@@ -283,6 +284,59 @@ describe("buildNames", () => {
             bow: expect.any(String),
             bow_longbow: expect.any(String),
             refinedresources: expect.any(String),
+        });
+    });
+});
+
+describe("buildCraftingModifiers", () => {
+    const modifiers = buildCraftingModifiers(
+        fixture("craftingmodifiers.json"),
+        fixture("world.json"),
+    );
+
+    it("lists refining categories", () => {
+        expect(modifiers.refiningCategory).toEqual([
+            "fiber",
+            "ore",
+            "rock",
+            "wood",
+            "hide",
+        ]);
+    });
+
+    it("names city clusters and keeps their bonuses", () => {
+        expect(modifiers.craftingLocation[0]).toEqual({
+            clusterId: "1000",
+            clusterName: "Lymhurst",
+            craftingBonus: { value: 0.18, islandValue: 0 },
+            refiningBonus: { value: 0.18, islandValue: 0 },
+            craftingModifier: [
+                { name: "fiber", value: 0.4 },
+                { name: "meat_goose", value: 0.1 },
+                { name: "sword", value: 0.15 },
+                { name: "bow", value: 0.15 },
+                { name: "arcanestaff", value: 0.15 },
+                { name: "leather_helmet", value: 0.15 },
+                { name: "leather_shoes", value: 0.15 },
+            ],
+        });
+        expect(modifiers.craftingLocation[1]).toMatchObject({
+            clusterName: "Brecilien",
+            craftingModifier: [
+                { name: "cape", value: 0.15 },
+                { name: "bag", value: 0.15 },
+                { name: "potion", value: 0.15 },
+            ],
+        });
+    });
+
+    it("keeps Outlands zones without a cluster", () => {
+        expect(modifiers.craftingLocation[2]).toMatchObject({
+            clusterId: undefined,
+            continent: "OUTLANDS",
+            biome: "SWAMP",
+            clusterQuality: "Q1",
+            refiningBonus: { value: 0.15 },
         });
     });
 });

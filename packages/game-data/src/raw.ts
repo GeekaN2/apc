@@ -5,6 +5,9 @@
 import { z } from "zod";
 import type {
     CraftResource,
+    CraftingBonus,
+    CraftingLocation,
+    CraftingModifier,
     CraftingRequirement,
     Currency,
     Enchantment,
@@ -261,3 +264,50 @@ export const localizationEntry = z.object({
     "@tuid": str,
     tuv: oneOrMany(z.object({ "@xml:lang": str, seg: str.optional() })),
 });
+
+const craftingBonus = z
+    .object({ "@value": num, "@islandvalue": num.optional() })
+    .transform((b): CraftingBonus => ({
+        value: b["@value"],
+        islandValue: b["@islandvalue"],
+    }));
+
+const craftingLocation = z
+    .object({
+        "@clusterid": str.optional(),
+        "@continent": str.optional(),
+        "@biome": str.optional(),
+        "@clusterquality": str.optional(),
+        craftingbonus: craftingBonus.optional(),
+        refiningbonus: craftingBonus.optional(),
+        craftingmodifier: oneOrMany(
+            z
+                .object({ "@name": str, "@value": num })
+                .transform((m): CraftingModifier => ({
+                    name: m["@name"],
+                    value: m["@value"],
+                })),
+        ).optional(),
+    })
+    .transform((l): Omit<CraftingLocation, "clusterName"> => ({
+        clusterId: l["@clusterid"],
+        continent: l["@continent"],
+        biome: l["@biome"],
+        clusterQuality: l["@clusterquality"],
+        craftingBonus: l.craftingbonus,
+        refiningBonus: l.refiningbonus,
+        craftingModifier: l.craftingmodifier ?? [],
+    }));
+
+/** `craftingmodifiers.json`; cluster names are added in `buildCraftingModifiers` */
+export const craftingModifiersFile = z.object({
+    craftingmodifiers: z.object({
+        refiningcategory: z.object({
+            item: oneOrMany(z.object({ "@category": str })),
+        }),
+        craftinglocation: oneOrMany(craftingLocation),
+    }),
+});
+
+/** `formatted/world.json` */
+export const formattedWorldFile = z.array(z.object({ Index: str, UniqueName: str }));

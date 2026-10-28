@@ -11,6 +11,7 @@ apps/
   web/        frontend: React, Vite, HeroUI, Tailwind, Zustand
 packages/
   game-data/  item catalog generated from ao-bin-dumps
+  calc/       profit calculations over the catalog
 ```
 
 ## Development

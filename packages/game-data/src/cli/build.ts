@@ -3,6 +3,7 @@ import { mkdir, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
     buildCategories,
+    buildCraftingModifiers,
     buildItems,
     buildNames,
     findUnknownMarketIds,
@@ -49,6 +50,10 @@ const localizationJson = await readDump(dir, "localization.json");
 const items = buildItems(itemsJson);
 const categories = buildCategories(itemsJson);
 const names = buildNames(formattedJson, localizationJson, categories);
+const craftingModifiers = buildCraftingModifiers(
+    await readDump(dir, "craftingmodifiers.json"),
+    await readDump(dir, "formatted/world.json"),
+);
 
 const unknownIds = findUnknownMarketIds(items, formattedJson);
 
@@ -72,6 +77,11 @@ for (const [kind, list] of byKind) {
 }
 
 await write("categories.json", `${JSON.stringify(categories, null, 2)}\n`);
+await write(
+    "crafting-modifiers.json",
+    `{\n"refiningCategory": ${JSON.stringify(craftingModifiers.refiningCategory)},\n` +
+        `"craftingLocation": ${jsonLines(craftingModifiers.craftingLocation).trimEnd()}\n}\n`,
+);
 
 for (const [locale, localeNames] of names) {
     await write(

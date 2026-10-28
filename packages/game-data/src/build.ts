@@ -3,13 +3,16 @@ import { marketIds } from "./ids.ts";
 import {
     IGNORED_ITEM_SECTIONS,
     ITEM_KINDS,
+    type CraftingModifiers,
     type Item,
     type ItemKind,
     type Names,
     type ShopCategory,
 } from "./model.ts";
 import {
+    craftingModifiersFile,
     formattedItemsFile,
+    formattedWorldFile,
     itemSchema,
     itemsFile,
     localizationEntry,
@@ -156,4 +159,31 @@ export function buildNames(
     }
 
     return byLocale;
+}
+
+/** Production bonuses from `craftingmodifiers.json`, with cluster names from `formatted/world.json` */
+export function buildCraftingModifiers(
+    craftingModifiersJson: unknown,
+    worldJson: unknown,
+): CraftingModifiers {
+    const { craftingmodifiers } = craftingModifiersFile.parse(craftingModifiersJson);
+    const clusterNames = new Map(
+        formattedWorldFile
+            .parse(worldJson)
+            .map((cluster) => [cluster.Index, cluster.UniqueName]),
+    );
+
+    return {
+        refiningCategory: craftingmodifiers.refiningcategory.item.map(
+            (i) => i["@category"],
+        ),
+        craftingLocation: craftingmodifiers.craftinglocation.map(
+            ({ clusterId, ...rest }) => ({
+                clusterId,
+                clusterName:
+                    clusterId === undefined ? undefined : clusterNames.get(clusterId),
+                ...rest,
+            }),
+        ),
+    };
 }

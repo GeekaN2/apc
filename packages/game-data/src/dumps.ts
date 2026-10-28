@@ -16,6 +16,8 @@ export const DUMP_FILES = [
     "items.json",
     "formatted/items.json",
     "localization.json",
+    "craftingmodifiers.json",
+    "formatted/world.json",
 ] as const;
 
 export type DumpFile = (typeof DUMP_FILES)[number];

@@ -146,6 +146,40 @@ export interface Names {
     categories: Record<string, string>;
 }
 
+/** `craftingmodifier`: production bonus for items of a `craftingcategory` */
+export interface CraftingModifier {
+    name: string;
+    value: number;
+}
+
+export interface CraftingBonus {
+    value: number;
+    islandValue?: number;
+}
+
+/**
+ * `craftingmodifiers.craftinglocation`: production bonuses of a city cluster
+ * (`clusterId`) or of an Outlands zone (`continent`, `biome`, `clusterQuality`)
+ */
+export interface CraftingLocation {
+    clusterId?: string;
+    /** From `formatted/world.json` */
+    clusterName?: string;
+    continent?: string;
+    biome?: string;
+    clusterQuality?: string;
+    craftingBonus?: CraftingBonus;
+    refiningBonus?: CraftingBonus;
+    craftingModifier: CraftingModifier[];
+}
+
+/** `craftingmodifiers.json` */
+export interface CraftingModifiers {
+    /** `craftingcategory` values that are refined rather than crafted */
+    refiningCategory: string[];
+    craftingLocation: CraftingLocation[];
+}
+
 export interface CatalogMeta {
     dumps: {
         repository: string;
