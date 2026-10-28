@@ -16,6 +16,9 @@ const lazySections: Partial<Record<string, () => Promise<{ Component: React.FC }
     [routes.foodAndPotions]: async () => ({
         Component: (await import("./components/Food/FoodPage")).FoodPage,
     }),
+    [routes.artifactFoundry]: async () => ({
+        Component: (await import("./components/Foundry/FoundryPage")).FoundryPage,
+    }),
 };
 
 export const router = createBrowserRouter([

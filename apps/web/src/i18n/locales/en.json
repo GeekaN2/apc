@@ -128,5 +128,34 @@
         },
         "buyCity": "Buy ingredients in",
         "cookCity": "Cook in"
+    },
+    "foundry": {
+        "fragments": {
+            "RUNE": "Runes",
+            "SOUL": "Souls",
+            "RELIC": "Relics",
+            "SHARD_AVALONIAN": "Avalonian shards",
+            "SHARD_CRYSTAL": "Crystal shards",
+            "SHARD_FIRE_DRAGON": "Fire dragon shards"
+        },
+        "rows": {
+            "WARRIOR": "Warrior",
+            "HUNTER": "Hunter",
+            "MAGE": "Mage",
+            "TOOLMAKER": "Toolmaker",
+            "OTHER": "Other",
+            "ALL": "All"
+        },
+        "branch": "Branch",
+        "sellCity": "Sell artifacts in",
+        "buyCity": "Buy fragments in",
+        "hint": "Mean profit of melding fragments into an artifact of the branch; click a cell for the artifacts.",
+        "mean": "Mean",
+        "median": "Median",
+        "spread": "Spread",
+        "count_one": "{{count}} artifact",
+        "count_other": "{{count}} artifacts",
+        "unpriced": "{{count}} without a price",
+        "day": "day"
     }
 }
