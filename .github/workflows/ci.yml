@@ -9,13 +9,15 @@ jobs:
     check:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
 
-            - uses: actions/setup-node@v5
+            # Installs the pnpm version from the packageManager field
+            - uses: pnpm/action-setup@v6
+
+            - uses: actions/setup-node@v7
               with:
                   node-version-file: .nvmrc
-
-            - run: corepack enable
+                  cache: pnpm
 
             - run: pnpm install --frozen-lockfile
 
