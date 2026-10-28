@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { pickSalePrice } from "../src/prices.ts";
+import { mergeQuotes, pickSalePrice } from "../src/prices.ts";
 import {
     type TransportResult,
     type TransportSort,
@@ -11,6 +11,7 @@ import {
     type LegacyQuote,
     type LegacyRoute,
     type LegacySort,
+    legacyMergeQualities,
     legacyNormalizedPrice,
     legacySortRoutes,
 } from "./legacy/transportations.ts";
@@ -174,5 +175,93 @@ describe("pickSalePrice", () => {
         };
 
         expect(pickSalePrice(q, { marketPlace, now: NOW }).kind).toBe("buyOrder");
+    });
+});
+
+describe("mergeQuotes", () => {
+    const MINUTE = 60 * 1000;
+
+    /** Sell-only quality records of an item, some close in time, some a day apart */
+    function qualities(itemId: string): LegacyQuote[] {
+        return [1, 2, 3].map((quality) => {
+            const minutes = fakePrice(itemId, `q${quality}:minutes`) % 12;
+            const days = fakePrice(itemId, `q${quality}:days`) % 3 === 0 ? 30 * HOUR : 0;
+
+            return {
+                itemId,
+                sellPriceMin: fakePrice(itemId, `q${quality}:sell`),
+                sellPriceMinDate: NOW - HOUR - days - minutes * MINUTE,
+                buyPriceMax: 0,
+                buyPriceMaxDate: 0,
+                averageItems: 0,
+            };
+        });
+    }
+
+    it("merges sell orders of qualities like the old transportations worker", () => {
+        for (const itemId of ITEMS) {
+            const records = qualities(itemId);
+            const legacy = legacyMergeQualities(records, NOW);
+            const merged = mergeQuotes(records, NOW);
+
+            expect(merged.sellPriceMin, itemId).toBe(legacy.normalizedPrice);
+            expect(merged.sellPriceMinDate, itemId).toBe(legacy.date);
+        }
+    });
+
+    it("keeps the highest buy order, which the old worker treated like a sell order", () => {
+        const merged = mergeQuotes(
+            [
+                {
+                    sellPriceMin: 0,
+                    sellPriceMinDate: null,
+                    buyPriceMax: 900,
+                    buyPriceMaxDate: NOW - HOUR,
+                },
+                {
+                    sellPriceMin: 0,
+                    sellPriceMinDate: null,
+                    buyPriceMax: 950,
+                    buyPriceMaxDate: NOW - HOUR - MINUTE,
+                },
+            ],
+            NOW,
+        );
+
+        expect(merged).toMatchObject({
+            buyPriceMax: 950,
+            sellPriceMin: 0,
+            sellPriceMinDate: null,
+        });
+    });
+
+    it("prefers a fresh or a clearly newer price over a better one", () => {
+        const stale = {
+            sellPriceMin: 100,
+            sellPriceMinDate: NOW - 30 * HOUR,
+            buyPriceMax: 0,
+            buyPriceMaxDate: null,
+        };
+        const fresh = {
+            sellPriceMin: 500,
+            sellPriceMinDate: NOW - HOUR,
+            buyPriceMax: 0,
+            buyPriceMaxDate: null,
+        };
+        const newer = {
+            sellPriceMin: 700,
+            sellPriceMinDate: NOW - HOUR + 10 * MINUTE,
+            buyPriceMax: 0,
+            buyPriceMaxDate: null,
+        };
+
+        expect(mergeQuotes([stale, fresh], NOW).sellPriceMin).toBe(500);
+        expect(mergeQuotes([fresh, newer], NOW).sellPriceMin).toBe(700);
+        expect(mergeQuotes([], NOW)).toEqual({
+            sellPriceMin: 0,
+            sellPriceMinDate: null,
+            buyPriceMax: 0,
+            buyPriceMaxDate: null,
+        });
     });
 });

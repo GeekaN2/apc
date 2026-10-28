@@ -141,3 +141,64 @@ export function legacyNormalizedPrice(item: LegacyQuote, now: number) {
 
     return sellPriceRespone;
 }
+
+interface LegacyNormalized {
+    normalizedPrice: number;
+    date: number;
+}
+
+/** worker/utils.js: normalizeItem, which of two records of an item to keep */
+export function legacyNormalizeItem(
+    oldItem: LegacyNormalized,
+    newItem: LegacyNormalized,
+    now: number,
+): LegacyNormalized {
+    const previousDay = new Date(now - 24 * 60 * 60 * 1000);
+    const fiveMinutes = 5 * 60 * 1000;
+
+    if (new Date(oldItem.date) >= previousDay && new Date(newItem.date) <= previousDay) {
+        return oldItem;
+    } else if (
+        new Date(oldItem.date) <= previousDay &&
+        new Date(newItem.date) >= previousDay
+    ) {
+        return newItem;
+    }
+
+    if (
+        new Date(newItem.date).valueOf() >=
+        new Date(oldItem.date).valueOf() + fiveMinutes
+    ) {
+        return newItem;
+    } else if (
+        new Date(oldItem.date).valueOf() >=
+        new Date(newItem.date).valueOf() + fiveMinutes
+    ) {
+        return oldItem;
+    }
+
+    return oldItem.normalizedPrice < newItem.normalizedPrice ? oldItem : newItem;
+}
+
+/** transportationsWorker.js: processBaseItemName, records of every quality → one */
+export function legacyMergeQualities(
+    records: LegacyQuote[],
+    now: number,
+): LegacyNormalized {
+    let current: LegacyNormalized = { normalizedPrice: 0, date: 0 };
+
+    for (const record of records) {
+        const picked = legacyNormalizedPrice(record, now);
+        const normalized = {
+            normalizedPrice: picked.price,
+            date:
+                picked.kind === "sellOrder"
+                    ? record.sellPriceMinDate
+                    : record.buyPriceMaxDate,
+        };
+
+        current = legacyNormalizeItem(current, normalized, now);
+    }
+
+    return current;
+}
