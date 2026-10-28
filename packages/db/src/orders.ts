@@ -2,7 +2,7 @@ import { and, eq, gt, inArray, lte, sql } from "drizzle-orm";
 import type { Db } from "./client.ts";
 import { type City, MARKETS, cityOfLocation } from "./markets.ts";
 import { getAveragePrices } from "./averages.ts";
-import { type MarketOrder, marketOrders } from "./schema.ts";
+import { type MarketOrder, averagePrices, marketOrders } from "./schema.ts";
 
 const BATCH_SIZE = 500;
 
@@ -99,6 +99,28 @@ export async function bestPrices(db: Db, query: PriceQuery): Promise<Quote[]> {
             a.averagePrice,
         ]),
     );
+
+    return aggregateQuotes(orders, averages);
+}
+
+type OrderRow = Pick<
+    typeof marketOrders.$inferSelect,
+    | "itemId"
+    | "locationId"
+    | "qualityLevel"
+    | "unitPriceSilver"
+    | "auctionType"
+    | "updatedAt"
+>;
+
+/**
+ * Lowest sell and highest buy order per item, city and quality. Sell orders priced
+ * above the 30 day average (by `${itemId}|${city}`) too many times are trolling.
+ */
+function aggregateQuotes(
+    orders: readonly OrderRow[],
+    averages: ReadonlyMap<string, number>,
+): Quote[] {
     const quotes = new Map<string, Quote>();
 
     for (const order of orders) {
@@ -139,4 +161,45 @@ export async function bestPrices(db: Db, query: PriceQuery): Promise<Quote[]> {
     }
 
     return [...quotes.values()];
+}
+
+/** Best orders of every item in a city: the whole market of one city at once */
+export async function cityPrices(
+    db: Db,
+    query: { serverId: string; city: City; now: Date },
+): Promise<Quote[]> {
+    const orders = await db
+        .select({
+            itemId: marketOrders.itemId,
+            locationId: marketOrders.locationId,
+            qualityLevel: marketOrders.qualityLevel,
+            unitPriceSilver: marketOrders.unitPriceSilver,
+            auctionType: marketOrders.auctionType,
+            updatedAt: marketOrders.updatedAt,
+        })
+        .from(marketOrders)
+        .where(
+            and(
+                eq(marketOrders.serverId, query.serverId),
+                inArray(marketOrders.locationId, [...MARKETS[query.city]]),
+                gt(marketOrders.expiresAt, query.now),
+            ),
+        );
+    const averages = await db
+        .select({
+            itemId: averagePrices.itemId,
+            averagePrice: averagePrices.averagePrice,
+        })
+        .from(averagePrices)
+        .where(
+            and(
+                eq(averagePrices.serverId, query.serverId),
+                eq(averagePrices.city, query.city),
+            ),
+        );
+
+    return aggregateQuotes(
+        orders,
+        new Map(averages.map((a) => [`${a.itemId}|${query.city}`, a.averagePrice])),
+    );
 }

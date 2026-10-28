@@ -2,6 +2,8 @@ import {
     CITIES,
     type Db,
     bestPrices,
+    cityAverages,
+    cityPrices,
     getAveragePrices,
     getTreeSettings,
     listVisibleServers,
@@ -45,6 +47,30 @@ const pricesQuery = itemsQuery.extend({
     ).default([1]),
 });
 
+/** How long a city snapshot is served from memory */
+export const MARKET_CACHE_MS = 60_000;
+
+/**
+ * Best orders of every item in a city, column by column to stay small: row i is
+ * `items[i]` of quality `qualities[i]`. Ages are minutes before `generatedAt`, −1
+ * without an order. Averages are per item over all qualities.
+ */
+export interface MarketSnapshot {
+    city: (typeof CITIES)[number];
+    generatedAt: string;
+    items: string[];
+    qualities: number[];
+    sell: number[];
+    sellAge: number[];
+    buy: number[];
+    buyAge: number[];
+    averages: { items: string[]; averageItems: number[]; averagePrice: number[] };
+}
+
+function ageInMinutes(date: Date | null, now: Date): number {
+    return date ? Math.max(0, Math.round((now.getTime() - date.getTime()) / 60_000)) : -1;
+}
+
 export interface AppOptions {
     now?: () => Date;
     /** Without auth every request is anonymous */
@@ -61,6 +87,45 @@ export function createApp(
     db: Db,
     { now = () => new Date(), auth, trustedOrigins }: AppOptions = {},
 ) {
+    const marketCache = new Map<string, { expires: number; snapshot: MarketSnapshot }>();
+
+    async function marketSnapshot(
+        serverId: string,
+        city: (typeof CITIES)[number],
+    ): Promise<MarketSnapshot> {
+        const key = `${serverId}|${city}`;
+        const at = now();
+        const cached = marketCache.get(key);
+
+        if (cached && cached.expires > at.getTime()) {
+            return cached.snapshot;
+        }
+
+        const [quotes, averages] = await Promise.all([
+            cityPrices(db, { serverId, city, now: at }),
+            cityAverages(db, { serverId, city }),
+        ]);
+        const snapshot: MarketSnapshot = {
+            city,
+            generatedAt: at.toISOString(),
+            items: quotes.map((q) => q.itemId),
+            qualities: quotes.map((q) => q.quality),
+            sell: quotes.map((q) => q.sellPriceMin),
+            sellAge: quotes.map((q) => ageInMinutes(q.sellPriceMinDate, at)),
+            buy: quotes.map((q) => q.buyPriceMax),
+            buyAge: quotes.map((q) => ageInMinutes(q.buyPriceMaxDate, at)),
+            averages: {
+                items: averages.map((a) => a.itemId),
+                averageItems: averages.map((a) => Math.round(a.averageItems * 10) / 10),
+                averagePrice: averages.map((a) => Math.round(a.averagePrice)),
+            },
+        };
+
+        marketCache.set(key, { expires: at.getTime() + MARKET_CACHE_MS, snapshot });
+
+        return snapshot;
+    }
+
     /** Public servers and private ones of the signed in user */
     async function isVisible(serverId: string, userId: string | undefined) {
         const servers = await listVisibleServers(db, userId);
@@ -111,6 +176,24 @@ export function createApp(
 
             return c.json(quotes, 200);
         })
+        .get(
+            "/market",
+            zValidator(
+                "query",
+                z.object({ server: z.string().min(1), city: z.enum(CITIES) }),
+            ),
+            async (c) => {
+                const { server, city } = c.req.valid("query");
+
+                if (!(await isVisible(server, c.get("userId")))) {
+                    return c.json({ error: `Unknown server ${server}` }, 404);
+                }
+
+                c.header("Cache-Control", `private, max-age=${MARKET_CACHE_MS / 1000}`);
+
+                return c.json(await marketSnapshot(server, city), 200);
+            },
+        )
         .get("/averages", zValidator("query", itemsQuery), async (c) => {
             const query = c.req.valid("query");
 

@@ -57,6 +57,23 @@ export async function getAveragePrices(db: Db, query: AveragesQuery) {
         );
 }
 
+/** Averages of every item in a city */
+export async function cityAverages(db: Db, query: { serverId: string; city: City }) {
+    return db
+        .select({
+            itemId: averagePrices.itemId,
+            averagePrice: averagePrices.averagePrice,
+            averageItems: averagePrices.averageItems,
+        })
+        .from(averagePrices)
+        .where(
+            and(
+                eq(averagePrices.serverId, query.serverId),
+                eq(averagePrices.city, query.city),
+            ),
+        );
+}
+
 /** When averages of a server were updated last */
 export async function lastAveragesUpdate(
     db: Db,

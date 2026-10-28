@@ -131,3 +131,79 @@ describe("averages", () => {
         ]);
     });
 });
+
+describe("market", () => {
+    it("returns the whole market of a city column by column", async () => {
+        await upsertAveragePrices(db, [
+            {
+                serverId: "europe",
+                itemId: "T4_MAIN_SWORD",
+                city: "Caerleon",
+                averagePrice: 4800.4,
+                averageItems: 12.34,
+                firstDate: null,
+                lastDate: null,
+                updatedAt: NOW,
+            },
+        ]);
+
+        const response = await request("/api/market?server=europe&city=Caerleon");
+
+        expect(response.headers.get("Cache-Control")).toBe("private, max-age=60");
+        expect(await response.json()).toEqual({
+            city: "Caerleon",
+            generatedAt: NOW.toISOString(),
+            items: ["T4_MAIN_SWORD"],
+            qualities: [1],
+            sell: [5000],
+            sellAge: [0],
+            buy: [4000],
+            buyAge: [0],
+            averages: {
+                items: ["T4_MAIN_SWORD"],
+                averageItems: [12.3],
+                averagePrice: [4800],
+            },
+        });
+    });
+
+    it("serves a snapshot from memory for a minute", async () => {
+        let now = NOW;
+        const app = createApp(db, { now: () => now });
+        const sell = async () =>
+            (
+                (await (
+                    await app.request("/api/market?server=europe&city=Caerleon")
+                ).json()) as { sell: number[] }
+            ).sell;
+
+        expect(await sell()).toEqual([5000]);
+
+        await upsertOrders(db, [
+            {
+                serverId: "europe",
+                orderId: 3,
+                itemId: "T4_MAIN_SWORD",
+                locationId: "3005",
+                qualityLevel: 1,
+                unitPriceSilver: 4500,
+                amount: 1,
+                auctionType: "offer",
+                expiresAt: new Date(NOW.getTime() + DAY),
+                updatedAt: NOW,
+            },
+        ]);
+
+        expect(await sell()).toEqual([5000]);
+
+        now = new Date(NOW.getTime() + 61_000);
+
+        expect(await sell()).toEqual([4500]);
+    });
+
+    it("hides private servers", async () => {
+        const response = await request("/api/market?server=nope&city=Caerleon");
+
+        expect(response.status).toBe(404);
+    });
+});

@@ -18,6 +18,8 @@ const ITEM_FILES = {
     consumablefrominventoryitem: () =>
         import("@apc/game-data/generated/items/consumablefrominventoryitem.json"),
     farmableitem: () => import("@apc/game-data/generated/items/farmableitem.json"),
+    mount: () => import("@apc/game-data/generated/items/mount.json"),
+    furnitureitem: () => import("@apc/game-data/generated/items/furnitureitem.json"),
 };
 
 type ItemFile = keyof typeof ITEM_FILES;
@@ -67,6 +69,11 @@ export function useEquipmentCatalog() {
     ]);
 }
 
+/** Everything traded on the market, for its category and weight */
+export function useTradeCatalog() {
+    return useCatalog("trade", Object.keys(ITEM_FILES) as ItemFile[]);
+}
+
 /** Food, potions and their ingredients */
 export function useConsumablesCatalog() {
     return useCatalog("consumables", ["simpleitem", "consumableitem", "farmableitem"]);
@@ -101,6 +108,8 @@ export function clusterIdOf(catalog: Catalog, city: CraftingCity): string | unde
 }
 
 /** Item icon from the official render service */
-export function itemIconUrl(marketId: string, size = 64): string {
-    return `https://render.albiononline.com/v1/item/${encodeURIComponent(marketId)}.png?size=${size}`;
+export function itemIconUrl(marketId: string, size = 64, quality = 1): string {
+    const url = `https://render.albiononline.com/v1/item/${encodeURIComponent(marketId)}.png?size=${size}`;
+
+    return quality > 1 ? `${url}&quality=${quality}` : url;
 }

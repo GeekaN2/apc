@@ -176,5 +176,27 @@
         "transmute": "Transmutations",
         "steps_one": "{{count}} step",
         "steps_other": "{{count}} steps"
+    },
+    "transport": {
+        "from": "Buy in",
+        "to": "Sell in",
+        "any": "Any city",
+        "sort": "Sort by",
+        "sorts": {
+            "profit": "Profit",
+            "profitPercentage": "Profit, %",
+            "profitVolume": "Profit × sold per day",
+            "profitPerWeight": "Profit per kg"
+        },
+        "freshOnly": "Only prices fresher than a day",
+        "minSoldPerDay": "Sold per day at least",
+        "search": "Search items",
+        "allCategories": "All",
+        "perDay": "{{value}}/day",
+        "perKg": "{{value}}/kg",
+        "count_one": "{{count}} profitable route",
+        "count_other": "{{count}} profitable routes",
+        "empty": "No profitable routes with these filters",
+        "loading": "Loading markets"
     }
 }

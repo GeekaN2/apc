@@ -4,6 +4,7 @@ import {
     type TransportResult,
     type TransportSort,
     compareTransports,
+    findRoutes,
     transport,
 } from "../src/transport.ts";
 import { fakePrice, getItem, loadCatalog } from "./catalog.ts";
@@ -263,5 +264,61 @@ describe("mergeQuotes", () => {
             buyPriceMax: 0,
             buyPriceMaxDate: null,
         });
+    });
+});
+
+describe("findRoutes", () => {
+    const now = Date.parse("2026-10-28T12:00:00Z");
+    const fresh = new Date(now - 60_000).toISOString();
+    const quote = (sell: number, buy = 0) => ({
+        sellPriceMin: sell,
+        sellPriceMinDate: sell ? fresh : null,
+        buyPriceMax: buy,
+        buyPriceMaxDate: buy ? fresh : null,
+    });
+    const market = (city: string, quotes: Record<string, ReturnType<typeof quote>>) => ({
+        city,
+        quotes: new Map(Object.entries(quotes)),
+        averageItems: new Map([["T4_BAG", 25]]),
+    });
+    const markets = [
+        market("Martlock", { "T4_BAG|1": quote(1_000), "T4_BAG|2": quote(5_000) }),
+        market("Lymhurst", { "T4_BAG|1": quote(900), "T4_BAG|2": quote(4_000) }),
+        market("Caerleon", { "T4_BAG|1": quote(2_000, 1_500), "T4_BAG|3": quote(9_000) }),
+    ];
+
+    it("buys in the cheapest city and sells in the best other one, quality by quality", () => {
+        const routes = findRoutes({
+            catalog,
+            from: markets,
+            to: markets,
+            now,
+            premium: true,
+        });
+        const q1 = routes.find((r) => r.quality === 1)!;
+        const q2 = routes.find((r) => r.quality === 2)!;
+
+        expect(q1.from).toMatchObject({ city: "Lymhurst", price: 900 });
+        expect(q1.to.city).toBe("Caerleon");
+        expect(q1.result.profit).toBeCloseTo(2_000 * 0.935 - 900, 6);
+        expect(q1.averageItems).toBe(25);
+        // Quality 2 is sold where it is listed, never as quality 3
+        expect(q2.from.city).toBe("Lymhurst");
+        expect(q2.to.city).toBe("Martlock");
+        expect(routes.some((r) => r.quality === 3)).toBe(false);
+    });
+
+    it("compares two cities", () => {
+        const routes = findRoutes({
+            catalog,
+            from: [markets[0]!],
+            to: [markets[2]!],
+            now,
+            premium: true,
+        });
+
+        expect(routes.map((r) => [r.from.city, r.to.city, r.quality])).toEqual([
+            ["Martlock", "Caerleon", 1],
+        ]);
     });
 });

@@ -81,6 +81,8 @@ export const marketOrders = pgTable(
             table.qualityLevel,
         ),
         index("market_orders_expires_at_idx").on(table.expiresAt),
+        // The whole market of a city at once, see cityPrices
+        index("market_orders_city_idx").on(table.serverId, table.locationId),
     ],
 );
 

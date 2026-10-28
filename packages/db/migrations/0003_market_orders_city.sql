@@ -1,0 +1,1 @@
+CREATE INDEX "market_orders_city_idx" ON "market_orders" USING btree ("server_id","location_id");
