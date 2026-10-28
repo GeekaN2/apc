@@ -136,7 +136,10 @@ const KindPrices: React.FC<{ kind: Kind; name: string; serverId: string }> = ({
                             <tr>
                                 {levels.length > 1 && <th />}
                                 {tiers.map((tier) => (
-                                    <th key={tier} className="font-medium">
+                                    <th
+                                        key={tier}
+                                        className="pe-2.5 text-right font-medium"
+                                    >
                                         T{tier}
                                     </th>
                                 ))}

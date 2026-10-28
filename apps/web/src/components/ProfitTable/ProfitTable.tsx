@@ -214,8 +214,12 @@ export const ProfitTable: React.FC<{
                         <th className="px-3 py-2 text-left font-normal">
                             {t("profit.enchantment")}
                         </th>
+                        {/* Cells are p-1 around a px-3 button: 16px on the right as here */}
                         {tiers.map((tier) => (
-                            <th key={tier} className="px-3 py-2 text-right font-medium">
+                            <th
+                                key={tier}
+                                className="py-2 ps-3 pe-4 text-right font-medium"
+                            >
                                 T{tier}
                             </th>
                         ))}
