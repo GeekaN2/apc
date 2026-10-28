@@ -1,7 +1,7 @@
 import { type Route, compareTransports, findRoutes } from "@apc/calc";
 import { Alert, Input, Label, ListBox, Select, Spinner } from "@heroui/react";
-import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { useDeferredValue, useMemo, useState } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { useDeferredValue, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMarkets } from "../../api/market";
 import {
@@ -49,19 +49,23 @@ function Choice<T extends string>({
     value,
     options,
     onChange,
+    hideLabel = false,
 }: {
     label: string;
     value: T;
     options: readonly { id: T; label: string }[];
     onChange: (value: T) => void;
+    /** In a row of filters the label would push the select below its neighbours */
+    hideLabel?: boolean;
 }) {
     return (
         <Select
+            aria-label={hideLabel ? label : undefined}
             value={value}
             onChange={(key) => key !== null && onChange(key as T)}
             fullWidth
         >
-            <Label>{label}</Label>
+            {!hideLabel && <Label>{label}</Label>}
             <Select.Trigger>
                 <Select.Value />
                 <Select.Indicator />
@@ -235,21 +239,57 @@ const RouteList: React.FC<{ routes: Route[]; names?: Names; now: number }> = ({
     names,
     now,
 }) => {
-    const virtualizer = useWindowVirtualizer({
+    // The page scrolls inside <main> of the layout, not the window
+    const listRef = useRef<HTMLDivElement>(null);
+    const [scrollMargin, setScrollMargin] = useState(0);
+    // TanStack Virtual returns new functions on every render; nothing to memoize here
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const virtualizer = useVirtualizer({
         count: routes.length,
+        getScrollElement: () => listRef.current?.closest("main") ?? null,
         estimateSize: () => ROW_HEIGHT,
         overscan: 8,
+        scrollMargin,
     });
 
+    // Where the list starts inside the scrolled <main>
+    useLayoutEffect(() => {
+        const list = listRef.current;
+        const main = list?.closest("main");
+
+        if (!list || !main) {
+            return;
+        }
+
+        const measure = () =>
+            setScrollMargin(
+                list.getBoundingClientRect().top -
+                    main.getBoundingClientRect().top +
+                    main.scrollTop,
+            );
+        const observer = new ResizeObserver(measure);
+
+        measure();
+        observer.observe(main);
+        // Filters, alerts and the counter above the list change its offset
+        observer.observe(list.parentElement ?? main);
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="relative" style={{ height: virtualizer.getTotalSize() }}>
+        <div
+            ref={listRef}
+            className="relative"
+            style={{ height: virtualizer.getTotalSize() }}
+        >
             {virtualizer.getVirtualItems().map((row) => (
                 <div
                     key={row.key}
                     className="absolute inset-x-0"
                     style={{
                         height: ROW_HEIGHT,
-                        transform: `translateY(${row.start}px)`,
+                        transform: `translateY(${row.start - scrollMargin}px)`,
                     }}
                 >
                     <RouteRow route={routes[row.index]!} names={names} now={now} />
@@ -339,6 +379,7 @@ export const TransportPage: React.FC = () => {
                         />
                         <div className="w-full sm:w-56">
                             <Choice
+                                hideLabel
                                 label={t("tree.category")}
                                 value={settings.category}
                                 options={[
