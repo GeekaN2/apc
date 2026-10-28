@@ -22,11 +22,11 @@ export const ServerSelect: React.FC = () => {
                     setServerId(String(key));
                 }
             }}
-            className="w-44"
+            className="w-36 sm:w-44"
         >
-            <Select.Trigger>
+            <Select.Trigger className="items-center gap-2">
                 <Database className="size-4 shrink-0 text-muted" />
-                <Select.Value />
+                <Select.Value className="truncate" />
                 <Select.Indicator />
             </Select.Trigger>
             <Select.Popover>

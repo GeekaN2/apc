@@ -23,7 +23,7 @@ const Line: React.FC<{
     label: React.ReactNode;
     value: React.ReactNode;
 }> = ({ icon, label, value }) => (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-6 whitespace-nowrap">
         <span className="flex items-center gap-1.5">
             {icon && <img src={itemIconUrl(icon, 32)} alt="" className="size-6" />}
             {label}
@@ -48,7 +48,7 @@ const Breakdown: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now })
         );
 
     return (
-        <div className="flex min-w-64 flex-col gap-1.5 text-sm">
+        <div className="flex flex-col gap-1.5 text-sm">
             <Line
                 icon={cell.marketId}
                 label={`${t("refining.sale")} (${
@@ -104,12 +104,14 @@ const ProfitCell: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now }
             <Tooltip.Trigger>
                 <button
                     type="button"
-                    className="flex w-full flex-col items-end rounded-md px-3 py-2 tabular-nums hover:bg-default focus-visible:outline-2"
+                    className="flex w-full flex-col items-end rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2"
                 >
                     <span className={`font-medium ${color}`}>
-                        {profit === undefined
-                            ? t("refining.noPrices")
-                            : formatSilver(profit, i18n.language)}
+                        {profit === undefined ? (
+                            <span aria-label={t("refining.noPrices")}>—</span>
+                        ) : (
+                            formatSilver(profit, i18n.language)
+                        )}
                     </span>
                     {profitPercentage !== undefined && (
                         <span className={`text-xs ${color}`}>
@@ -118,7 +120,7 @@ const ProfitCell: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now }
                     )}
                 </button>
             </Tooltip.Trigger>
-            <Tooltip.Content placement="bottom">
+            <Tooltip.Content placement="bottom" className="max-w-none break-normal">
                 <Breakdown cell={cell} now={now} />
             </Tooltip.Content>
         </Tooltip>
@@ -139,7 +141,7 @@ export const RefiningTable: React.FC<{ cells: RefiningCell[]; now: number }> = (
 
     return (
         <div className="overflow-x-auto rounded-xl border border-separator">
-            <table className="w-full border-collapse text-sm">
+            <table className="w-full border-collapse text-sm whitespace-nowrap">
                 <thead>
                     <tr className="border-b border-separator text-muted">
                         <th className="px-3 py-2 text-left font-normal">

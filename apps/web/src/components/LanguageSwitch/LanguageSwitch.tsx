@@ -12,7 +12,12 @@ export const LanguageSwitch: React.FC = () => {
         <Dropdown>
             <Dropdown.Trigger
                 aria-label={t("language")}
-                className={buttonVariants({ variant: "tertiary", size: "sm" })}
+                // dropdown__trigger is inline-block and would break the button's flex row
+                className={buttonVariants({
+                    variant: "tertiary",
+                    size: "sm",
+                    className: "inline-flex items-center gap-1.5 whitespace-nowrap",
+                })}
             >
                 <Globe className="size-4" />
                 {languages[language].short}

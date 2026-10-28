@@ -60,7 +60,7 @@ export const UserMenu: React.FC = () => {
 
     return (
         <Dropdown>
-            <Dropdown.Trigger aria-label={name} className="rounded-full">
+            <Dropdown.Trigger aria-label={name} className="inline-flex rounded-full">
                 <Avatar size="sm">
                     {user.image && <Avatar.Image src={user.image} alt="" />}
                     <Avatar.Fallback>{name.slice(0, 1).toUpperCase()}</Avatar.Fallback>
