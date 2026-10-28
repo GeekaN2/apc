@@ -1,0 +1,29 @@
+{
+    "name": "@apc/db",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./testing": "./src/testing.ts"
+    },
+    "scripts": {
+        "db:generate": "drizzle-kit generate",
+        "db:migrate": "node src/cli/migrate.ts",
+        "db:dev": "pglite-server --db=../../.dev/pglite --port=5432 --max-connections=10",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "@electric-sql/pglite": "^0.5.12",
+        "drizzle-orm": "^0.45.4",
+        "pg": "^8.23.1"
+    },
+    "devDependencies": {
+        "@electric-sql/pglite-socket": "^0.2.15",
+        "@types/node": "^24.19.2",
+        "@types/pg": "^8.23.1",
+        "drizzle-kit": "^0.31.11",
+        "typescript": "~6.0.3",
+        "vitest": "^5.0.5"
+    }
+}

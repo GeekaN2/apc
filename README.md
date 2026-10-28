@@ -9,10 +9,35 @@ See [docs/ROADMAP.md](docs/ROADMAP.md) for the rewrite plan.
 ```
 apps/
   web/        frontend: React, Vite, HeroUI, Tailwind, Zustand
+  api/        HTTP API: Hono
+  ingest/     market orders from Albion Online Data NATS into Postgres
 packages/
   game-data/  item catalog generated from ao-bin-dumps
   calc/       profit calculations over the catalog
+  db/         Postgres schema, migrations and queries: Drizzle
 ```
+
+## Backend
+
+A local Postgres runs on PGlite, no Docker needed:
+
+```bash
+# Postgres on 127.0.0.1:5432, data in .dev/pglite
+pnpm --filter @apc/db db:dev
+```
+
+```bash
+# apply migrations and add the public Albion Online Data servers
+DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/db db:migrate
+```
+
+```bash
+# market orders ingest and the API on 127.0.0.1:4000
+DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/ingest start
+DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/api start
+```
+
+After a schema change, generate a migration with `pnpm --filter @apc/db db:generate`.
 
 ## Development
 

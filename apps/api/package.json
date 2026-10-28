@@ -1,0 +1,25 @@
+{
+    "name": "@apc/api",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "exports": {
+        ".": "./src/app.ts"
+    },
+    "scripts": {
+        "start": "node --env-file-if-exists=.env src/main.ts",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "@apc/db": "workspace:*",
+        "@hono/node-server": "^2.1.5",
+        "@hono/zod-validator": "^0.9.1",
+        "hono": "^4.13.14",
+        "zod": "^4.6.7"
+    },
+    "devDependencies": {
+        "@types/node": "^24.19.2",
+        "typescript": "~6.0.3",
+        "vitest": "^5.0.5"
+    }
+}

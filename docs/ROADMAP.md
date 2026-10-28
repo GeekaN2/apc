@@ -120,12 +120,21 @@ packages/
 
 Перенесено в этап 3: склейка нескольких записей одного предмета (качества, источники) в одну цену — это часть ingest.
 
-### 3. Бэк: цены
+### 3. Бэк: цены (в процессе)
 
-- `apps/api`: Hono + Drizzle, схема: `users`, `accounts`, `servers`, `user_settings`, `market_orders`, `best_prices`.
-- `apps/ingest`: подписка на NATS (West / East / Europe), батчевый upsert, обновление `best_prices`, TTL ордеров.
-- Cron средних цен из AODP charts API.
-- Эндпоинт цен по набору предметов/городов/качеств.
+Сделано:
+
+- `packages/db`: Drizzle-схема `servers` и `market_orders` (PK `server_id + order_id`, `bigint` для id ордеров), миграции drizzle-kit, запросы `upsertOrders`, `deleteExpiredOrders`, `bestPrices`. Коды рынков из AODP (`0007` Thetford Market, `0301` Thetford Portal, `3003` Black Market…) хранятся как есть, город по коду — таблица `MARKETS`.
+- Локальный Postgres без Docker: `pnpm --filter @apc/db db:dev` поднимает PGlite-сервер на 5432, тесты используют PGlite в памяти.
+- `apps/ingest`: подписка на `marketorders.deduped.bulk` каждого сервера из БД (West / East / Europe), валидация zod, батчевый upsert, срок жизни ордера ≤ 14 дней (как в старом ingest), чистка истёкших раз в 10 минут, переподключение к недоступному серверу раз в минуту.
+- `apps/api`: Hono, `/api/health`, `/api/servers` (без NATS-кредов), `/api/prices?server=&items=&cities=&qualities=` — лучшие цены в форме AODP (`sellPriceMin`/`buyPriceMax` + даты), её понимает `pickSalePrice` из calc. Тип `AppType` для типизированного клиента на фронте.
+- Живой прогон: Europe пишет сотни ордеров в минуту, цены отдаются через API.
+
+Осталось:
+
+- средние цены из AODP charts API (cron) и фильтр «троллинговых» ордеров дороже среднего в 5 раз, как в старом `/data`;
+- склейка качеств/источников в одну цену для перевозок;
+- `best_prices` как материализованная таблица, если выборка из `market_orders` станет медленной.
 
 ### 4. Авторизация и миграция
 

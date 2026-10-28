@@ -1,0 +1,20 @@
+{
+    "name": "@apc/ingest",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "start": "node --env-file-if-exists=.env src/main.ts",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "@apc/db": "workspace:*",
+        "@nats-io/transport-node": "^3.4.0",
+        "zod": "^4.6.7"
+    },
+    "devDependencies": {
+        "@types/node": "^24.19.2",
+        "typescript": "~6.0.3",
+        "vitest": "^5.0.5"
+    }
+}
