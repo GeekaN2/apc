@@ -4,3 +4,4 @@ coverage
 packages/game-data/generated
 packages/game-data/test/fixtures
 packages/game-data/.cache
+packages/calc/test/legacy/*.json
