@@ -10,10 +10,10 @@ import {
 } from "@gravity-ui/icons";
 import type { ComponentType, SVGProps } from "react";
 import type en from "./i18n/locales/en.json";
-import { routes, type Route } from "./routes";
+import { routes, type SectionRoute } from "./routes";
 
 export interface Section {
-    route: Route;
+    route: SectionRoute;
     /** Key of the title in `sections` of the translations */
     key: keyof typeof en.sections;
     emoji: string;

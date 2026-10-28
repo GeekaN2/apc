@@ -9,7 +9,6 @@
         "servers": "Servers",
         "faq": "FAQ"
     },
-    "comingSoon": "Coming soon",
     "theme": {
         "dark": "Dark theme"
     },
@@ -225,5 +224,68 @@
         "unknown": "No users with nicknames: {{names}}",
         "supportersOnly": "Private servers are available to supporters.",
         "none": "No private servers yet"
+    },
+    "admin": {
+        "title": "Admin",
+        "data": "Market data",
+        "server": "Server",
+        "orders": "Live orders",
+        "lastOrder": "Last order",
+        "averages": "Averages",
+        "never": "never",
+        "users": "Users",
+        "search": "Search by nickname",
+        "role": "Role",
+        "banned": "banned",
+        "ban": "Ban",
+        "unban": "Unban",
+        "password": "New password",
+        "setPassword": "Set password",
+        "passwordSet": "Password changed",
+        "more": "More",
+        "nothing": "No users found",
+        "menu": "Admin"
+    },
+    "faq": {
+        "title": "FAQ",
+        "discord": "Discord",
+        "questions": {
+            "prices": {
+                "q": "Where do the prices come from?",
+                "a": "From the Albion Online Data Project: players run its client, which reads the market windows they open in the game. Install the client and just check the market — prices update for everyone."
+            },
+            "dash": {
+                "q": "Why is there a dash instead of a profit?",
+                "a": "Nobody has opened the market of that item in that city recently, so there is no price. Open it in the game with the client running, or set your own price with the icons above the table."
+            },
+            "red": {
+                "q": "What does a red price age mean?",
+                "a": "The price is older than a day and may be outdated. Calculations still use it, so check it in the game before buying a lot."
+            },
+            "taxes": {
+                "q": "How are market taxes counted?",
+                "a": "A sell order pays the setup fee (2.5%) and the transaction tax (8%, halved with premium); selling straight into a buy order pays only the tax. For the sale price the calculator takes the fresh side of the market, otherwise the one that brings more silver."
+            },
+            "return": {
+                "q": "How is the resource return rate calculated?",
+                "a": "From the game data: the city bonus, its specialization in the item's category and focus, return = 1 − 1 / (1 + bonus). Artifacts, hearts and other components marked as non-returnable get nothing back. You can set your own rate in the settings."
+            },
+            "own": {
+                "q": "Where are my own prices kept?",
+                "a": "In your browser, per price server. They replace market prices in every city and are marked as own in the cell details."
+            },
+            "account": {
+                "q": "I had an account on the old calculator. How do I sign in?",
+                "a": "With the same nickname and password. After that you can link Discord in the profile menu. New accounts sign in with Discord."
+            },
+            "servers": {
+                "q": "How do I send prices to a private server?",
+                "a": "See the Servers page: start the client with the -i flag and the server's addresses. To use a server's prices, pick it in the header."
+            },
+            "contact": {
+                "q": "I have more questions. Who do I ask?",
+                "a": "Ask on our Discord server or write to GeekaN directly."
+            }
+        }
     }
 }

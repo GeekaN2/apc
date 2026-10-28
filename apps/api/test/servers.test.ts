@@ -178,3 +178,39 @@ describe("private servers", () => {
         expect(extra.status).toBe(403);
     });
 });
+
+describe("admin stats", () => {
+    it("counts live orders per server for admins only", async () => {
+        await upsertOrders(db, [
+            {
+                serverId: "europe",
+                orderId: 1,
+                itemId: "T4_BAG",
+                locationId: "3005",
+                qualityLevel: 1,
+                unitPriceSilver: 100,
+                amount: 1,
+                auctionType: "offer",
+                expiresAt: new Date(NOW.getTime() + 60_000),
+                updatedAt: NOW,
+            },
+        ]);
+
+        expect((await as("owner")("/api/admin/stats")).status).toBe(403);
+
+        const stats = (await (await as("admin")("/api/admin/stats")).json()) as {
+            id: string;
+            liveOrders: number;
+            lastOrderAt: string | null;
+        }[];
+
+        expect(stats.find((s) => s.id === "europe")).toMatchObject({
+            liveOrders: 1,
+            lastOrderAt: NOW.toISOString(),
+        });
+        expect(stats.find((s) => s.id === "west")).toMatchObject({
+            liveOrders: 0,
+            lastOrderAt: null,
+        });
+    });
+});

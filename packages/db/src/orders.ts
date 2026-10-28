@@ -203,3 +203,29 @@ export async function cityPrices(
         new Map(averages.map((a) => [`${a.itemId}|${query.city}`, a.averagePrice])),
     );
 }
+
+export interface OrderStats {
+    serverId: string;
+    /** Orders that have not expired yet */
+    liveOrders: number;
+    /** When the newest order arrived; the ingest is stuck when it gets old */
+    lastOrderAt: Date | null;
+}
+
+/** How much market data each server has and how fresh it is */
+export async function orderStats(db: Db, now: Date): Promise<OrderStats[]> {
+    return db
+        .select({
+            serverId: marketOrders.serverId,
+            liveOrders:
+                sql<number>`count(*) filter (where ${marketOrders.expiresAt} > ${now})`.mapWith(
+                    Number,
+                ),
+            lastOrderAt: sql<Date | null>`max(${marketOrders.updatedAt})`.mapWith(
+                (value: string | Date | null) =>
+                    value === null ? null : new Date(value),
+            ),
+        })
+        .from(marketOrders)
+        .groupBy(marketOrders.serverId);
+}

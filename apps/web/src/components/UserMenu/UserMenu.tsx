@@ -1,8 +1,10 @@
-import { ArrowRightFromSquare, ArrowRightToSquare } from "@gravity-ui/icons";
+import { ArrowRightFromSquare, ArrowRightToSquare, Shield } from "@gravity-ui/icons";
 import { Avatar, Button, Dropdown, Label, Skeleton } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { routes } from "../../routes";
 import { authClient, useSession } from "../../api/auth";
 import type en from "../../i18n/locales/en.json";
 import { DiscordIcon } from "../DiscordIcon/DiscordIcon";
@@ -14,6 +16,7 @@ type Role = keyof typeof en.auth.roles;
 export const UserMenu: React.FC = () => {
     const { t } = useTranslation();
     const { data: session, isPending } = useSession();
+    const navigate = useNavigate();
     const [isSignInOpen, setIsSignInOpen] = useState(false);
     const userId = session?.user.id;
     const { data: accounts } = useQuery({
@@ -53,6 +56,8 @@ export const UserMenu: React.FC = () => {
                 provider: "discord",
                 callbackURL: window.location.href,
             });
+        } else if (key === "admin") {
+            void navigate(routes.admin);
         } else if (key === "sign-out") {
             void authClient.signOut();
         }
@@ -81,6 +86,12 @@ export const UserMenu: React.FC = () => {
                         >
                             <DiscordIcon className="size-4" />
                             <Label>{t("auth.linkDiscord")}</Label>
+                        </Dropdown.Item>
+                    ) : null}
+                    {role === "admin" ? (
+                        <Dropdown.Item id="admin" textValue={t("admin.menu")}>
+                            <Shield className="size-4" />
+                            <Label>{t("admin.menu")}</Label>
                         </Dropdown.Item>
                     ) : null}
                     <Dropdown.Item

@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router";
 import { AppLayout } from "./components/AppLayout/AppLayout";
 import { MainPage } from "./components/MainPage/MainPage";
-import { SectionPage } from "./components/SectionPage/SectionPage";
-import { routes } from "./routes";
+import { type SectionRoute, routes } from "./routes";
 import { sections } from "./sections";
 
 /** Ported sections, each in its own chunk with the game data it needs */
-const lazySections: Partial<Record<string, () => Promise<{ Component: React.FC }>>> = {
+const lazySections: Record<SectionRoute, () => Promise<{ Component: React.FC }>> = {
     [routes.refining]: async () => ({
         Component: (await import("./components/Refining/RefiningPage")).RefiningPage,
     }),
@@ -18,6 +17,9 @@ const lazySections: Partial<Record<string, () => Promise<{ Component: React.FC }
     }),
     [routes.transportations]: async () => ({
         Component: (await import("./components/Transport/TransportPage")).TransportPage,
+    }),
+    [routes.faq]: async () => ({
+        Component: (await import("./components/Faq/FaqPage")).FaqPage,
     }),
     [routes.servers]: async () => ({
         Component: (await import("./components/Servers/ServersPage")).ServersPage,
@@ -38,12 +40,17 @@ export const router = createBrowserRouter([
     },
     {
         element: <AppLayout />,
-        children: sections.map((section) => {
-            const lazy = lazySections[section.route];
-
-            return lazy
-                ? { path: section.route, lazy }
-                : { path: section.route, element: <SectionPage section={section} /> };
-        }),
+        children: [
+            ...sections.map((section) => ({
+                path: section.route,
+                lazy: lazySections[section.route],
+            })),
+            {
+                path: routes.admin,
+                lazy: async () => ({
+                    Component: (await import("./components/Admin/AdminPage")).AdminPage,
+                }),
+            },
+        ],
     },
 ]);

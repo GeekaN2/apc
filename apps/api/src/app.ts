@@ -7,7 +7,10 @@ import {
     createPrivateServer,
     deletePrivateServer,
     getServer,
+    lastAveragesUpdate,
     listPrivateServers,
+    listServers,
+    orderStats,
     updatePrivateServer,
     getAveragePrices,
     getTreeSettings,
@@ -225,6 +228,35 @@ export function createApp(
                 servers.map(({ id, name, isPublic, natsUrl }) =>
                     isPublic ? { id, name, isPublic } : { id, name, isPublic, natsUrl },
                 ),
+            );
+        })
+        .get("/admin/stats", async (c) => {
+            if (c.get("user")?.role !== "admin") {
+                return c.json({ error: "Only for admins" }, 403);
+            }
+
+            const [servers, stats] = await Promise.all([
+                listServers(db),
+                orderStats(db, now()),
+            ]);
+
+            return c.json(
+                await Promise.all(
+                    servers.map(async (server) => {
+                        const orders = stats.find((s) => s.serverId === server.id);
+                        const averagesAt = await lastAveragesUpdate(db, server.id);
+
+                        return {
+                            id: server.id,
+                            name: server.name,
+                            isPublic: server.isPublic,
+                            liveOrders: orders?.liveOrders ?? 0,
+                            lastOrderAt: orders?.lastOrderAt?.toISOString() ?? null,
+                            averagesAt: averagesAt?.toISOString() ?? null,
+                        };
+                    }),
+                ),
+                200,
             );
         })
         .get("/servers/private", async (c) => {
