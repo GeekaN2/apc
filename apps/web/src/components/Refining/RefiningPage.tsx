@@ -1,7 +1,7 @@
 import { Alert, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { RefiningSettings } from "./RefiningSettings";
-import { PriceEditor } from "../PriceEditor/PriceEditor";
+import { PriceBar } from "../PriceBar/PriceBar";
 import { ProfitTable } from "../ProfitTable/ProfitTable";
 import { ResourcePicker } from "./ResourcePicker";
 import { useRefining } from "./useRefining";
@@ -51,8 +51,8 @@ export const RefiningPage: React.FC = () => {
                     )}
                     {cells.length > 0 && (
                         <>
+                            <PriceBar groups={priceGroups} names={names} />
                             <ProfitTable cells={cells} now={now} />
-                            <PriceEditor groups={priceGroups} names={names} now={now} />
                         </>
                     )}
                 </div>
