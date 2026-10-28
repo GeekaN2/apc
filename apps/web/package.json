@@ -13,12 +13,18 @@
         "@gravity-ui/icons": "^2.23.0",
         "@heroui/react": "^3.2.6",
         "@heroui/styles": "^3.2.6",
+        "@tanstack/react-query": "^5.105.0",
+        "better-auth": "^1.7.14",
+        "hono": "^4.13.14",
+        "i18next": "^26.5.11",
         "react": "^19.3.1",
         "react-dom": "^19.3.1",
+        "react-i18next": "^17.1.9",
         "react-router": "^8.5.0",
         "zustand": "^5.0.16"
     },
     "devDependencies": {
+        "@apc/api": "workspace:*",
         "@tailwindcss/vite": "^4.3.3",
         "@types/node": "^24.19.2",
         "@types/react": "^19.3.0",

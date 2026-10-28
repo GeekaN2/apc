@@ -1,0 +1,42 @@
+{
+    "sections": {
+        "profitTree": "Дерево профита",
+        "transportations": "Перевозки",
+        "refining": "Переработка",
+        "foodAndPotions": "Еда и зелья",
+        "transmutations": "Трансмутации",
+        "artifactFoundry": "Цех артефактов",
+        "servers": "Серверы",
+        "faq": "FAQ"
+    },
+    "comingSoon": "Скоро",
+    "theme": {
+        "dark": "Тёмная тема"
+    },
+    "language": "Язык",
+    "server": {
+        "label": "Сервер",
+        "loading": "Загрузка серверов",
+        "private": "приватный"
+    },
+    "auth": {
+        "signIn": "Войти",
+        "signOut": "Выйти",
+        "signInTitle": "Вход в APC",
+        "discord": "Войти через Discord",
+        "linkDiscord": "Привязать Discord",
+        "or": "или",
+        "legacyHint": "Ник и пароль работают для аккаунтов со старого калькулятора.",
+        "nickname": "Ник",
+        "password": "Пароль",
+        "submit": "Войти",
+        "cancel": "Отмена",
+        "error": "Неверный ник или пароль",
+        "discordError": "Вход через Discord недоступен",
+        "roles": {
+            "user": "Пользователь",
+            "supporter": "Саппортер",
+            "admin": "Админ"
+        }
+    }
+}

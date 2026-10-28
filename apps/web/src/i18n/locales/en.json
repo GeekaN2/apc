@@ -1,0 +1,42 @@
+{
+    "sections": {
+        "profitTree": "Profit tree",
+        "transportations": "Transportations",
+        "refining": "Refining",
+        "foodAndPotions": "Food & potions",
+        "transmutations": "Transmutations",
+        "artifactFoundry": "Artifact foundry",
+        "servers": "Servers",
+        "faq": "FAQ"
+    },
+    "comingSoon": "Coming soon",
+    "theme": {
+        "dark": "Dark theme"
+    },
+    "language": "Language",
+    "server": {
+        "label": "Server",
+        "loading": "Loading servers",
+        "private": "private"
+    },
+    "auth": {
+        "signIn": "Sign in",
+        "signOut": "Sign out",
+        "signInTitle": "Sign in to APC",
+        "discord": "Sign in with Discord",
+        "linkDiscord": "Link Discord",
+        "or": "or",
+        "legacyHint": "Nickname and password work for accounts from the old calculator.",
+        "nickname": "Nickname",
+        "password": "Password",
+        "submit": "Sign in",
+        "cancel": "Cancel",
+        "error": "Wrong nickname or password",
+        "discordError": "Discord sign-in is unavailable",
+        "roles": {
+            "user": "User",
+            "supporter": "Supporter",
+            "admin": "Admin"
+        }
+    }
+}

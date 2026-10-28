@@ -60,7 +60,7 @@ Requires Node 24 (see `.nvmrc`) and pnpm via corepack.
 corepack enable
 pnpm install
 
-# frontend at localhost:5173
+# frontend at localhost:5173, `/api` is proxied to API_URL (default http://127.0.0.1:4000)
 pnpm dev
 
 pnpm lint

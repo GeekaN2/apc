@@ -9,30 +9,32 @@ import {
     TriangleUp,
 } from "@gravity-ui/icons";
 import type { ComponentType, SVGProps } from "react";
+import type en from "./i18n/locales/en.json";
 import { routes, type Route } from "./routes";
 
 export interface Section {
     route: Route;
-    title: string;
+    /** Key of the title in `sections` of the translations */
+    key: keyof typeof en.sections;
     emoji: string;
     Icon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 /** Calculators: shown on the main page and in the sidebar */
 export const calculators: Section[] = [
-    { route: routes.profitTree, title: "Profit tree", emoji: "🌳", Icon: FolderTree },
-    { route: routes.transportations, title: "Transportations", emoji: "🐗", Icon: Car },
-    { route: routes.refining, title: "Refining", emoji: "♻️", Icon: Arrows3RotateLeft },
-    { route: routes.foodAndPotions, title: "Food & potions", emoji: "🍲", Icon: Flask },
+    { route: routes.profitTree, key: "profitTree", emoji: "🌳", Icon: FolderTree },
+    { route: routes.transportations, key: "transportations", emoji: "🐗", Icon: Car },
+    { route: routes.refining, key: "refining", emoji: "♻️", Icon: Arrows3RotateLeft },
+    { route: routes.foodAndPotions, key: "foodAndPotions", emoji: "🍲", Icon: Flask },
     {
         route: routes.transmutations,
-        title: "Transmutations",
+        key: "transmutations",
         emoji: "🧪",
         Icon: Circles5Random,
     },
     {
         route: routes.artifactFoundry,
-        title: "Artifact foundry",
+        key: "artifactFoundry",
         emoji: "🗿",
         Icon: TriangleUp,
     },
@@ -40,8 +42,8 @@ export const calculators: Section[] = [
 
 /** Helper pages: shown on the main page only */
 export const helpers: Section[] = [
-    { route: routes.servers, title: "Servers", emoji: "⚙️", Icon: Gear },
-    { route: routes.faq, title: "FAQ", emoji: "❓", Icon: CircleQuestion },
+    { route: routes.servers, key: "servers", emoji: "⚙️", Icon: Gear },
+    { route: routes.faq, key: "faq", emoji: "❓", Icon: CircleQuestion },
 ];
 
 export const sections = [...calculators, ...helpers];

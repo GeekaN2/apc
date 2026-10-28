@@ -10,7 +10,7 @@
     "scripts": {
         "db:generate": "drizzle-kit generate",
         "db:migrate": "node src/cli/migrate.ts",
-        "db:dev": "pglite-server --db=../../.dev/pglite --port=5432 --max-connections=10",
+        "db:dev": "node -e \"fs.mkdirSync('../../.dev', { recursive: true })\" && pglite-server --db=../../.dev/pglite --port=5432 --max-connections=10",
         "typecheck": "tsc",
         "db:import-legacy": "node src/cli/importLegacy.ts"
     },
