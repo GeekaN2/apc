@@ -10,6 +10,8 @@
         "typecheck": "tsc -b"
     },
     "dependencies": {
+        "@apc/calc": "workspace:*",
+        "@apc/game-data": "workspace:*",
         "@gravity-ui/icons": "^2.23.0",
         "@heroui/react": "^3.2.6",
         "@heroui/styles": "^3.2.6",

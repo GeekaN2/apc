@@ -38,5 +38,55 @@
             "supporter": "Supporter",
             "admin": "Admin"
         }
+    },
+    "resources": {
+        "METALBAR": "Metal bars",
+        "PLANKS": "Planks",
+        "LEATHER": "Leather",
+        "CLOTH": "Cloth",
+        "STONEBLOCK": "Stone blocks"
+    },
+    "cities": {
+        "Thetford": "Thetford",
+        "Lymhurst": "Lymhurst",
+        "Bridgewatch": "Bridgewatch",
+        "Martlock": "Martlock",
+        "Fort Sterling": "Fort Sterling",
+        "Caerleon": "Caerleon",
+        "Brecilien": "Brecilien",
+        "Black Market": "Black Market"
+    },
+    "refining": {
+        "resource": "Resource",
+        "settings": "Settings",
+        "sameCity": "One city for everything",
+        "city": "City",
+        "refineCity": "Refine in",
+        "buyRawCity": "Buy raw resources in",
+        "buyMaterialsCity": "Buy refined of the tier below in",
+        "sellCity": "Sell in",
+        "focus": "Use focus",
+        "premium": "Premium",
+        "fee": "Station fee per 100 nutrition",
+        "ownReturnRate": "Own return rate",
+        "returnRate": "Return rate, %",
+        "tier": "Tier",
+        "enchantment": "Enchantment",
+        "perUnit": "Profit per refined unit; hover a cell for details.",
+        "loadingCatalog": "Loading game data",
+        "loadingPrices": "Loading prices",
+        "pricesError": "Failed to load prices",
+        "noPrices": "No price",
+        "missing": "No price for",
+        "sale": "Sale",
+        "saleSellOrder": "sell order",
+        "saleBuyOrder": "to buy order",
+        "income": "Income after taxes",
+        "returned": "returned {{rate}}%",
+        "stationFee": "Station fee",
+        "cost": "Cost",
+        "profit": "Profit",
+        "focusCost": "Focus per craft",
+        "stale": "older than a day"
     }
 }

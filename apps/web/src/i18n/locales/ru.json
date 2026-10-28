@@ -38,5 +38,55 @@
             "supporter": "Саппортер",
             "admin": "Админ"
         }
+    },
+    "resources": {
+        "METALBAR": "Слитки",
+        "PLANKS": "Доски",
+        "LEATHER": "Кожа",
+        "CLOTH": "Ткань",
+        "STONEBLOCK": "Каменные блоки"
+    },
+    "cities": {
+        "Thetford": "Тетфорд",
+        "Lymhurst": "Лимхерст",
+        "Bridgewatch": "Бриджвотч",
+        "Martlock": "Мартлок",
+        "Fort Sterling": "Форт Стерлинг",
+        "Caerleon": "Карлеон",
+        "Brecilien": "Бресилиэн",
+        "Black Market": "Чёрный рынок"
+    },
+    "refining": {
+        "resource": "Ресурс",
+        "settings": "Настройки",
+        "sameCity": "Один город для всего",
+        "city": "Город",
+        "refineCity": "Перерабатывать в",
+        "buyRawCity": "Покупать сырьё в",
+        "buyMaterialsCity": "Покупать ресурс тира ниже в",
+        "sellCity": "Продавать в",
+        "focus": "Использовать фокус",
+        "premium": "Премиум",
+        "fee": "Налог станции за 100 питания",
+        "ownReturnRate": "Свой процент возврата",
+        "returnRate": "Возврат, %",
+        "tier": "Тир",
+        "enchantment": "Зачарование",
+        "perUnit": "Профит с одной единицы; наведите на ячейку, чтобы увидеть расчёт.",
+        "loadingCatalog": "Загрузка игровых данных",
+        "loadingPrices": "Загрузка цен",
+        "pricesError": "Не удалось загрузить цены",
+        "noPrices": "Нет цены",
+        "missing": "Нет цены на",
+        "sale": "Продажа",
+        "saleSellOrder": "ордером на продажу",
+        "saleBuyOrder": "в ордер на покупку",
+        "income": "Доход после налогов",
+        "returned": "возврат {{rate}}%",
+        "stationFee": "Налог станции",
+        "cost": "Затраты",
+        "profit": "Профит",
+        "focusCost": "Фокус за крафт",
+        "stale": "старше суток"
     }
 }

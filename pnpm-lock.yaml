@@ -264,6 +264,12 @@ importers:
 
   apps/web:
     dependencies:
+      '@apc/calc':
+        specifier: workspace:*
+        version: link:../../packages/calc
+      '@apc/game-data':
+        specifier: workspace:*
+        version: link:../../packages/game-data
       '@gravity-ui/icons':
         specifier: ^2.23.0
         version: 2.23.0(react@19.3.1)

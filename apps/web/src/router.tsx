@@ -12,9 +12,16 @@ export const router = createBrowserRouter([
     },
     {
         element: <AppLayout />,
-        children: sections.map((section) => ({
-            path: section.route,
-            element: <SectionPage section={section} />,
-        })),
+        children: sections.map((section) =>
+            section.route === routes.refining
+                ? {
+                      path: section.route,
+                      lazy: async () => ({
+                          Component: (await import("./components/Refining/RefiningPage"))
+                              .RefiningPage,
+                      }),
+                  }
+                : { path: section.route, element: <SectionPage section={section} /> },
+        ),
     },
 ]);
