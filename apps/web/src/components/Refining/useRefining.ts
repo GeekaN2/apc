@@ -1,6 +1,5 @@
 import {
     type Catalog,
-    type PickedPrice,
     type RefiningRow,
     hasPrice,
     pickSalePrice,
@@ -15,18 +14,9 @@ import {
     useResourceCatalog,
 } from "../../catalog/catalog";
 import { useRefiningStore } from "../../store/refining";
+import type { ProfitTableCell } from "../ProfitTable/ProfitTable";
 
-/** A price used in a calculation and how old it is */
-export interface UsedPrice {
-    price: number;
-    date: Date;
-}
-
-export interface RefiningCell extends RefiningRow {
-    sale?: PickedPrice;
-    /** Buy prices of the recipe resources by market id */
-    buyPrices: ReadonlyMap<string, UsedPrice>;
-}
+export type RefiningCell = RefiningRow & ProfitTableCell;
 
 /** Refined resources of the tier below are bought in their own city */
 function isRefined(catalog: Catalog, marketId: string): boolean {

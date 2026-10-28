@@ -1,7 +1,7 @@
 import { Alert, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { RefiningSettings } from "./RefiningSettings";
-import { RefiningTable } from "./RefiningTable";
+import { ProfitTable } from "../ProfitTable/ProfitTable";
 import { ResourcePicker } from "./ResourcePicker";
 import { useRefining } from "./useRefining";
 
@@ -26,27 +26,27 @@ export const RefiningPage: React.FC = () => {
                     <div className="flex min-h-6 items-center gap-2 text-sm text-muted">
                         {isCatalogPending ? (
                             <>
-                                <Spinner size="sm" /> {t("refining.loadingCatalog")}
+                                <Spinner size="sm" /> {t("profit.loadingCatalog")}
                             </>
                         ) : isPricesPending || isPricesFetching ? (
                             <>
-                                <Spinner size="sm" /> {t("refining.loadingPrices")}
+                                <Spinner size="sm" /> {t("profit.loadingPrices")}
                             </>
                         ) : (
-                            t("refining.perUnit")
+                            t("profit.perUnit")
                         )}
                     </div>
                     {pricesError && (
                         <Alert status="danger">
                             <Alert.Content>
-                                <Alert.Title>{t("refining.pricesError")}</Alert.Title>
+                                <Alert.Title>{t("profit.pricesError")}</Alert.Title>
                                 <Alert.Description>
                                     {pricesError.message}
                                 </Alert.Description>
                             </Alert.Content>
                         </Alert>
                     )}
-                    {cells.length > 0 && <RefiningTable cells={cells} now={now} />}
+                    {cells.length > 0 && <ProfitTable cells={cells} now={now} />}
                 </div>
             </div>
         </div>

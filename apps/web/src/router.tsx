@@ -5,6 +5,16 @@ import { SectionPage } from "./components/SectionPage/SectionPage";
 import { routes } from "./routes";
 import { sections } from "./sections";
 
+/** Ported sections, each in its own chunk with the game data it needs */
+const lazySections: Partial<Record<string, () => Promise<{ Component: React.FC }>>> = {
+    [routes.refining]: async () => ({
+        Component: (await import("./components/Refining/RefiningPage")).RefiningPage,
+    }),
+    [routes.profitTree]: async () => ({
+        Component: (await import("./components/Tree/TreePage")).TreePage,
+    }),
+};
+
 export const router = createBrowserRouter([
     {
         path: routes.home,
@@ -12,16 +22,12 @@ export const router = createBrowserRouter([
     },
     {
         element: <AppLayout />,
-        children: sections.map((section) =>
-            section.route === routes.refining
-                ? {
-                      path: section.route,
-                      lazy: async () => ({
-                          Component: (await import("./components/Refining/RefiningPage"))
-                              .RefiningPage,
-                      }),
-                  }
-                : { path: section.route, element: <SectionPage section={section} /> },
-        ),
+        children: sections.map((section) => {
+            const lazy = lazySections[section.route];
+
+            return lazy
+                ? { path: section.route, lazy }
+                : { path: section.route, element: <SectionPage section={section} /> };
+        }),
     },
 ]);

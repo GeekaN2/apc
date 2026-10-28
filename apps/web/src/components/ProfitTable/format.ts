@@ -4,6 +4,12 @@ export function formatSilver(value: number, language: string): string {
     return new Intl.NumberFormat(language, { maximumFractionDigits: 0 }).format(value);
 }
 
+export function formatNumber(value: number, language: string, digits: number): string {
+    return new Intl.NumberFormat(language, { maximumFractionDigits: digits }).format(
+        value,
+    );
+}
+
 export function formatPercent(value: number, language: string): string {
     return new Intl.NumberFormat(language, {
         maximumFractionDigits: 1,

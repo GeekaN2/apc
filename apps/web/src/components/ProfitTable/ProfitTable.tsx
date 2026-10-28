@@ -1,8 +1,31 @@
+import type { CraftResult, PickedPrice } from "@apc/calc";
 import { Tooltip } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { itemIconUrl } from "../../catalog/catalog";
-import { formatAge, formatPercent, formatSilver, isStale } from "./format";
-import type { RefiningCell, UsedPrice } from "./useRefining";
+import { formatAge, formatNumber, formatPercent, formatSilver, isStale } from "./format";
+
+/** A price used in a calculation and how old it is */
+export interface UsedPrice {
+    price: number;
+    date: Date;
+}
+
+/** One tier and enchantment level of a crafted item */
+export interface ProfitTableCell {
+    marketId: string;
+    tier: number;
+    enchantmentLevel: number;
+    returnRate: number;
+    /** Focus per craft without focus efficiency */
+    focus?: number;
+    result: CraftResult;
+    sale?: PickedPrice;
+    /** Buy prices of the recipe resources by market id */
+    buyPrices: ReadonlyMap<string, UsedPrice>;
+    journal?: { empty?: UsedPrice; full?: PickedPrice };
+    /** Average items sold per day in the selling city */
+    soldPerDay?: number;
+}
 
 const PriceAge: React.FC<{ date: Date; now: number }> = ({ date, now }) => {
     const { t, i18n } = useTranslation();
@@ -11,7 +34,7 @@ const PriceAge: React.FC<{ date: Date; now: number }> = ({ date, now }) => {
     return (
         <span
             className={stale ? "text-danger" : "text-muted"}
-            title={stale ? t("refining.stale") : undefined}
+            title={stale ? t("profit.stale") : undefined}
         >
             {formatAge(date, now, i18n.language)}
         </span>
@@ -33,40 +56,55 @@ const Line: React.FC<{
 );
 
 /** How the profit of a cell is made up */
-const Breakdown: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now }) => {
+const Breakdown: React.FC<{ cell: ProfitTableCell; name?: string; now: number }> = ({
+    cell,
+    name,
+    now,
+}) => {
     const { t, i18n } = useTranslation();
     const silver = (value: number) => formatSilver(value, i18n.language);
     const { result, sale } = cell;
     const rate = formatPercent(cell.returnRate * 100, i18n.language).replace("+", "");
     const priceOf = (price: UsedPrice | undefined) =>
-        price ? (
+        price && price.price > 0 ? (
             <>
                 {silver(price.price)} · <PriceAge date={price.date} now={now} />
             </>
         ) : (
-            <span className="text-danger">{t("refining.noPrices")}</span>
+            <span className="text-danger">{t("profit.noPrices")}</span>
         );
 
     return (
         <div className="flex flex-col gap-1.5 text-sm">
+            {name && (
+                <div className="font-medium whitespace-nowrap">
+                    {name} {cell.tier}.{cell.enchantmentLevel}
+                </div>
+            )}
             <Line
                 icon={cell.marketId}
-                label={`${t("refining.sale")} (${
+                label={`${t("profit.sale")} (${
                     sale?.kind === "buyOrder"
-                        ? t("refining.saleBuyOrder")
-                        : t("refining.saleSellOrder")
-                })`}
-                value={priceOf(sale && sale.price > 0 ? sale : undefined)}
+                        ? t("profit.saleBuyOrder")
+                        : t("profit.saleSellOrder")
+                }) × ${result.amountCrafted}`}
+                value={priceOf(sale)}
             />
             {result.income !== undefined && (
-                <Line label={t("refining.income")} value={silver(result.income)} />
+                <Line label={t("profit.income")} value={silver(result.income)} />
+            )}
+            {cell.soldPerDay !== undefined && (
+                <Line
+                    label={t("profit.soldPerDay")}
+                    value={formatSilver(cell.soldPerDay, i18n.language)}
+                />
             )}
             {result.resources.map((line) => (
                 <Line
                     key={line.marketId}
                     icon={line.marketId}
                     label={`× ${line.count}${
-                        line.returned ? `, ${t("refining.returned", { rate })}` : ""
+                        line.returned ? `, ${t("profit.returned", { rate })}` : ""
                     }`}
                     value={
                         <>
@@ -76,16 +114,38 @@ const Breakdown: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now })
                     }
                 />
             ))}
-            <Line label={t("refining.stationFee")} value={silver(result.stationFee)} />
+            {result.journal && (
+                <Line
+                    icon={result.journal.marketId}
+                    label={t("profit.journalFilled", {
+                        filled: formatNumber(result.journal.filled, i18n.language, 2),
+                    })}
+                    value={
+                        result.journal.profit === undefined ? (
+                            <span className="text-danger">{t("profit.noPrices")}</span>
+                        ) : (
+                            <>
+                                {priceOf(cell.journal?.empty)} /{" "}
+                                {priceOf(cell.journal?.full)} → +
+                                {silver(result.journal.profit)}
+                            </>
+                        )
+                    }
+                />
+            )}
+            <Line label={t("profit.stationFee")} value={silver(result.stationFee)} />
+            {result.silver > 0 && (
+                <Line label={t("profit.recipeSilver")} value={silver(result.silver)} />
+            )}
             {cell.focus !== undefined && (
-                <Line label={t("refining.focusCost")} value={silver(cell.focus)} />
+                <Line label={t("profit.focusCost")} value={silver(cell.focus)} />
             )}
             {result.cost !== undefined && (
-                <Line label={t("refining.cost")} value={silver(result.cost)} />
+                <Line label={t("profit.cost")} value={silver(result.cost)} />
             )}
             {result.profit !== undefined && (
                 <Line
-                    label={<strong>{t("refining.profit")}</strong>}
+                    label={<strong>{t("profit.profit")}</strong>}
                     value={<strong>{silver(result.profit)}</strong>}
                 />
             )}
@@ -93,7 +153,11 @@ const Breakdown: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now })
     );
 };
 
-const ProfitCell: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now }) => {
+const ProfitCell: React.FC<{ cell: ProfitTableCell; name?: string; now: number }> = ({
+    cell,
+    name,
+    now,
+}) => {
     const { t, i18n } = useTranslation();
     const { profit, profitPercentage } = cell.result;
     const color =
@@ -108,7 +172,7 @@ const ProfitCell: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now }
                 >
                     <span className={`font-medium ${color}`}>
                         {profit === undefined ? (
-                            <span aria-label={t("refining.noPrices")}>—</span>
+                            <span aria-label={t("profit.noPrices")}>—</span>
                         ) : (
                             formatSilver(profit, i18n.language)
                         )}
@@ -121,16 +185,19 @@ const ProfitCell: React.FC<{ cell: RefiningCell; now: number }> = ({ cell, now }
                 </button>
             </Tooltip.Trigger>
             <Tooltip.Content placement="bottom" className="max-w-none break-normal">
-                <Breakdown cell={cell} now={now} />
+                <Breakdown cell={cell} name={name} now={now} />
             </Tooltip.Content>
         </Tooltip>
     );
 };
 
-export const RefiningTable: React.FC<{ cells: RefiningCell[]; now: number }> = ({
-    cells,
-    now,
-}) => {
+/** Profit by tier (columns) and enchantment level (rows) */
+export const ProfitTable: React.FC<{
+    cells: readonly ProfitTableCell[];
+    now: number;
+    /** Item name for the cell details */
+    name?: string;
+}> = ({ cells, now, name }) => {
     const { t } = useTranslation();
     const tiers = [...new Set(cells.map((cell) => cell.tier))].sort((a, b) => a - b);
     const levels = [...new Set(cells.map((cell) => cell.enchantmentLevel))].sort(
@@ -145,7 +212,7 @@ export const RefiningTable: React.FC<{ cells: RefiningCell[]; now: number }> = (
                 <thead>
                     <tr className="border-b border-separator text-muted">
                         <th className="px-3 py-2 text-left font-normal">
-                            {t("refining.enchantment")}
+                            {t("profit.enchantment")}
                         </th>
                         {tiers.map((tier) => (
                             <th key={tier} className="px-3 py-2 text-right font-medium">
@@ -166,7 +233,13 @@ export const RefiningTable: React.FC<{ cells: RefiningCell[]; now: number }> = (
 
                                 return (
                                     <td key={tier} className="p-1">
-                                        {cell && <ProfitCell cell={cell} now={now} />}
+                                        {cell && (
+                                            <ProfitCell
+                                                cell={cell}
+                                                name={name}
+                                                now={now}
+                                            />
+                                        )}
                                     </td>
                                 );
                             })}

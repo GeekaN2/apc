@@ -1,48 +1,80 @@
 import { type Catalog, createCatalog } from "@apc/calc";
 import type { CraftingModifiers, GameConstants, Item } from "@apc/game-data";
 import { useQuery } from "@tanstack/react-query";
+import { languages, useLanguageStore } from "../i18n/i18n";
+import type { CraftingCity } from "./cities";
 
-/** Cities with a market, as `/api/prices` accepts them */
-export const CITIES = [
-    "Thetford",
-    "Lymhurst",
-    "Bridgewatch",
-    "Martlock",
-    "Fort Sterling",
-    "Caerleon",
-    "Brecilien",
-    "Black Market",
-] as const;
+export * from "./cities";
 
-export type City = (typeof CITIES)[number];
+const ITEM_FILES = {
+    simpleitem: () => import("@apc/game-data/generated/items/simpleitem.json"),
+    journalitem: () => import("@apc/game-data/generated/items/journalitem.json"),
+    weapon: () => import("@apc/game-data/generated/items/weapon.json"),
+    equipmentitem: () => import("@apc/game-data/generated/items/equipmentitem.json"),
+    transformationweapon: () =>
+        import("@apc/game-data/generated/items/transformationweapon.json"),
+    trackingitem: () => import("@apc/game-data/generated/items/trackingitem.json"),
+    consumableitem: () => import("@apc/game-data/generated/items/consumableitem.json"),
+    consumablefrominventoryitem: () =>
+        import("@apc/game-data/generated/items/consumablefrominventoryitem.json"),
+};
 
-/** Cities with crafting stations: the Black Market only buys */
-export const CRAFTING_CITIES = CITIES.filter((city) => city !== "Black Market");
-
-export type CraftingCity = Exclude<City, "Black Market">;
+type ItemFile = keyof typeof ITEM_FILES;
 
 /**
- * Catalog of simple items (resources, tokens) with crafting modifiers and economy
- * constants. Loaded on demand: the JSON goes to its own chunk with a hashed name.
+ * Catalog of some sections of the dumps with crafting modifiers and economy
+ * constants. Loaded on demand: each JSON goes to its own chunk with a hashed name.
  */
-async function loadResourceCatalog(): Promise<Catalog> {
-    const [items, modifiers, constants] = await Promise.all([
-        import("@apc/game-data/generated/items/simpleitem.json"),
+async function loadCatalog(files: readonly ItemFile[]): Promise<Catalog> {
+    const [modifiers, constants, ...sections] = await Promise.all([
         import("@apc/game-data/generated/crafting-modifiers.json"),
         import("@apc/game-data/generated/game-constants.json"),
+        ...files.map((file) => ITEM_FILES[file]()),
     ]);
 
     return createCatalog(
-        items.default as Item[],
+        sections.flatMap((section) => section.default as Item[]),
         modifiers.default as CraftingModifiers,
         constants.default as GameConstants,
     );
 }
 
-export function useResourceCatalog() {
+function useCatalog(name: string, files: readonly ItemFile[]) {
     return useQuery({
-        queryKey: ["catalog", "resources"],
-        queryFn: loadResourceCatalog,
+        queryKey: ["catalog", name],
+        queryFn: () => loadCatalog(files),
+        staleTime: Infinity,
+    });
+}
+
+/** Simple items: resources, tokens, artifacts */
+export function useResourceCatalog() {
+    return useCatalog("resources", ["simpleitem"]);
+}
+
+/** Craftable equipment with everything its recipes take and journals */
+export function useEquipmentCatalog() {
+    return useCatalog("equipment", Object.keys(ITEM_FILES) as ItemFile[]);
+}
+
+const NAME_FILES = {
+    "en-US": () => import("@apc/game-data/generated/names/en-US.json"),
+    "ru-RU": () => import("@apc/game-data/generated/names/ru-RU.json"),
+};
+
+export interface Names {
+    items: Readonly<Record<string, string>>;
+    categories: Readonly<Record<string, string>>;
+}
+
+/** Localized names of items and marketplace categories in the UI language */
+export function useNames() {
+    const language = useLanguageStore((state) => state.language);
+    const locale = languages[language].gameLocale;
+
+    return useQuery({
+        queryKey: ["names", locale],
+        queryFn: async (): Promise<Names> => (await NAME_FILES[locale]()).default,
         staleTime: Infinity,
     });
 }

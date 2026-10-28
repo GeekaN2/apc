@@ -58,26 +58,26 @@
     },
     "refining": {
         "resource": "Resource",
-        "settings": "Settings",
-        "sameCity": "One city for everything",
-        "city": "City",
         "refineCity": "Refine in",
         "buyRawCity": "Buy raw resources in",
         "buyMaterialsCity": "Buy refined of the tier below in",
-        "sellCity": "Sell in",
+        "sellCity": "Sell in"
+    },
+    "profit": {
+        "settings": "Settings",
+        "sameCity": "One city for everything",
+        "city": "City",
         "focus": "Use focus",
         "premium": "Premium",
         "fee": "Station fee per 100 nutrition",
         "ownReturnRate": "Own return rate",
         "returnRate": "Return rate, %",
-        "tier": "Tier",
         "enchantment": "Enchantment",
         "perUnit": "Profit per refined unit; hover a cell for details.",
         "loadingCatalog": "Loading game data",
         "loadingPrices": "Loading prices",
         "pricesError": "Failed to load prices",
         "noPrices": "No price",
-        "missing": "No price for",
         "sale": "Sale",
         "saleSellOrder": "sell order",
         "saleBuyOrder": "to buy order",
@@ -87,6 +87,33 @@
         "cost": "Cost",
         "profit": "Profit",
         "focusCost": "Focus per craft",
-        "stale": "older than a day"
+        "stale": "older than a day",
+        "journals": "Journals",
+        "journalFilled": "{{filled}} journals",
+        "soldPerDay": "Sold per day",
+        "crafts": "Crafts",
+        "useJournals": "Fill journals",
+        "qualities": "Qualities of the sold item",
+        "perCrafts": "Profit of {{count}} crafts; hover a cell for details.",
+        "sellCity": "Sell in",
+        "craftCity": "Craft in",
+        "recipeSilver": "Silver in the recipe",
+        "qualityNames": {
+            "1": "Normal",
+            "2": "Good",
+            "3": "Outstanding",
+            "4": "Excellent",
+            "5": "Masterpiece"
+        }
+    },
+    "tree": {
+        "category": "Category",
+        "subcategory": "Subcategory",
+        "item": "Item",
+        "chooseItem": "Choose an item",
+        "recipe": "Recipe",
+        "resourcesCity": "Buy resources in",
+        "componentsCity": "Buy artifacts and components in",
+        "journalsCity": "Journals in"
     }
 }
