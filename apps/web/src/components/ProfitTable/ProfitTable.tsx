@@ -22,7 +22,7 @@ export interface ProfitTableCell {
     soldPerDay?: number;
 }
 
-const PriceAge: React.FC<{ date: Date; now: number }> = ({ date, now }) => {
+export const PriceAge: React.FC<{ date: Date; now: number }> = ({ date, now }) => {
     const { t, i18n } = useTranslation();
     const stale = isStale(date, now);
 
@@ -36,7 +36,7 @@ const PriceAge: React.FC<{ date: Date; now: number }> = ({ date, now }) => {
     );
 };
 
-const Line: React.FC<{
+export const Line: React.FC<{
     icon?: string;
     label: React.ReactNode;
     value: React.ReactNode;
@@ -153,51 +153,14 @@ const Breakdown: React.FC<{ cell: ProfitTableCell; name?: string; now: number }>
     );
 };
 
-const ProfitCell: React.FC<{ cell: ProfitTableCell; name?: string; now: number }> = ({
-    cell,
-    name,
-    now,
-}) => {
-    const { t, i18n } = useTranslation();
-    const { profit, profitPercentage } = cell.result;
-    const color =
-        profit === undefined ? "text-muted" : profit > 0 ? "text-success" : "text-danger";
-
-    return (
-        <Tooltip delay={150} closeDelay={0}>
-            <Tooltip.Trigger>
-                <button
-                    type="button"
-                    className="flex w-full flex-col items-end rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2"
-                >
-                    <span className={`font-medium ${color}`}>
-                        {profit === undefined ? (
-                            <span aria-label={t("profit.noPrices")}>—</span>
-                        ) : (
-                            formatSilver(profit, i18n.language)
-                        )}
-                    </span>
-                    {profitPercentage !== undefined && (
-                        <span className={`text-xs ${color}`}>
-                            {formatPercent(profitPercentage, i18n.language)}%
-                        </span>
-                    )}
-                </button>
-            </Tooltip.Trigger>
-            <Tooltip.Content placement="bottom" className="max-w-none break-normal">
-                <Breakdown cell={cell} name={name} now={now} />
-            </Tooltip.Content>
-        </Tooltip>
-    );
-};
-
-/** Profit by tier (columns) and enchantment level (rows) */
-export const ProfitTable: React.FC<{
-    cells: readonly ProfitTableCell[];
-    now: number;
-    /** Item name for the cell details */
-    name?: string;
-}> = ({ cells, now, name }) => {
+/** Cells by tier (columns) and enchantment level (rows) */
+export function TierGrid<C extends { tier: number; enchantmentLevel: number }>({
+    cells,
+    renderCell,
+}: {
+    cells: readonly C[];
+    renderCell: (cell: C) => React.ReactNode;
+}) {
     const { t } = useTranslation();
     const tiers = [...new Set(cells.map((cell) => cell.tier))].sort((a, b) => a - b);
     const levels = [...new Set(cells.map((cell) => cell.enchantmentLevel))].sort(
@@ -237,13 +200,7 @@ export const ProfitTable: React.FC<{
 
                                 return (
                                     <td key={tier} className="p-1">
-                                        {cell && (
-                                            <ProfitCell
-                                                cell={cell}
-                                                name={name}
-                                                now={now}
-                                            />
-                                        )}
+                                        {cell && renderCell(cell)}
                                     </td>
                                 );
                             })}
@@ -253,4 +210,61 @@ export const ProfitTable: React.FC<{
             </table>
         </div>
     );
+}
+
+/** A profit and its percentage, coloured by sign, with details on hover */
+export const ProfitButton: React.FC<{
+    profit?: number;
+    percentage?: number;
+    details: React.ReactNode;
+}> = ({ profit, percentage, details }) => {
+    const { t, i18n } = useTranslation();
+    const color =
+        profit === undefined ? "text-muted" : profit > 0 ? "text-success" : "text-danger";
+
+    return (
+        <Tooltip delay={150} closeDelay={0}>
+            <Tooltip.Trigger>
+                <button
+                    type="button"
+                    className="flex w-full flex-col items-end rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2"
+                >
+                    <span className={`font-medium ${color}`}>
+                        {profit === undefined ? (
+                            <span aria-label={t("profit.noPrices")}>—</span>
+                        ) : (
+                            formatSilver(profit, i18n.language)
+                        )}
+                    </span>
+                    {percentage !== undefined && (
+                        <span className={`text-xs ${color}`}>
+                            {formatPercent(percentage, i18n.language)}%
+                        </span>
+                    )}
+                </button>
+            </Tooltip.Trigger>
+            <Tooltip.Content placement="bottom" className="max-w-none break-normal">
+                {details}
+            </Tooltip.Content>
+        </Tooltip>
+    );
 };
+
+/** Profit by tier (columns) and enchantment level (rows) */
+export const ProfitTable: React.FC<{
+    cells: readonly ProfitTableCell[];
+    now: number;
+    /** Item name for the cell details */
+    name?: string;
+}> = ({ cells, now, name }) => (
+    <TierGrid
+        cells={cells}
+        renderCell={(cell) => (
+            <ProfitButton
+                profit={cell.result.profit}
+                percentage={cell.result.profitPercentage}
+                details={<Breakdown cell={cell} name={name} now={now} />}
+            />
+        )}
+    />
+);

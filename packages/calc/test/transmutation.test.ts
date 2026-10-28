@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { craft } from "../src/craft.ts";
 import { itemMarketId } from "../src/catalog.ts";
 import {
+    bestTransmutations,
     calibrateSilverFactor,
     cheapestTransmutations,
     transmutationRecipes,
@@ -217,4 +218,47 @@ describe("calibrateSilverFactor", () => {
 
 it("legacy item names keep the market suffix", () => {
     expect(legacyItemName("ORE", 5, 1)).toBe("T5_ORE_LEVEL1@1");
+});
+
+describe("bestTransmutations", () => {
+    const options = {
+        catalog,
+        silverFactor: 1,
+        feePer100Nutrition: 0,
+        premium: true,
+    };
+
+    it("buys what is cheapest to transmute into the target", () => {
+        const prices: Record<string, number> = {
+            T4_ORE: 100,
+            T5_ORE: 10_000,
+            "T5_ORE_LEVEL1@1": 50_000,
+        };
+        const targets = bestTransmutations({
+            ...options,
+            resource: "ORE",
+            buyPrice: (id) => prices[id],
+            sale: (id) => ({ price: prices[id], kind: "sellOrder" }),
+        });
+        const target = targets.find((t) => t.item.uniqueName === "T5_ORE_LEVEL1")!;
+        const income = 50_000 * (1 - 0.04 - 0.025);
+
+        // T4 → T5 → T5.1 costs 781 + 2000, buying T5 and one step costs 10 000 + 2000
+        expect(target.best?.source.uniqueName).toBe("T4_ORE");
+        expect(target.best?.path.steps).toHaveLength(2);
+        expect(target.best?.profit).toBeCloseTo(income - 100 - 781 - 2_000, 6);
+        expect(target.ways).toBeGreaterThan(2);
+    });
+
+    it("has no best way without prices", () => {
+        const targets = bestTransmutations({
+            ...options,
+            resource: "ROCK",
+            buyPrice: () => undefined,
+            sale: () => ({ kind: "sellOrder" }),
+        });
+
+        expect(targets.every((t) => t.best === undefined)).toBe(true);
+        expect(targets.some((t) => t.item.uniqueName === "T5_ROCK_LEVEL1")).toBe(true);
+    });
 });

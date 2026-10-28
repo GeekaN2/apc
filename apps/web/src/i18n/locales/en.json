@@ -157,5 +157,24 @@
         "count_other": "{{count}} artifacts",
         "unpriced": "{{count}} without a price",
         "day": "day"
+    },
+    "transmutations": {
+        "resources": {
+            "ORE": "Ore",
+            "WOOD": "Wood",
+            "HIDE": "Hide",
+            "FIBER": "Fiber",
+            "ROCK": "Rock"
+        },
+        "buyCity": "Buy in",
+        "sellCity": "Sell in",
+        "observedCost": "T4.3 → T4.4 in the game, silver",
+        "observedHint": "The game discounts transmutation silver; enter the cost you see to take it into account.",
+        "discount": "Silver ×{{factor}}",
+        "hint": "The most profitable way to get a resource by transmuting another one; hover a cell for the chain.",
+        "buy": "Buy",
+        "transmute": "Transmutations",
+        "steps_one": "{{count}} step",
+        "steps_other": "{{count}} steps"
     }
 }
