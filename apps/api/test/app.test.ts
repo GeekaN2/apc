@@ -1,4 +1,4 @@
-import { type Db, seedServers, upsertOrders } from "@apc/db";
+import { type Db, seedServers, upsertAveragePrices, upsertOrders } from "@apc/db";
 import { createTestDb } from "@apc/db/testing";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createApp } from "../src/app.ts";
@@ -96,5 +96,38 @@ describe("api", () => {
             (await request("/api/prices?server=mars&items=T4_MAIN_SWORD&cities=Caerleon"))
                 .status,
         ).toBe(404);
+    });
+});
+
+describe("averages", () => {
+    it("returns 30 day averages per item and city", async () => {
+        await upsertAveragePrices(db, [
+            {
+                serverId: "europe",
+                itemId: "T4_MAIN_SWORD",
+                city: "Caerleon",
+                averagePrice: 5200,
+                averageItems: 14,
+                firstDate: new Date(NOW.getTime() - 30 * DAY),
+                lastDate: NOW,
+                updatedAt: NOW,
+            },
+        ]);
+
+        const response = await request(
+            "/api/averages?server=europe&items=T4_MAIN_SWORD&cities=Caerleon,Martlock",
+        );
+
+        expect(response.status).toBe(200);
+        expect(await response.json()).toEqual([
+            {
+                itemId: "T4_MAIN_SWORD",
+                city: "Caerleon",
+                averagePrice: 5200,
+                averageItems: 14,
+                firstDate: new Date(NOW.getTime() - 30 * DAY).toISOString(),
+                lastDate: NOW.toISOString(),
+            },
+        ]);
     });
 });

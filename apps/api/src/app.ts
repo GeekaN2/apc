@@ -1,4 +1,4 @@
-import { CITIES, type Db, bestPrices, listServers } from "@apc/db";
+import { CITIES, type Db, bestPrices, getAveragePrices, listServers } from "@apc/db";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
@@ -19,12 +19,15 @@ function list<T extends z.ZodType<unknown, string>>(item: T) {
         .pipe(z.array(item).min(1));
 }
 
-const pricesQuery = z.object({
+const itemsQuery = z.object({
     server: z.string().min(1),
     items: list(z.string().regex(/^[A-Z0-9_]+(@\d)?$/)).pipe(
         z.array(z.string()).max(MAX_ITEMS),
     ),
     cities: list(z.enum(CITIES)),
+});
+
+const pricesQuery = itemsQuery.extend({
     qualities: list(
         z
             .string()
@@ -64,6 +67,22 @@ export function createApp(db: Db, { now = () => new Date() }: AppOptions = {}) {
             });
 
             return c.json(quotes, 200);
+        })
+        .get("/averages", zValidator("query", itemsQuery), async (c) => {
+            const query = c.req.valid("query");
+            const servers = await listServers(db);
+
+            if (!servers.some((server) => server.id === query.server)) {
+                return c.json({ error: `Unknown server ${query.server}` }, 404);
+            }
+
+            const averages = await getAveragePrices(db, {
+                serverId: query.server,
+                itemIds: query.items,
+                cities: query.cities,
+            });
+
+            return c.json(averages, 200);
         });
 }
 

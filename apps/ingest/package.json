@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "@apc/db": "workspace:*",
+        "@apc/game-data": "workspace:*",
         "@nats-io/transport-node": "^3.4.0",
         "zod": "^4.6.7"
     },

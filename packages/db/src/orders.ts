@@ -1,6 +1,7 @@
 import { and, eq, gt, inArray, lte, sql } from "drizzle-orm";
 import type { Db } from "./client.ts";
 import { type City, MARKETS, cityOfLocation } from "./markets.ts";
+import { getAveragePrices } from "./averages.ts";
 import { type MarketOrder, marketOrders } from "./schema.ts";
 
 const BATCH_SIZE = 500;
@@ -54,6 +55,12 @@ export interface Quote {
     buyPriceMaxDate: Date | null;
 }
 
+/**
+ * Sell orders priced above the average this many times are trolling and ignored,
+ * as in the old calculator. Buy orders are kept: a high buy order pays real silver.
+ */
+export const OVERPRICED_FACTOR = 5;
+
 /** Lowest sell and highest buy order per item, city and quality among live orders */
 export async function bestPrices(db: Db, query: PriceQuery): Promise<Quote[]> {
     const locationIds = query.cities.flatMap((city) => MARKETS[city]);
@@ -86,10 +93,26 @@ export async function bestPrices(db: Db, query: PriceQuery): Promise<Quote[]> {
             ),
         );
 
+    const averages = new Map(
+        (await getAveragePrices(db, query)).map((a) => [
+            `${a.itemId}|${a.city}`,
+            a.averagePrice,
+        ]),
+    );
     const quotes = new Map<string, Quote>();
 
     for (const order of orders) {
         const city = cityOfLocation(order.locationId)!;
+        const average = averages.get(`${order.itemId}|${city}`);
+
+        if (
+            order.auctionType === "offer" &&
+            average &&
+            order.unitPriceSilver > average * OVERPRICED_FACTOR
+        ) {
+            continue;
+        }
+
         const key = `${order.itemId}|${city}|${order.qualityLevel}`;
         const quote = quotes.get(key) ?? {
             itemId: order.itemId,

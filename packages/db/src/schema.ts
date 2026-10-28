@@ -1,6 +1,7 @@
 import {
     bigint,
     boolean,
+    doublePrecision,
     index,
     integer,
     pgTable,
@@ -15,6 +16,8 @@ export const servers = pgTable("servers", {
     id: text().primaryKey(),
     name: text().notNull(),
     natsUrl: text("nats_url").notNull(),
+    /** Albion Online Data REST API with price history; private servers have none */
+    apiUrl: text("api_url"),
     isPublic: boolean("is_public").notNull().default(true),
 });
 
@@ -50,5 +53,26 @@ export const marketOrders = pgTable(
     ],
 );
 
+/** 30 day averages per item and city from the Albion Online Data charts API */
+export const averagePrices = pgTable(
+    "average_prices",
+    {
+        serverId: text("server_id")
+            .notNull()
+            .references(() => servers.id),
+        itemId: text("item_id").notNull(),
+        city: text().notNull(),
+        /** Average sale price weighted by items sold */
+        averagePrice: doublePrecision("average_price").notNull(),
+        /** Items sold per day among the days with sales */
+        averageItems: doublePrecision("average_items").notNull(),
+        firstDate: timestamp("first_date", { withTimezone: true }),
+        lastDate: timestamp("last_date", { withTimezone: true }),
+        updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
+    },
+    (table) => [primaryKey({ columns: [table.serverId, table.itemId, table.city] })],
+);
+
 export type Server = typeof servers.$inferSelect;
+export type AveragePrice = typeof averagePrices.$inferInsert;
 export type MarketOrder = typeof marketOrders.$inferInsert;

@@ -236,6 +236,9 @@ importers:
       '@apc/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@apc/game-data':
+        specifier: workspace:*
+        version: link:../../packages/game-data
       '@nats-io/transport-node':
         specifier: ^3.4.0
         version: 3.4.0

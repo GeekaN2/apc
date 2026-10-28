@@ -1,16 +1,25 @@
-/** Market orders ingest: NATS of every server in the database → Postgres */
+/**
+ * Market data ingest: orders from NATS of every server in the database and
+ * daily 30 day averages from the Albion Online Data API → Postgres
+ */
 import {
     type Server,
     createDb,
     deleteExpiredOrders,
+    lastAveragesUpdate,
     listServers,
     upsertOrders,
 } from "@apc/db";
+import { readItems } from "@apc/game-data/node";
+import { tradableMarketIds } from "./averages.ts";
+import { updateAverages } from "./averagesJob.ts";
 import { type Subscriber, subscribe } from "./subscriber.ts";
 
 const STATS_INTERVAL_MS = 60 * 1000;
 const CLEANUP_INTERVAL_MS = 10 * 60 * 1000;
 const RECONNECT_DELAY_MS = 60 * 1000;
+const AVERAGES_MAX_AGE_MS = 20 * 60 * 60 * 1000;
+const AVERAGES_CHECK_MS = 60 * 60 * 1000;
 
 const url = process.env.DATABASE_URL;
 
@@ -64,9 +73,57 @@ const cleanupTimer = setInterval(async () => {
     }
 }, CLEANUP_INTERVAL_MS);
 
+const itemIds = tradableMarketIds(readItems());
+let averagesRunning = false;
+
+/** Updates averages of servers whose averages are older than a day, one at a time */
+async function refreshAverages() {
+    if (averagesRunning) {
+        return;
+    }
+
+    averagesRunning = true;
+
+    try {
+        for (const server of await listServers(db)) {
+            const updated = await lastAveragesUpdate(db, server.id);
+
+            if (
+                !server.apiUrl ||
+                (updated && Date.now() - updated.getTime() < AVERAGES_MAX_AGE_MS)
+            ) {
+                continue;
+            }
+
+            log(`[${server.id}] updating averages of ${itemIds.length} items`);
+
+            const result = await updateAverages(db, server, itemIds, { log });
+
+            log(
+                `[${server.id}] averages: ${result.rows} rows from ${result.requests} requests, ` +
+                    `${result.failedBatches} failed`,
+            );
+        }
+    } catch (error) {
+        log(`failed to update averages: ${String(error)}`);
+    } finally {
+        averagesRunning = false;
+    }
+}
+
+const averagesEnabled = process.env.INGEST_AVERAGES !== "false";
+const averagesTimer = averagesEnabled
+    ? setInterval(refreshAverages, AVERAGES_CHECK_MS)
+    : undefined;
+
+if (averagesEnabled) {
+    void refreshAverages();
+}
+
 async function shutdown() {
     clearInterval(statsTimer);
     clearInterval(cleanupTimer);
+    clearInterval(averagesTimer);
     retryTimers.forEach(clearTimeout);
     await Promise.all([...subscribers.values()].map((s) => s.close()));
     await close();

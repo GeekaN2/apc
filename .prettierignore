@@ -6,3 +6,4 @@ packages/game-data/test/fixtures
 packages/game-data/.cache
 packages/calc/test/legacy/*.json
 packages/db/migrations/meta
+apps/ingest/test/fixtures
