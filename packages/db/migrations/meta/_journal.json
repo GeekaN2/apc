@@ -15,6 +15,13 @@
       "when": 1793189741325,
       "tag": "0001_average_prices",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793191531211,
+      "tag": "0002_auth",
+      "breakpoints": true
     }
   ]
 }

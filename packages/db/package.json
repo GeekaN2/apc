@@ -11,11 +11,14 @@
         "db:generate": "drizzle-kit generate",
         "db:migrate": "node src/cli/migrate.ts",
         "db:dev": "pglite-server --db=../../.dev/pglite --port=5432 --max-connections=10",
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "db:import-legacy": "node src/cli/importLegacy.ts"
     },
     "dependencies": {
         "@electric-sql/pglite": "^0.5.12",
+        "better-auth": "^1.7.14",
         "drizzle-orm": "^0.45.4",
+        "mongodb": "^7.7.0",
         "pg": "^8.23.1"
     },
     "devDependencies": {

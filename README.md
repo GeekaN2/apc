@@ -32,12 +32,25 @@ DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter 
 ```
 
 ```bash
-# market orders ingest and the API on 127.0.0.1:4000
+# market orders ingest
 DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/ingest start
-DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/api start
 ```
 
-After a schema change, generate a migration with `pnpm --filter @apc/db db:generate`.
+The API on 127.0.0.1:4000 reads `apps/api/.env`; copy `apps/api/.env.example` and set `BETTER_AUTH_SECRET`. Discord sign-in needs a Discord application, without `DISCORD_CLIENT_ID` it is disabled.
+
+```bash
+pnpm --filter @apc/api start
+```
+
+After a schema change, generate a migration with `pnpm --filter @apc/db db:generate`. After changing auth plugins, regenerate `packages/db/src/authSchema.ts` with the command in `apps/api/auth-schema.config.ts`.
+
+### Users of the old calculator
+
+Users, tree settings and private servers are imported from the old MongoDB. Old users sign in with their nickname and password (bcrypt hashes are kept) and can link Discord; new users sign in with Discord only.
+
+```bash
+MONGO_URI=mongodb://127.0.0.1:27017 DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/db db:import-legacy
+```
 
 ## Development
 

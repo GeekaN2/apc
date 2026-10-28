@@ -14,6 +14,8 @@
         "@apc/db": "workspace:*",
         "@hono/node-server": "^2.1.5",
         "@hono/zod-validator": "^0.9.1",
+        "bcryptjs": "^3.0.3",
+        "better-auth": "^1.7.14",
         "hono": "^4.13.14",
         "zod": "^4.6.7"
     },

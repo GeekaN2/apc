@@ -55,9 +55,9 @@ describe("api", () => {
 
     it("lists public servers without NATS credentials", async () => {
         expect(await (await request("/api/servers")).json()).toEqual([
-            { id: "west", name: "Americas" },
-            { id: "east", name: "Asia" },
-            { id: "europe", name: "Europe" },
+            { id: "west", name: "Americas", isPublic: true },
+            { id: "east", name: "Asia", isPublic: true },
+            { id: "europe", name: "Europe", isPublic: true },
         ]);
     });
 

@@ -1,9 +1,9 @@
-import { eq, sql } from "drizzle-orm";
+import { eq, inArray, or, sql } from "drizzle-orm";
 import type { Db } from "./client.ts";
-import { type Server, servers } from "./schema.ts";
+import { serverAccess, servers } from "./schema.ts";
 
 /** Public Albion Online Data servers */
-export const AODP_SERVERS: Server[] = [
+export const AODP_SERVERS: (typeof servers.$inferInsert)[] = [
     {
         id: "west",
         name: "Americas",
@@ -46,4 +46,23 @@ export async function listServers(db: Db, options: { publicOnly?: boolean } = {}
     const query = db.select().from(servers);
 
     return options.publicOnly ? query.where(eq(servers.isPublic, true)) : query;
+}
+
+/** Public servers plus private ones the user owns or was given access to */
+export async function listVisibleServers(db: Db, userId?: string) {
+    const visible = userId
+        ? or(
+              eq(servers.isPublic, true),
+              eq(servers.ownerId, userId),
+              inArray(
+                  servers.id,
+                  db
+                      .select({ id: serverAccess.serverId })
+                      .from(serverAccess)
+                      .where(eq(serverAccess.userId, userId)),
+              ),
+          )
+        : eq(servers.isPublic, true);
+
+    return db.select().from(servers).where(visible);
 }

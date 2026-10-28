@@ -27,6 +27,8 @@ const EUROPE: Server = {
     natsUrl: "nats://localhost:4222",
     apiUrl: "https://europe.albion-online-data.com",
     isPublic: true,
+    description: null,
+    ownerId: null,
 };
 
 describe("aggregateCharts", () => {

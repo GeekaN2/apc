@@ -4,21 +4,52 @@ import {
     doublePrecision,
     index,
     integer,
+    jsonb,
     pgTable,
     primaryKey,
     smallint,
     text,
     timestamp,
 } from "drizzle-orm/pg-core";
+import { user } from "./authSchema.ts";
+
+export * from "./authSchema.ts";
 
 /** Albion Online Data servers: NATS sources of market orders */
 export const servers = pgTable("servers", {
     id: text().primaryKey(),
     name: text().notNull(),
+    description: text(),
     natsUrl: text("nats_url").notNull(),
     /** Albion Online Data REST API with price history; private servers have none */
     apiUrl: text("api_url"),
     isPublic: boolean("is_public").notNull().default(true),
+    /** Supporter who runs a private server */
+    ownerId: text("owner_id").references(() => user.id, { onDelete: "set null" }),
+});
+
+/** Users allowed to see a private server besides its owner */
+export const serverAccess = pgTable(
+    "server_access",
+    {
+        serverId: text("server_id")
+            .notNull()
+            .references(() => servers.id, { onDelete: "cascade" }),
+        userId: text("user_id")
+            .notNull()
+            .references(() => user.id, { onDelete: "cascade" }),
+    },
+    (table) => [primaryKey({ columns: [table.serverId, table.userId] })],
+);
+
+/** Calculator settings saved for a user */
+export const userSettings = pgTable("user_settings", {
+    userId: text("user_id")
+        .primaryKey()
+        .references(() => user.id, { onDelete: "cascade" }),
+    /** Profit tree settings; migrated users keep the old calculator's format */
+    treeSettings: jsonb("tree_settings"),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
 /** Market orders from NATS `marketorders.deduped.bulk` */
