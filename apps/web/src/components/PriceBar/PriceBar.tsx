@@ -1,3 +1,4 @@
+import { ArrowRotateLeft } from "@gravity-ui/icons";
 import { Input, Popover } from "@heroui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -108,12 +109,14 @@ const KindPrices: React.FC<{ kind: Kind; name: string; serverId: string }> = ({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-1.5">
                 <Popover.Heading className="text-sm font-medium">{name}</Popover.Heading>
                 {hasOwn && (
                     <button
                         type="button"
-                        className="text-xs text-muted hover:text-foreground"
+                        aria-label={t("prices.reset")}
+                        title={t("prices.reset")}
+                        className="rounded-md p-1 text-muted hover:bg-default hover:text-foreground"
                         onClick={() =>
                             clear(
                                 serverId,
@@ -121,58 +124,62 @@ const KindPrices: React.FC<{ kind: Kind; name: string; serverId: string }> = ({
                             )
                         }
                     >
-                        {t("prices.reset")}
+                        <ArrowRotateLeft className="size-3.5" />
                     </button>
                 )}
             </div>
-            <table className="border-separate border-spacing-1 text-xs text-muted">
-                {tiers.length > 1 && (
-                    <thead>
-                        <tr>
-                            {levels.length > 1 && <th />}
-                            {tiers.map((tier) => (
-                                <th key={tier} className="font-medium">
-                                    T{tier}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                )}
-                <tbody>
-                    {levels.map((level) => (
-                        <tr key={level}>
-                            {levels.length > 1 && (
-                                <th className="pe-1 font-medium">.{level}</th>
-                            )}
-                            {tiers.map((tier) => {
-                                const variant = kind.variants.find(
-                                    (v) =>
-                                        v.tier === tier && v.enchantmentLevel === level,
-                                );
+            {/* Only the fields scroll on narrow screens, the heading stays */}
+            <div className="overflow-x-auto">
+                <table className="border-separate border-spacing-1 text-xs text-muted">
+                    {tiers.length > 1 && (
+                        <thead>
+                            <tr>
+                                {levels.length > 1 && <th />}
+                                {tiers.map((tier) => (
+                                    <th key={tier} className="font-medium">
+                                        T{tier}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                    )}
+                    <tbody>
+                        {levels.map((level) => (
+                            <tr key={level}>
+                                {levels.length > 1 && (
+                                    <th className="pe-1 font-medium">.{level}</th>
+                                )}
+                                {tiers.map((tier) => {
+                                    const variant = kind.variants.find(
+                                        (v) =>
+                                            v.tier === tier &&
+                                            v.enchantmentLevel === level,
+                                    );
 
-                                return (
-                                    <td key={tier}>
-                                        {variant && (
-                                            <PriceInput
-                                                variant={variant}
-                                                label={`${name} ${tier ?? ""}.${level}`}
-                                                value={manual(variant.marketId)}
-                                                onChange={(price) =>
-                                                    setPrice(
-                                                        serverId,
-                                                        variant.marketId,
-                                                        price,
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </td>
-                                );
-                            })}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                    return (
+                                        <td key={tier}>
+                                            {variant && (
+                                                <PriceInput
+                                                    variant={variant}
+                                                    label={`${name} ${tier ?? ""}.${level}`}
+                                                    value={manual(variant.marketId)}
+                                                    onChange={(price) =>
+                                                        setPrice(
+                                                            serverId,
+                                                            variant.marketId,
+                                                            price,
+                                                        )
+                                                    }
+                                                />
+                                            )}
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
@@ -224,7 +231,7 @@ export const PriceBar: React.FC<{ groups: readonly PriceGroup[]; names?: Names }
                             </button>
                         </Popover.Trigger>
                         <Popover.Content placement="bottom start">
-                            <Popover.Dialog className="max-w-[calc(100vw-2rem)] overflow-x-auto">
+                            <Popover.Dialog className="max-w-[calc(100vw-2rem)]">
                                 <KindPrices kind={kind} name={name} serverId={serverId} />
                             </Popover.Dialog>
                         </Popover.Content>
