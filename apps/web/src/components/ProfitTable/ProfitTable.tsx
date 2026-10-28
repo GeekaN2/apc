@@ -224,24 +224,21 @@ export const ProfitButton: React.FC<{
 
     return (
         <Tooltip delay={150} closeDelay={0}>
-            <Tooltip.Trigger>
-                <button
-                    type="button"
-                    className="flex w-full flex-col items-end rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2"
-                >
-                    <span className={`font-medium ${color}`}>
-                        {profit === undefined ? (
-                            <span aria-label={t("profit.noPrices")}>—</span>
-                        ) : (
-                            formatSilver(profit, i18n.language)
-                        )}
-                    </span>
-                    {percentage !== undefined && (
-                        <span className={`text-xs ${color}`}>
-                            {formatPercent(percentage, i18n.language)}%
-                        </span>
+            {/* The trigger is HeroUI's inline-block focusable div: stretched over the cell
+                it keeps the numbers right under the right aligned tier headers */}
+            <Tooltip.Trigger className="flex w-full flex-col items-end rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2">
+                <span className={`font-medium ${color}`}>
+                    {profit === undefined ? (
+                        <span aria-label={t("profit.noPrices")}>—</span>
+                    ) : (
+                        formatSilver(profit, i18n.language)
                     )}
-                </button>
+                </span>
+                {percentage !== undefined && (
+                    <span className={`text-xs ${color}`}>
+                        {formatPercent(percentage, i18n.language)}%
+                    </span>
+                )}
             </Tooltip.Trigger>
             <Tooltip.Content placement="bottom" className="max-w-none break-normal">
                 {details}
