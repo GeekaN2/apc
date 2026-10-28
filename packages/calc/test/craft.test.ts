@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { craftItemValue, itemMarketId, recipesOf } from "../src/catalog.ts";
+import { craftFame, craftItemValue, itemMarketId, recipesOf } from "../src/catalog.ts";
 import { craft } from "../src/craft.ts";
 import { marketFee, saleIncome } from "../src/market.ts";
 import { productionBonus, returnRate } from "../src/returnRate.ts";
@@ -7,11 +7,12 @@ import { stationFee } from "../src/stationFee.ts";
 import { CLUSTERS, getItem, loadCatalog } from "./catalog.ts";
 
 const catalog = loadCatalog();
+const { marketPlace } = catalog.constants;
 
 function rate(uniqueName: string, clusterId: string | undefined, useFocus: boolean) {
     return returnRate(
         productionBonus({
-            modifiers: catalog.modifiers,
+            catalog,
             item: getItem(catalog, uniqueName),
             clusterId,
             useFocus,
@@ -58,10 +59,10 @@ describe("returnRate", () => {
 
 describe("market", () => {
     it("charges the setup fee only for sell orders", () => {
-        expect(marketFee("sellOrder")).toBeCloseTo(0.065, 10);
-        expect(marketFee("buyOrder")).toBeCloseTo(0.04, 10);
-        expect(marketFee("sellOrder", false)).toBeCloseTo(0.105, 10);
-        expect(saleIncome(1000, "buyOrder", false)).toBeCloseTo(920, 10);
+        expect(marketFee(marketPlace, "sellOrder")).toBeCloseTo(0.065, 10);
+        expect(marketFee(marketPlace, "buyOrder")).toBeCloseTo(0.04, 10);
+        expect(marketFee(marketPlace, "sellOrder", false)).toBeCloseTo(0.105, 10);
+        expect(saleIncome(marketPlace, 1000, "buyOrder", false)).toBeCloseTo(920, 10);
     });
 });
 
@@ -116,7 +117,7 @@ describe("craft", () => {
     it("sums income, resources and the station fee", () => {
         const result = craft(base);
         const resources = (200 * 16 + 150 * 8) * 0.8;
-        const fee = stationFee(384, 1_000);
+        const fee = stationFee(384, 1_000, 0.1125);
 
         expect(result.income).toBeCloseTo(9_350, 10);
         expect(result.resources.map((r) => [r.marketId, r.count, r.cost])).toEqual([
@@ -225,5 +226,28 @@ describe("craft", () => {
             "T4_METALBAR_LEVEL3@3",
             "T4_LEATHER_LEVEL3@3",
         ]);
+    });
+});
+
+describe("craftFame", () => {
+    it("matches the old hand-made table: 22.5 / 90 / 270 / 645 / 1395 per bar", () => {
+        const table = [22.5, 90, 270, 645, 1395];
+
+        for (const [index, fame] of table.entries()) {
+            const sword = getItem(catalog, `T${index + 4}_MAIN_SWORD`);
+
+            for (const level of [0, 1, 2, 3, 4]) {
+                expect(
+                    craftFame(sword, recipesOf(sword, level)[0]!, catalog),
+                    `T${index + 4}.${level}`,
+                ).toBe(fame * 2 ** level * 24);
+            }
+        }
+    });
+
+    it("gives no fame for artifacts", () => {
+        const scimitar = getItem(catalog, "T4_MAIN_SCIMITAR_MORGANA");
+
+        expect(craftFame(scimitar, recipesOf(scimitar)[0]!, catalog)).toBe(22.5 * 24);
     });
 });

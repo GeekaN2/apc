@@ -4,6 +4,7 @@ import {
     IGNORED_ITEM_SECTIONS,
     ITEM_KINDS,
     type CraftingModifiers,
+    type GameConstants,
     type Item,
     type ItemKind,
     type Names,
@@ -13,6 +14,7 @@ import {
     craftingModifiersFile,
     formattedItemsFile,
     formattedWorldFile,
+    gameDataFile,
     itemSchema,
     itemsFile,
     localizationEntry,
@@ -185,5 +187,38 @@ export function buildCraftingModifiers(
                 ...rest,
             }),
         ),
+    };
+}
+
+/** Economy constants from `gamedata.json` */
+export function buildGameConstants(gameDataJson: unknown): GameConstants {
+    const gameData = gameDataFile.parse(gameDataJson)["AO-GameData"];
+    const taxes = new Map(
+        gameData.MarketPlace.TaxValues.TaxFactor.map((tax) => [
+            tax["@name"],
+            tax["@value"],
+        ]),
+    );
+
+    function tax(name: string): number {
+        const value = taxes.get(name);
+
+        if (value === undefined) {
+            throw new Error(`No MarketPlace tax "${name}" in gamedata.json`);
+        }
+
+        return value;
+    }
+
+    return {
+        marketPlace: {
+            setupFee: tax("setupfee"),
+            transactionTax: tax("transactiontax"),
+            smugglerSetupFee: tax("smugglersetupfee"),
+            smugglerTransactionTax: tax("smugglertransactiontax"),
+        },
+        itemValueToNutrition: gameData.ItemValueToNutrition["@factor"],
+        focusCraftingEfficiencyBonus: gameData.ActionFocus.CraftingEfficiency["@bonus"],
+        craftItemFameFactor: gameData.FameGainFactors.CraftItem["@factor"],
     };
 }

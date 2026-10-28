@@ -1,10 +1,8 @@
 import type { CraftingModifiers, Item } from "@apc/game-data";
-
-/** Production bonus of crafting with focus */
-export const FOCUS_BONUS = 0.59;
+import type { Catalog } from "./catalog.ts";
 
 export interface ProductionBonusOptions {
-    modifiers: CraftingModifiers;
+    catalog: Catalog;
     /** Crafted item: its `craftingCategory` picks the location specialization */
     item: Item;
     /** City cluster from `craftingmodifiers.json`; no location means no bonus */
@@ -22,11 +20,12 @@ export function isRefining(item: Item, modifiers: CraftingModifiers): boolean {
 
 /** Location bonus + category specialization + focus */
 export function productionBonus({
-    modifiers,
+    catalog,
     item,
     clusterId,
     useFocus,
 }: ProductionBonusOptions): number {
+    const { modifiers, constants } = catalog;
     const location = modifiers.craftingLocation.find((l) => l.clusterId === clusterId);
     const base = isRefining(item, modifiers)
         ? location?.refiningBonus?.value
@@ -34,8 +33,9 @@ export function productionBonus({
     const specialization = location?.craftingModifier.find(
         (m) => m.name === item.craftingCategory,
     )?.value;
+    const focus = useFocus ? constants.focusCraftingEfficiencyBonus : 0;
 
-    return (base ?? 0) + (specialization ?? 0) + (useFocus ? FOCUS_BONUS : 0);
+    return (base ?? 0) + (specialization ?? 0) + focus;
 }
 
 /** Share of returnable resources given back by a craft */

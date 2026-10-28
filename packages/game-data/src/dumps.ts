@@ -18,6 +18,7 @@ export const DUMP_FILES = [
     "localization.json",
     "craftingmodifiers.json",
     "formatted/world.json",
+    "gamedata.json",
 ] as const;
 
 export type DumpFile = (typeof DUMP_FILES)[number];

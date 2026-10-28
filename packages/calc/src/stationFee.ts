@@ -1,12 +1,14 @@
-/** Nutrition a craft uses per unit of its item value */
-export const NUTRITION_PER_ITEM_VALUE = 0.1125;
-
 /**
  * Silver paid to the crafting station
  *
- * @param itemValue - item value of the craft, see `recipeItemValue`
+ * @param itemValue - item value of the craft, see `craftItemValue`
  * @param feePer100Nutrition - station fee set by its owner
+ * @param itemValueToNutrition - nutrition per unit of item value, from game constants
  */
-export function stationFee(itemValue: number, feePer100Nutrition: number): number {
-    return (itemValue * NUTRITION_PER_ITEM_VALUE * feePer100Nutrition) / 100;
+export function stationFee(
+    itemValue: number,
+    feePer100Nutrition: number,
+    itemValueToNutrition: number,
+): number {
+    return (itemValue * itemValueToNutrition * feePer100Nutrition) / 100;
 }

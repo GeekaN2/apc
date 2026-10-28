@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
-import type { CraftingModifiers, Item } from "@apc/game-data";
+import type { CraftingModifiers, GameConstants, Item } from "@apc/game-data";
 import { type Catalog, createCatalog } from "../src/catalog.ts";
 
 const GENERATED = path.join(import.meta.dirname, "../../game-data/generated");
@@ -15,7 +15,11 @@ export function loadCatalog(): Catalog {
         readJson<Item[]>(`items/${file}`),
     );
 
-    return createCatalog(items, readJson<CraftingModifiers>("crafting-modifiers.json"));
+    return createCatalog(
+        items,
+        readJson<CraftingModifiers>("crafting-modifiers.json"),
+        readJson<GameConstants>("game-constants.json"),
+    );
 }
 
 export function getItem(catalog: Catalog, uniqueName: string): Item {

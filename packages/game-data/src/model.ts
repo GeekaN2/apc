@@ -180,6 +180,23 @@ export interface CraftingModifiers {
     craftingLocation: CraftingLocation[];
 }
 
+/** Economy constants from `gamedata.json` */
+export interface GameConstants {
+    /** `MarketPlace.TaxValues.TaxFactor`; `transactionTax` is the rate without premium */
+    marketPlace: {
+        setupFee: number;
+        transactionTax: number;
+        smugglerSetupFee: number;
+        smugglerTransactionTax: number;
+    };
+    /** `ItemValueToNutrition`: nutrition a craft uses per unit of item value */
+    itemValueToNutrition: number;
+    /** `ActionFocus.CraftingEfficiency`: production bonus of crafting with focus */
+    focusCraftingEfficiencyBonus: number;
+    /** `FameGainFactors.CraftItem` */
+    craftItemFameFactor: number;
+}
+
 export interface CatalogMeta {
     dumps: {
         repository: string;

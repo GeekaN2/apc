@@ -34,7 +34,7 @@ function bonusRate(uniqueName: string, city: City, useFocus: boolean) {
 
     return returnRate(
         productionBonus({
-            modifiers: catalog.modifiers,
+            catalog,
             item,
             clusterId: CLUSTERS[city],
             useFocus,

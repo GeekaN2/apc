@@ -1,9 +1,7 @@
-/** Sales tax with premium; without premium it is doubled */
-export const SALES_TAX = 0.04;
-export const SALES_TAX_NO_PREMIUM = 0.08;
+import type { GameConstants } from "@apc/game-data";
 
-/** Fee for placing a sell order */
-export const SETUP_FEE = 0.025;
+/** Premium halves the transaction tax; not in ao-bin-dumps */
+export const PREMIUM_TAX_FACTOR = 0.5;
 
 /**
  * How an item is sold: by placing a sell order (tax + setup fee)
@@ -17,15 +15,24 @@ export interface Sale {
     kind: SaleKind;
 }
 
-export function marketFee(kind: SaleKind, premium = true): number {
-    const tax = premium ? SALES_TAX : SALES_TAX_NO_PREMIUM;
+export function marketFee(
+    marketPlace: GameConstants["marketPlace"],
+    kind: SaleKind,
+    premium = true,
+): number {
+    const tax = marketPlace.transactionTax * (premium ? PREMIUM_TAX_FACTOR : 1);
 
-    return kind === "sellOrder" ? tax + SETUP_FEE : tax;
+    return kind === "sellOrder" ? tax + marketPlace.setupFee : tax;
 }
 
 /** Silver received per unit after the market fees */
-export function saleIncome(price: number, kind: SaleKind, premium = true): number {
-    return price * (1 - marketFee(kind, premium));
+export function saleIncome(
+    marketPlace: GameConstants["marketPlace"],
+    price: number,
+    kind: SaleKind,
+    premium = true,
+): number {
+    return price * (1 - marketFee(marketPlace, kind, premium));
 }
 
 export function hasPrice(price: number | undefined): price is number {

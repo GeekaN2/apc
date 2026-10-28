@@ -4,6 +4,7 @@ import path from "node:path";
 import {
     buildCategories,
     buildCraftingModifiers,
+    buildGameConstants,
     buildItems,
     buildNames,
     findUnknownMarketIds,
@@ -54,6 +55,7 @@ const craftingModifiers = buildCraftingModifiers(
     await readDump(dir, "craftingmodifiers.json"),
     await readDump(dir, "formatted/world.json"),
 );
+const gameConstants = buildGameConstants(await readDump(dir, "gamedata.json"));
 
 const unknownIds = findUnknownMarketIds(items, formattedJson);
 
@@ -82,6 +84,7 @@ await write(
     `{\n"refiningCategory": ${JSON.stringify(craftingModifiers.refiningCategory)},\n` +
         `"craftingLocation": ${jsonLines(craftingModifiers.craftingLocation).trimEnd()}\n}\n`,
 );
+await write("game-constants.json", `${JSON.stringify(gameConstants, null, 2)}\n`);
 
 for (const [locale, localeNames] of names) {
     await write(

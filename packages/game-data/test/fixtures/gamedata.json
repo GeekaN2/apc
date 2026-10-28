@@ -1,0 +1,64 @@
+{
+  "AO-GameData": {
+    "MarketPlace": {
+      "TaxValues": {
+        "TaxFactor": [
+          {
+            "@name": "setupfee",
+            "@value": "0.025"
+          },
+          {
+            "@name": "transactiontax",
+            "@value": "0.08"
+          },
+          {
+            "@name": "smugglersetupfee",
+            "@value": "0.015"
+          },
+          {
+            "@name": "smugglertransactiontax",
+            "@value": "0.08"
+          }
+        ],
+        "AbsoluteTax": {
+          "@name": "minimumtax",
+          "@value": "1"
+        }
+      }
+    },
+    "ItemValueToNutrition": {
+      "@factor": "0.1125"
+    },
+    "ActionFocus": {
+      "@costreductionconstant": "1.00695555005672",
+      "CraftingEfficiency": {
+        "@bonus": "0.59"
+      },
+      "StudyingEfficiency": {
+        "@bonus": "0.59"
+      },
+      "CraftingQuality": {
+        "@bonus": "50"
+      },
+      "ModifyingEfficiency": {
+        "@bonus": "0.59"
+      }
+    },
+    "FameGainFactors": {
+      "@itemvaluetofameprogressionfactor": "1.5",
+      "@progressionstarttier": "3",
+      "KillPlayerIv": {
+        "@factor": "1.0"
+      },
+      "GatherResource": {
+        "@factor": "1"
+      },
+      "CraftItem": {
+        "@factor": "1"
+      },
+      "InstallResourceIv": {
+        "@factor": "1"
+      }
+    }
+  }
+}

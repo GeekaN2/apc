@@ -2,6 +2,7 @@ import type {
     CraftResource,
     CraftingModifiers,
     CraftingRequirement,
+    GameConstants,
     Item,
 } from "@apc/game-data";
 
@@ -11,9 +12,14 @@ export interface Catalog {
     /** Journal filled by crafting the item, from `famefillingmissions.craftitemfame` */
     journalFor(uniqueName: string): Item | undefined;
     modifiers: CraftingModifiers;
+    constants: GameConstants;
 }
 
-export function createCatalog(items: Item[], modifiers: CraftingModifiers): Catalog {
+export function createCatalog(
+    items: Item[],
+    modifiers: CraftingModifiers,
+    constants: GameConstants,
+): Catalog {
     const byName = new Map(items.map((item) => [item.uniqueName, item]));
     const journals = new Map<string, Item>();
 
@@ -28,6 +34,7 @@ export function createCatalog(items: Item[], modifiers: CraftingModifiers): Cata
         item: (uniqueName) => byName.get(uniqueName),
         journalFor: (uniqueName) => journals.get(uniqueName),
         modifiers,
+        constants,
     };
 }
 
@@ -62,36 +69,66 @@ export function recipesOf(item: Item, enchantmentLevel = 0): CraftingRequirement
     );
 }
 
-function recipeItemValue(
+/** Value of an item in the dumps, e.g. `itemValue` or `fameValue` */
+type OwnValue = (item: Item) => number | undefined;
+
+const ownItemValue: OwnValue = (item) => item.itemValue;
+const ownFameValue: OwnValue = (item) => item.fameValue;
+
+/** Value of one crafted unit by a recipe */
+function recipeValue(
     recipe: CraftingRequirement,
     catalog: Catalog,
+    own: OwnValue,
     visited: Set<string>,
 ): number {
     const sum = recipe.craftResource.reduce((total, r) => {
         const resource = catalog.item(r.uniqueName);
 
-        return total + (resource ? itemValueOf(resource, catalog, visited) : 0) * r.count;
+        return (
+            total + (resource ? valueOf(resource, catalog, own, visited) : 0) * r.count
+        );
     }, 0);
 
     return sum / (recipe.amountCrafted ?? 1);
 }
 
 /**
- * Item value of one item: its own `itemValue` (raw and refined resources have it),
- * otherwise the value of its first recipe, e.g. bread → flour → wheat
+ * The item's own value from the dumps, otherwise the value of its first recipe,
+ * e.g. bread → flour → wheat
  */
-function itemValueOf(item: Item, catalog: Catalog, visited: Set<string>): number {
+function valueOf(
+    item: Item,
+    catalog: Catalog,
+    own: OwnValue,
+    visited: Set<string>,
+): number {
+    const value = own(item);
     const recipe = item.craftingRequirements[0];
 
-    if (item.itemValue !== undefined) {
-        return item.itemValue;
+    if (value !== undefined) {
+        return value;
     }
 
     if (!recipe || visited.has(item.uniqueName)) {
         return 0;
     }
 
-    return recipeItemValue(recipe, catalog, new Set(visited).add(item.uniqueName));
+    return recipeValue(recipe, catalog, own, new Set(visited).add(item.uniqueName));
+}
+
+/** Value of a whole craft: the product's own value or the sum over the recipe */
+function craftValue(
+    item: Item,
+    recipe: CraftingRequirement,
+    catalog: Catalog,
+    own: OwnValue,
+) {
+    return (
+        own(item) ??
+        recipeValue(recipe, catalog, own, new Set([item.uniqueName])) *
+            (recipe.amountCrafted ?? 1)
+    );
 }
 
 /** Item value of a craft, used for the station fee */
@@ -100,41 +137,23 @@ export function craftItemValue(
     recipe: CraftingRequirement,
     catalog: Catalog,
 ): number {
-    if (item.itemValue !== undefined) {
-        return item.itemValue;
-    }
-
-    return (
-        recipeItemValue(recipe, catalog, new Set([item.uniqueName])) *
-        (recipe.amountCrafted ?? 1)
-    );
+    return craftValue(item, recipe, catalog, ownItemValue);
 }
 
 /**
- * Crafting fame per unit of a refined resource by tier, doubled by each enchantment level.
- * Not in ao-bin-dumps; the values come from the old calculator.
+ * Fame of a craft that fills journals: resources' `fameValue` (raw resources have it),
+ * refined resources get the fame of their recipe, e.g. T5 bar = 3 × T5 ore + T4 bar
  */
-export const CRAFT_FAME_PER_RESOURCE: Readonly<Record<number, number>> = {
-    4: 22.5,
-    5: 90,
-    6: 270,
-    7: 645,
-    8: 1395,
-};
+export function craftFame(
+    item: Item,
+    recipe: CraftingRequirement,
+    catalog: Catalog,
+): number {
+    const fame =
+        recipeValue(recipe, catalog, ownFameValue, new Set([item.uniqueName])) *
+        (recipe.amountCrafted ?? 1);
 
-/** Fame of a craft from its refined resources; it fills journals */
-export function craftFame(recipe: CraftingRequirement, catalog: Catalog): number {
-    return recipe.craftResource.reduce((sum, r) => {
-        const resource = catalog.item(r.uniqueName);
-
-        if (resource?.shopSubcategory1 !== "refinedresources") {
-            return sum;
-        }
-
-        const fame = CRAFT_FAME_PER_RESOURCE[resource.tier] ?? 0;
-
-        return sum + fame * 2 ** (resource.enchantmentLevel ?? 0) * r.count;
-    }, 0);
+    return fame * catalog.constants.craftItemFameFactor;
 }
 
 /** `maxreturnamount="0"` marks resources that the return rate never gives back */

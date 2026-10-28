@@ -311,3 +311,23 @@ export const craftingModifiersFile = z.object({
 
 /** `formatted/world.json` */
 export const formattedWorldFile = z.array(z.object({ Index: str, UniqueName: str }));
+
+const factor = z.object({ "@factor": num });
+
+/** `gamedata.json`: only the economy sections are validated */
+export const gameDataFile = z.object({
+    "AO-GameData": z.object({
+        MarketPlace: z.object({
+            TaxValues: z.object({
+                TaxFactor: oneOrMany(z.object({ "@name": str, "@value": num })),
+            }),
+        }),
+        ItemValueToNutrition: factor,
+        ActionFocus: z.object({
+            CraftingEfficiency: z.object({ "@bonus": num }),
+        }),
+        FameGainFactors: z.object({
+            CraftItem: factor,
+        }),
+    }),
+});

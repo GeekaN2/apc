@@ -1,0 +1,11 @@
+{
+  "marketPlace": {
+    "setupFee": 0.025,
+    "transactionTax": 0.08,
+    "smugglerSetupFee": 0.015,
+    "smugglerTransactionTax": 0.08
+  },
+  "itemValueToNutrition": 0.1125,
+  "focusCraftingEfficiencyBonus": 0.59,
+  "craftItemFameFactor": 1
+}

@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
     buildCategories,
     buildCraftingModifiers,
+    buildGameConstants,
     buildItems,
     buildNames,
     findUnknownMarketIds,
@@ -337,6 +338,22 @@ describe("buildCraftingModifiers", () => {
             biome: "SWAMP",
             clusterQuality: "Q1",
             refiningBonus: { value: 0.15 },
+        });
+    });
+});
+
+describe("buildGameConstants", () => {
+    it("reads market taxes, nutrition, focus and fame factors", () => {
+        expect(buildGameConstants(fixture("gamedata.json"))).toEqual({
+            marketPlace: {
+                setupFee: 0.025,
+                transactionTax: 0.08,
+                smugglerSetupFee: 0.015,
+                smugglerTransactionTax: 0.08,
+            },
+            itemValueToNutrition: 0.1125,
+            focusCraftingEfficiencyBonus: 0.59,
+            craftItemFameFactor: 1,
         });
     });
 });

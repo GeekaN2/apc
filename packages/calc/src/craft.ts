@@ -1,4 +1,9 @@
-import type { CraftResource, CraftingRequirement, Item } from "@apc/game-data";
+import type {
+    CraftResource,
+    CraftingRequirement,
+    GameConstants,
+    Item,
+} from "@apc/game-data";
 import {
     type Catalog,
     craftFame,
@@ -70,6 +75,7 @@ export interface CraftResult {
 
 function journalLine(
     input: JournalInput,
+    marketPlace: GameConstants["marketPlace"],
     fame: number,
     premium: boolean,
     missing: string[],
@@ -94,7 +100,9 @@ function journalLine(
         marketId,
         filled,
         profit:
-            filled * (saleIncome(fullSale.price, fullSale.kind, premium) - emptyPrice),
+            filled *
+            (saleIncome(marketPlace, fullSale.price, fullSale.kind, premium) -
+                emptyPrice),
     };
 }
 
@@ -127,12 +135,15 @@ export function craft(input: CraftInput): CraftResult {
     });
 
     const itemValue = craftItemValue(input.item, recipe, catalog);
-    const fee = stationFee(itemValue, input.feePer100Nutrition) * crafts;
+    const { marketPlace, itemValueToNutrition } = catalog.constants;
+    const fee =
+        stationFee(itemValue, input.feePer100Nutrition, itemValueToNutrition) * crafts;
     const journal =
         input.journal &&
         journalLine(
             input.journal,
-            craftFame(recipe, catalog) * crafts,
+            marketPlace,
+            craftFame(input.item, recipe, catalog) * crafts,
             premium,
             missingPrices,
         );
@@ -140,7 +151,7 @@ export function craft(input: CraftInput): CraftResult {
     let income: number | undefined;
 
     if (hasPrice(sale.price)) {
-        income = saleIncome(sale.price, sale.kind, premium) * amountCrafted;
+        income = saleIncome(marketPlace, sale.price, sale.kind, premium) * amountCrafted;
     } else {
         missingPrices.push("item");
     }
