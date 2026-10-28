@@ -1,0 +1,5675 @@
+[
+  {
+    "id": "weapons",
+    "value": 1000000,
+    "children": [
+      {
+        "id": "bow",
+        "value": 10000,
+        "children": [
+          {
+            "id": "bow_bow",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "bow_longbow",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "bow_warbow",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "bow_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "bow_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "bow_keeper",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "bow_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "bow_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "crossbow",
+        "value": 20000,
+        "children": [
+          {
+            "id": "crossbow_crossbow",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "crossbow_crossbowlarge",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "crossbow_1hcrossbow",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "crossbow_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "crossbow_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "crossbow_morgana",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "crossbow_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "crossbow_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "axe",
+        "value": 30000,
+        "children": [
+          {
+            "id": "axe_main_axe",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "axe_2h_axe",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "axe_halberd",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "axe_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "axe_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "axe_keeper",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "axe_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "axe_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "dagger",
+        "value": 40000,
+        "children": [
+          {
+            "id": "dagger_dagger",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "dagger_daggerpair",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "dagger_clawpair",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "dagger_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "dagger_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "dagger_undead",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "dagger_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "dagger_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "hammer",
+        "value": 50000,
+        "children": [
+          {
+            "id": "hammer_main_hammer",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "hammer_polehammer",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "hammer_2h_hammer",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "hammer_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "hammer_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "hammer_keeper",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "hammer_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "hammer_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "knuckles",
+        "value": 60000,
+        "children": [
+          {
+            "id": "knuckles_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "knuckles_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "knuckles_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "knuckles_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "knuckles_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "knuckles_morgana",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "knuckles_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "knuckles_crystal",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "knuckles_gauntlets",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "mace",
+        "value": 70000,
+        "children": [
+          {
+            "id": "mace_main_mace",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "mace_2h_mace",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "mace_flail",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "mace_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "mace_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "mace_morgana",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "mace_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "mace_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "quarterstaff",
+        "value": 80000,
+        "children": [
+          {
+            "id": "quarterstaff_quarterstaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_ironcladedstaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_doublebladedstaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_keeper",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "quarterstaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "spear",
+        "value": 90000,
+        "children": [
+          {
+            "id": "spear_main_spear",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "spear_2h_spear",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "spear_glaive",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "spear_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "spear_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "spear_undead",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "spear_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "spear_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "sword",
+        "value": 100000,
+        "children": [
+          {
+            "id": "sword_sword",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "sword_claymore",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "sword_dualsword",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "sword_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "sword_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "sword_undead",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "sword_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "sword_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "arcanestaff",
+        "value": 110000,
+        "children": [
+          {
+            "id": "arcanestaff_main_arcanestaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_2h_arcanestaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_enigmaticstaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_morgana",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "arcanestaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "cursestaff",
+        "value": 120000,
+        "children": [
+          {
+            "id": "cursestaff_main_cursedstaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "cursestaff_2h_cursedstaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "cursestaff_demonicstaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "cursestaff_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "cursestaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "cursestaff_morgana",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "cursestaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "cursestaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "firestaff",
+        "value": 130000,
+        "children": [
+          {
+            "id": "firestaff_main_firestaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "firestaff_2h_firestaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "firestaff_infernostaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "firestaff_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "firestaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "firestaff_morgana",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "firestaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "firestaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "froststaff",
+        "value": 140000,
+        "children": [
+          {
+            "id": "froststaff_main_froststaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "froststaff_2h_froststaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "froststaff_glacialstaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "froststaff_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "froststaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "froststaff_undead",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "froststaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "froststaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "holystaff",
+        "value": 150000,
+        "children": [
+          {
+            "id": "holystaff_main_holystaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "holystaff_2h_holystaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "holystaff_divinestaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "holystaff_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "holystaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "holystaff_undead",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "holystaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "holystaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "naturestaff",
+        "value": 160000,
+        "children": [
+          {
+            "id": "naturestaff_main_naturestaff",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "naturestaff_2h_naturestaff",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "naturestaff_wildstaff",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "naturestaff_main_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "naturestaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "naturestaff_2h_keeper",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "naturestaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "naturestaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "shapeshifterstaff",
+        "value": 170000,
+        "children": [
+          {
+            "id": "shapeshifterstaff_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_hell",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_keeper",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_avalon",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "shapeshifterstaff_crystal",
+            "value": 800,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 180000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "armors",
+    "value": 2000000,
+    "children": [
+      {
+        "id": "cloth_armor",
+        "value": 10000,
+        "children": [
+          {
+            "id": "armors_cloth_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_morgana",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "armors_cloth_avalon",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "leather_armor",
+        "value": 20000,
+        "children": [
+          {
+            "id": "armors_leather_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "armors_leather_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "armors_leather_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "armors_leather_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "armors_leather_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "armors_leather_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "armors_leather_undead",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "armors_leather_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "armors_leather_avalon",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "armors_leather_dragon",
+            "value": 1000,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "plate_armor",
+        "value": 30000,
+        "children": [
+          {
+            "id": "armors_plate_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "armors_plate_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "armors_plate_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "armors_plate_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "armors_plate_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "armors_plate_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "armors_plate_keeper",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "armors_plate_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "armors_plate_avalon",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 40000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "head",
+    "value": 3000000,
+    "children": [
+      {
+        "id": "cloth_helmet",
+        "value": 10000,
+        "children": [
+          {
+            "id": "head_cloth_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "head_cloth_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "head_cloth_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "head_cloth_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "head_cloth_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "head_cloth_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "head_cloth_morgana",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "head_cloth_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "head_cloth_avalon",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "leather_helmet",
+        "value": 20000,
+        "children": [
+          {
+            "id": "head_leather_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "head_leather_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "head_leather_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "head_leather_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "head_leather_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "head_leather_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "head_leather_undead",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "head_leather_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "head_leather_avalon",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "head_leather_dragon",
+            "value": 1000,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "plate_helmet",
+        "value": 30000,
+        "children": [
+          {
+            "id": "head_plate_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "head_plate_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "head_plate_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "head_plate_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "head_plate_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "head_plate_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "head_plate_keeper",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "head_plate_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "head_plate_avalon",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 40000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "shoes",
+    "value": 4000000,
+    "children": [
+      {
+        "id": "cloth_shoes",
+        "value": 10000,
+        "children": [
+          {
+            "id": "shoes_cloth_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_morgana",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "shoes_cloth_avalon",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "leather_shoes",
+        "value": 20000,
+        "children": [
+          {
+            "id": "shoes_leather_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_undead",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_avalon",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "shoes_leather_dragon",
+            "value": 1000,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "plate_shoes",
+        "value": 30000,
+        "children": [
+          {
+            "id": "shoes_plate_set1",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_set2",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_set3",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_royal",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_hell",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_keeper",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_fey",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "shoes_plate_avalon",
+            "value": 900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 40000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "offhands",
+    "value": 5000000,
+    "children": [
+      {
+        "id": "booktype",
+        "value": 10000,
+        "children": [
+          {
+            "id": "booktype_book",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "booktype_morgana",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "booktype_hellsskull",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "booktype_keeper",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "booktype_avalon",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "booktype_crystal",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "torchtype",
+        "value": 20000,
+        "children": [
+          {
+            "id": "torchtype_torch",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "torchtype_keeperhorn",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "torchtype_hell",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "torchtype_undead",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "torchtype_avalon",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "torchtype_crystal",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "shieldtype",
+        "value": 30000,
+        "children": [
+          {
+            "id": "shieldtype_shield",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "shieldtype_undead",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "shieldtype_hell",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "shieldtype_morgana",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "shieldtype_avalon",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "shieldtype_crystal",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 40000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "capes",
+    "value": 6000000,
+    "children": [
+      {
+        "id": "accessoires_capes_capes",
+        "value": 10000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_bridgewatch",
+        "value": 20000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_fortsterling",
+        "value": 30000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_lymhurst",
+        "value": 40000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_martlock",
+        "value": 50000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_thetford",
+        "value": 60000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_caerleon",
+        "value": 70000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_brecilien",
+        "value": 80000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_heretic",
+        "value": 90000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_undead",
+        "value": 100000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_keeper",
+        "value": 110000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_morgana",
+        "value": 120000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_avalon",
+        "value": 130000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_demon",
+        "value": 140000,
+        "children": []
+      },
+      {
+        "id": "accessoires_capes_smuggler",
+        "value": 150000,
+        "children": []
+      },
+      {
+        "id": "other",
+        "value": 160000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "bags",
+    "value": 7000000,
+    "children": [
+      {
+        "id": "bags",
+        "value": 10000,
+        "children": []
+      },
+      {
+        "id": "satchels",
+        "value": 20000,
+        "children": []
+      },
+      {
+        "id": "other",
+        "value": 30000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "mounts",
+    "value": 8000000,
+    "children": [
+      {
+        "id": "basemounts",
+        "value": 10000,
+        "children": [
+          {
+            "id": "horse",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "armoredhorse",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "ox",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "ram",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "direwolf",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "stag",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "cougar",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "direboar",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "direbear",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "swampdragon",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "donkey",
+            "value": 1100,
+            "children": []
+          },
+          {
+            "id": "mammoth",
+            "value": 1200,
+            "children": []
+          },
+          {
+            "id": "moabird",
+            "value": 1300,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "raremounts",
+        "value": 20000,
+        "children": [
+          {
+            "id": "horse",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "armoredhorse",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "ram",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "direwolf",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "stag",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "cougar",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "direboar",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "direbear",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "swampdragon",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "donkey",
+            "value": 1100,
+            "children": []
+          },
+          {
+            "id": "bat",
+            "value": 1200,
+            "children": []
+          },
+          {
+            "id": "moabird",
+            "value": 1300,
+            "children": []
+          },
+          {
+            "id": "owl",
+            "value": 1400,
+            "children": []
+          },
+          {
+            "id": "rabbit",
+            "value": 1500,
+            "children": []
+          },
+          {
+            "id": "raven",
+            "value": 1600,
+            "children": []
+          },
+          {
+            "id": "spider",
+            "value": 1700,
+            "children": []
+          },
+          {
+            "id": "toad",
+            "value": 1800,
+            "children": []
+          },
+          {
+            "id": "drake",
+            "value": 1900,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "battle_mount",
+        "value": 30000,
+        "children": [
+          {
+            "id": "bastion",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "beetle",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "behemenoth",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "chariot",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "eagle",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "ent",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "juggernaut",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "mammoth",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "rhino",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "siegeballista",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "spider",
+            "value": 1100,
+            "children": []
+          },
+          {
+            "id": "swampdragon",
+            "value": 1200,
+            "children": []
+          },
+          {
+            "id": "tankbeetle",
+            "value": 1300,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "consumables",
+    "value": 9000000,
+    "children": [
+      {
+        "id": "food",
+        "value": 10000,
+        "children": [
+          {
+            "id": "soups",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "salads",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "pies",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "roasts",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "omelettes",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "stews",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "sandwiches",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "grilledfish",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "event",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 1100,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "potions",
+        "value": 20000,
+        "children": [
+          {
+            "id": "heal",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "energy",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gigantify",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "resistance",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "slowfield",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "poison",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "invisibility",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "calming",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "cleanse",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "acid",
+            "value": 1100,
+            "children": []
+          },
+          {
+            "id": "berserk",
+            "value": 1200,
+            "children": []
+          },
+          {
+            "id": "lava",
+            "value": 1300,
+            "children": []
+          },
+          {
+            "id": "gather",
+            "value": 1400,
+            "children": []
+          },
+          {
+            "id": "tornado",
+            "value": 1400,
+            "children": []
+          },
+          {
+            "id": "lifeward",
+            "value": 1500,
+            "children": []
+          },
+          {
+            "id": "focus",
+            "value": 1600,
+            "children": []
+          },
+          {
+            "id": "event",
+            "value": 1700,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 2000,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "tomes",
+        "value": 30000,
+        "children": [
+          {
+            "id": "fame",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "fiber",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "hide",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "learningpoints",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "ore",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "rock",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "wood",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 40000,
+        "children": [
+          {
+            "id": "repairpowder",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "firework",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 300,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "silverbag",
+        "value": 70000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "gathering",
+    "value": 10000000,
+    "children": [
+      {
+        "id": "fish",
+        "value": 10000,
+        "children": [
+          {
+            "id": "fishingrods",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "gathering_armor",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gathering_head",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gathering_shoes",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "gathering_capes",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "bait",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "fiber",
+        "value": 20000,
+        "children": [
+          {
+            "id": "sickle",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "gathering_armor",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gathering_head",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gathering_shoes",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "gathering_capes",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "hide",
+        "value": 30000,
+        "children": [
+          {
+            "id": "knifes",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "gathering_armor",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gathering_head",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gathering_shoes",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "gathering_capes",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ore",
+        "value": 40000,
+        "children": [
+          {
+            "id": "picks",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "gathering_armor",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gathering_head",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gathering_shoes",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "gathering_capes",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "rock",
+        "value": 50000,
+        "children": [
+          {
+            "id": "hammer",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "gathering_armor",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gathering_head",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gathering_shoes",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "gathering_capes",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "wood",
+        "value": 60000,
+        "children": [
+          {
+            "id": "axes",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "gathering_armor",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gathering_head",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "gathering_shoes",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "gathering_capes",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "tracking",
+        "value": 70000,
+        "children": [
+          {
+            "id": "toolkit",
+            "value": 100,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "crafting",
+    "value": 11000000,
+    "children": [
+      {
+        "id": "resources",
+        "value": 10000,
+        "children": [
+          {
+            "id": "fiber",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "hide",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "ore",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "rock",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "wood",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "refinedresources",
+        "value": 20000,
+        "children": [
+          {
+            "id": "cloth",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "leather",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "metalbars",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "stoneblock",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "planks",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "tokens",
+        "value": 90000,
+        "children": [
+          {
+            "id": "mountupgrades",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "royalsigils",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "cityresources",
+        "value": 100000,
+        "children": [
+          {
+            "id": "beastheart",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "treeheart",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "mountainheart",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "rockheart",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "vineheart",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "blackheart",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "fish",
+        "value": 120000,
+        "children": [
+          {
+            "id": "common",
+            "value": 100,
+            "children": [
+              {
+                "id": "freshwater",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "saltwater",
+                "value": 2,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "rare",
+            "value": 200,
+            "children": [
+              {
+                "id": "fish_forest",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "fish_highlands",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "fish_mountain",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "fish_steppe",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "fish_swamp",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "fish_avalon",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "fish_saltwater",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "fish_dragonarea",
+                "value": 8,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "other",
+            "value": 300,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "alchemy",
+        "value": 130000,
+        "children": [
+          {
+            "id": "remains_panther",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "remains_ent",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "remains_direbear",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "remains_werewolf",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "remains_imp",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "remains_elemental",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "remains_eagle",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "remains",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "extract",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "essence",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "dragonblood",
+            "value": 1100,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "artefacts",
+    "value": 12000000,
+    "children": [
+      {
+        "id": "weapons",
+        "value": 30000,
+        "children": [
+          {
+            "id": "bow",
+            "value": 100,
+            "children": [
+              {
+                "id": "bow_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "bow_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "bow_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "bow_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "bow_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "crossbow",
+            "value": 200,
+            "children": [
+              {
+                "id": "crossbow_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "crossbow_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "crossbow_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "crossbow_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "crossbow_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "axe",
+            "value": 300,
+            "children": [
+              {
+                "id": "axe_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "axe_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "axe_keeper",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "axe_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "axe_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "dagger",
+            "value": 400,
+            "children": [
+              {
+                "id": "dagger_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "dagger_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "dagger_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "dagger_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "dagger_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "hammer",
+            "value": 500,
+            "children": [
+              {
+                "id": "hammer_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "hammer_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "hammer_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "hammer_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "hammer_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "knuckles",
+            "value": 600,
+            "children": [
+              {
+                "id": "knuckles_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "knuckles_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "knuckles_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "knuckles_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "knuckles_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "mace",
+            "value": 700,
+            "children": [
+              {
+                "id": "mace_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "mace_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "mace_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "mace_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "mace_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "quarterstaff",
+            "value": 800,
+            "children": [
+              {
+                "id": "quarterstaff_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "quarterstaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "quarterstaff_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "quarterstaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "quarterstaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "spear",
+            "value": 900,
+            "children": [
+              {
+                "id": "spear_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "spear_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "spear_undead",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "spear_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "spear_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "sword",
+            "value": 1000,
+            "children": [
+              {
+                "id": "sword_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "sword_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "sword_undead",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "sword_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "sword_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "arcanestaff",
+            "value": 1100,
+            "children": [
+              {
+                "id": "arcanestaff_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "arcanestaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "arcanestaff_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "arcanestaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "arcanestaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "cursestaff",
+            "value": 1200,
+            "children": [
+              {
+                "id": "cursestaff_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "cursestaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "cursestaff_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "cursestaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "cursestaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "firestaff",
+            "value": 1300,
+            "children": [
+              {
+                "id": "firestaff_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "firestaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "firestaff_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "firestaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "firestaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "froststaff",
+            "value": 1400,
+            "children": [
+              {
+                "id": "froststaff_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "froststaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "froststaff_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "froststaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "froststaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "holystaff",
+            "value": 1500,
+            "children": [
+              {
+                "id": "holystaff_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "holystaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "holystaff_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "holystaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "holystaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "naturestaff",
+            "value": 1600,
+            "children": [
+              {
+                "id": "naturestaff_main_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "naturestaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "naturestaff_2h_keeper",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "naturestaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "naturestaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "shapeshifterstaff",
+            "value": 1700,
+            "children": [
+              {
+                "id": "shapeshifterstaff_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "shapeshifterstaff_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "shapeshifterstaff_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "shapeshifterstaff_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "shapeshifterstaff_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "armors",
+        "value": 40000,
+        "children": [
+          {
+            "id": "cloth_armor",
+            "value": 100,
+            "children": [
+              {
+                "id": "armors_cloth_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "armors_cloth_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "armors_cloth_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "armors_cloth_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "armors_cloth_avalon",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "leather_armor",
+            "value": 200,
+            "children": [
+              {
+                "id": "armors_leather_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "armors_leather_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "armors_leather_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "armors_leather_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "armors_leather_avalon",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "armors_leather_dragon",
+                "value": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "plate_armor",
+            "value": 300,
+            "children": [
+              {
+                "id": "armors_plate_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "armors_plate_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "armors_plate_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "armors_plate_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "armors_plate_avalon",
+                "value": 5,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "head",
+        "value": 50000,
+        "children": [
+          {
+            "id": "cloth_helmet",
+            "value": 100,
+            "children": [
+              {
+                "id": "head_cloth_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "head_cloth_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "head_cloth_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "head_cloth_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "head_cloth_avalon",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "leather_helmet",
+            "value": 200,
+            "children": [
+              {
+                "id": "head_leather_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "head_leather_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "head_leather_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "head_leather_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "head_leather_avalon",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "head_leather_dragon",
+                "value": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "plate_helmet",
+            "value": 300,
+            "children": [
+              {
+                "id": "head_plate_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "head_plate_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "head_plate_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "head_plate_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "head_plate_avalon",
+                "value": 5,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shoes",
+        "value": 60000,
+        "children": [
+          {
+            "id": "cloth_shoes",
+            "value": 100,
+            "children": [
+              {
+                "id": "shoes_cloth_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "shoes_cloth_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "shoes_cloth_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "shoes_cloth_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "shoes_cloth_avalon",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "leather_shoes",
+            "value": 200,
+            "children": [
+              {
+                "id": "shoes_leather_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "shoes_leather_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "shoes_leather_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "shoes_leather_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "shoes_leather_avalon",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "shoes_leather_dragon",
+                "value": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "plate_shoes",
+            "value": 300,
+            "children": [
+              {
+                "id": "shoes_plate_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "shoes_plate_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "shoes_plate_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "shoes_plate_fey",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "shoes_plate_avalon",
+                "value": 5,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "offhands",
+        "value": 70000,
+        "children": [
+          {
+            "id": "booktype",
+            "value": 100,
+            "children": [
+              {
+                "id": "booktype_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "booktype_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "booktype_morgana",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "booktype_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "booktype_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "torchtype",
+            "value": 200,
+            "children": [
+              {
+                "id": "torchtype_keeper",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "torchtype_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "torchtype_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "torchtype_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "torchtype_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "shieldtype",
+            "value": 300,
+            "children": [
+              {
+                "id": "shieldtype_morgana",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "shieldtype_hell",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "shieldtype_undead",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "shieldtype_avalon",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "shieldtype_crystal",
+                "value": 5,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fragments",
+        "value": 80000,
+        "children": [
+          {
+            "id": "runes",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "souls",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "relics",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "avalonianshards",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "crystalshards",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "dragonshards",
+            "value": 600,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "capes",
+        "value": 90000,
+        "children": [
+          {
+            "id": "tokens_capes_bridgewatch",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_fortsterling",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_lymhurst",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_martlock",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_thetford",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_caerleon",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_brecilien",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_heretics",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_undead",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_keeper",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_morgana",
+            "value": 1100,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_demon",
+            "value": 1200,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_avalon",
+            "value": 1300,
+            "children": []
+          },
+          {
+            "id": "tokens_capes_smuggler",
+            "value": 1400,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "favor",
+        "value": 100000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "farming",
+    "value": 13000000,
+    "children": [
+      {
+        "id": "farm",
+        "value": 10000,
+        "children": [
+          {
+            "id": "seeds",
+            "value": 100,
+            "children": [
+              {
+                "id": "carrot",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "bean",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "wheat",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "turnip",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "cabbage",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "potato",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "corn",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "pumpkin",
+                "value": 8,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "plants",
+            "value": 200,
+            "children": [
+              {
+                "id": "carrot",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "bean",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "wheat",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "turnip",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "cabbage",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "potato",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "corn",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "pumpkin",
+                "value": 8,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "herbgarden",
+        "value": 20000,
+        "children": [
+          {
+            "id": "seeds",
+            "value": 100,
+            "children": [
+              {
+                "id": "agaric",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "comfrey",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "burdock",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "teasel",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "foxglove",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "mullein",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "yarrow",
+                "value": 7,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "herbs",
+            "value": 200,
+            "children": [
+              {
+                "id": "agaric",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "comfrey",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "burdock",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "teasel",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "foxglove",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "mullein",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "yarrow",
+                "value": 7,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pasture",
+        "value": 30000,
+        "children": [
+          {
+            "id": "babys",
+            "value": 100,
+            "children": [
+              {
+                "id": "chicken",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "goat",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "goose",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "sheep",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "pig",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "cow",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "horse",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "ox",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "moose",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "giantstag",
+                "value": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "animals",
+            "value": 200,
+            "children": [
+              {
+                "id": "chicken",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "goat",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "goose",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "sheep",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "pig",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "cow",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "horse",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "ox",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "moose",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "giantstag",
+                "value": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "egg",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "milk",
+            "value": 400,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kennel",
+        "value": 40000,
+        "children": [
+          {
+            "id": "babys",
+            "value": 100,
+            "children": [
+              {
+                "id": "cougar",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "direwolf",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "direboar",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "direbear",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "mammoth",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "swampdragon",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "moabird",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "owl",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "rabbit",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "ram",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "spider",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "drake",
+                "value": 11,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "animals",
+            "value": 200,
+            "children": [
+              {
+                "id": "cougar",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "direwolf",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "direboar",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "direbear",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "mammoth",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "swampdragon",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "moabird",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "owl",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "rabbit",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "ram",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "spider",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "drake",
+                "value": 11,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "farmingproducts",
+        "value": 50000,
+        "children": [
+          {
+            "id": "alcohol",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "bread",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "butter",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "flour",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "meat",
+            "value": 500,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "furniture",
+    "value": 14000000,
+    "children": [
+      {
+        "id": "repairkit",
+        "value": 10000,
+        "children": []
+      },
+      {
+        "id": "chest",
+        "value": 20000,
+        "children": [
+          {
+            "id": "house",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "world",
+            "value": 200,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "house",
+        "value": 30000,
+        "children": []
+      },
+      {
+        "id": "island",
+        "value": 40000,
+        "children": []
+      },
+      {
+        "id": "world",
+        "value": 50000,
+        "children": [
+          {
+            "id": "banner",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "statue",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 300,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "other",
+        "value": 60000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "vanity",
+    "value": 15000000,
+    "children": [
+      {
+        "id": "avatar",
+        "value": 10000,
+        "children": [
+          {
+            "id": "journal",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "adventurerchallenge",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gvgseason",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "anniversary",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "avatarring",
+        "value": 20000,
+        "children": [
+          {
+            "id": "journal",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "adventurerchallenge",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "gvgseason",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "anniversary",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "mounts",
+        "value": 30000,
+        "children": [
+          {
+            "id": "horse",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "armoredhorse",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "ox",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "direwolf",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "giantstag",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "cougar",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "direboar",
+            "value": 700,
+            "children": []
+          },
+          {
+            "id": "direbear",
+            "value": 800,
+            "children": []
+          },
+          {
+            "id": "lizard",
+            "value": 900,
+            "children": []
+          },
+          {
+            "id": "donkey",
+            "value": 1000,
+            "children": []
+          },
+          {
+            "id": "mammoth",
+            "value": 1100,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "weapons",
+        "value": 40000,
+        "children": []
+      },
+      {
+        "id": "armors",
+        "value": 50000,
+        "children": []
+      },
+      {
+        "id": "head",
+        "value": 60000,
+        "children": []
+      },
+      {
+        "id": "shoes",
+        "value": 70000,
+        "children": []
+      },
+      {
+        "id": "offhands",
+        "value": 80000,
+        "children": []
+      },
+      {
+        "id": "capes",
+        "value": 90000,
+        "children": []
+      },
+      {
+        "id": "killemotes",
+        "value": 100000,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "other",
+    "value": 16000000,
+    "children": [
+      {
+        "id": "lootitem",
+        "value": 10000,
+        "children": []
+      },
+      {
+        "id": "guilds",
+        "value": 20000,
+        "children": [
+          {
+            "id": "hideout",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "siegehammer",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "siegebanners",
+            "value": 300,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "labourers",
+        "value": 30000,
+        "children": [
+          {
+            "id": "journals",
+            "value": 100,
+            "children": [
+              {
+                "id": "general",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "fish",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "fiber",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "hide",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "ore",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "stone",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "wood",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "hunter",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "mage",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "warrior",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "toolmaker",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "mercenary",
+                "value": 12,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "trophies",
+            "value": 200,
+            "children": [
+              {
+                "id": "general",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "fish",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "fiber",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "hide",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "ore",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "rock",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "wood",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "mercenary",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "other",
+                "value": 9,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "contracts",
+            "value": 300,
+            "children": [
+              {
+                "id": "fish",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "fiber",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "hide",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "ore",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "stone",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "wood",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "hunter",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "mage",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "warrior",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "toolmaker",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "mercenary",
+                "value": 11,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "beds",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "tables",
+            "value": 500,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "tokens",
+        "value": 40000,
+        "children": [
+          {
+            "id": "vanity",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "crystalleague",
+            "value": 200,
+            "children": [
+              {
+                "id": "arena5v5",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "arena20v20",
+                "value": 2,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "anchors",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "other",
+            "value": 400,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "luxurygoods",
+        "value": 50000,
+        "children": [
+          {
+            "id": "bridgewatch",
+            "value": 100,
+            "children": []
+          },
+          {
+            "id": "fortsterling",
+            "value": 200,
+            "children": []
+          },
+          {
+            "id": "lymhurst",
+            "value": 300,
+            "children": []
+          },
+          {
+            "id": "martlock",
+            "value": 400,
+            "children": []
+          },
+          {
+            "id": "thetford",
+            "value": 500,
+            "children": []
+          },
+          {
+            "id": "caerleon",
+            "value": 600,
+            "children": []
+          },
+          {
+            "id": "any",
+            "value": 700,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "maps",
+        "value": 60000,
+        "children": [
+          {
+            "id": "randomdungeons",
+            "value": 100,
+            "children": [
+              {
+                "id": "solo",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "veteran",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "elite",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "elite_dragon",
+                "value": 4,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "randomdungeons_fragments",
+            "value": 100,
+            "children": [
+              {
+                "id": "elite_dragon",
+                "value": 4,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "corrupteddungeons",
+            "value": 200,
+            "children": [
+              {
+                "id": "nonlethal",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "lethal",
+                "value": 2,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "hellgates",
+            "value": 300,
+            "children": [
+              {
+                "id": "nonlethal",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "lethal",
+                "value": 2,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "other",
+            "value": 400,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "hardcoreexpeditions",
+        "value": 70000,
+        "children": [
+          {
+            "id": "event",
+            "value": 100,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "fishybusiness",
+            "value": 200,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "fistfulofsilver",
+            "value": 300,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "lumbercamp",
+            "value": 400,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "mushroom",
+            "value": 500,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "recruitment",
+            "value": 600,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "sewerscrypt",
+            "value": 700,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "stonewars",
+            "value": 800,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "threesisters",
+            "value": 900,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "torturer",
+            "value": 1000,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "eternalbattle",
+            "value": 1100,
+            "children": [
+              {
+                "id": "level1",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "level2",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "level3",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "level4",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "level5",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "level6",
+                "value": 6,
+                "children": []
+              },
+              {
+                "id": "level7",
+                "value": 7,
+                "children": []
+              },
+              {
+                "id": "level8",
+                "value": 8,
+                "children": []
+              },
+              {
+                "id": "level9",
+                "value": 9,
+                "children": []
+              },
+              {
+                "id": "level10",
+                "value": 10,
+                "children": []
+              },
+              {
+                "id": "level11",
+                "value": 11,
+                "children": []
+              },
+              {
+                "id": "level12",
+                "value": 12,
+                "children": []
+              },
+              {
+                "id": "level13",
+                "value": 13,
+                "children": []
+              },
+              {
+                "id": "level14",
+                "value": 14,
+                "children": []
+              },
+              {
+                "id": "level15",
+                "value": 15,
+                "children": []
+              },
+              {
+                "id": "level16",
+                "value": 16,
+                "children": []
+              },
+              {
+                "id": "level17",
+                "value": 17,
+                "children": []
+              },
+              {
+                "id": "level18",
+                "value": 18,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "questitems",
+        "value": 80000,
+        "children": [
+          {
+            "id": "cities",
+            "value": 100,
+            "children": [
+              {
+                "id": "steppe",
+                "value": 1,
+                "children": []
+              },
+              {
+                "id": "mountain",
+                "value": 2,
+                "children": []
+              },
+              {
+                "id": "forest",
+                "value": 3,
+                "children": []
+              },
+              {
+                "id": "highland",
+                "value": 4,
+                "children": []
+              },
+              {
+                "id": "swamp",
+                "value": 5,
+                "children": []
+              },
+              {
+                "id": "caerleon",
+                "value": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "other",
+            "value": 200,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "killtrophy",
+        "value": 100000,
+        "children": []
+      },
+      {
+        "id": "trash",
+        "value": 110000,
+        "children": []
+      },
+      {
+        "id": "other",
+        "value": 120000,
+        "children": []
+      }
+    ]
+  }
+]

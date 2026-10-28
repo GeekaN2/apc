@@ -1,3 +1,5 @@
 pnpm-lock.yaml
 dist
 coverage
+packages/game-data/generated
+packages/game-data/test/fixtures

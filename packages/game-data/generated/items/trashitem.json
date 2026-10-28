@@ -1,0 +1,10 @@
+[
+{"uniqueName":"T1_TRASH","kind":"trashitem","tier":1,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T2_TRASH","kind":"trashitem","tier":2,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T3_TRASH","kind":"trashitem","tier":3,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T4_TRASH","kind":"trashitem","tier":4,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T5_TRASH","kind":"trashitem","tier":5,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T6_TRASH","kind":"trashitem","tier":6,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T7_TRASH","kind":"trashitem","tier":7,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"T8_TRASH","kind":"trashitem","tier":8,"shopCategory":"other","shopSubcategory1":"trash","weight":0.2,"maxStackSize":999,"showInMarketplace":false,"craftingRequirements":[],"enchantments":[]}
+]

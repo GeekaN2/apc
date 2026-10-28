@@ -8,7 +8,9 @@ See [docs/ROADMAP.md](docs/ROADMAP.md) for the rewrite plan.
 
 ```
 apps/
-  web/    frontend: React, Vite, HeroUI, Tailwind, Zustand
+  web/        frontend: React, Vite, HeroUI, Tailwind, Zustand
+packages/
+  game-data/  item catalog generated from ao-bin-dumps
 ```
 
 ## Development
@@ -30,3 +32,17 @@ pnpm build
 # format code
 pnpm format
 ```
+
+## Game data
+
+The catalog in `packages/game-data/generated` is committed. To rebuild it after a game patch:
+
+```bash
+# pin the latest ao-bin-dumps commit in packages/game-data/dumps.json
+pnpm data:update
+
+# download the pinned dumps (~140 MB, cached) and regenerate the catalog
+pnpm data:build
+```
+
+To skip the download, point `AO_BIN_DUMPS_DIR` to a local ao-bin-dumps clone checked out at the pinned commit.

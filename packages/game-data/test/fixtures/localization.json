@@ -1,0 +1,360 @@
+{
+  "tmx": {
+    "@version": "1.4",
+    "body": {
+      "tu": [
+        {
+          "@tuid": "@LOGINGUI_PLATFORM_ACCOUNT_CREATION_ERROR",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "An error occurred while trying to create your Albion Online account. Please try again later."
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "При попытке создания вашего аккаунта в Albion Online произошла ошибка. Повторите попытку позже."
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPCATEGORY_CRAFTING",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Crafting"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Крафт"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPCATEGORY_WEAPONS",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Weapons"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Оружие"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Bow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Луки"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_AVALON",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Mistpiercer"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Туманный пронзатель"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_BOW",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Bow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Лук"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_CRYSTAL",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Skystrider Bow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Лук небесного странника"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_HELL",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Wailing Bow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Воющий лук"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_KEEPER",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Bow of Badon"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Лук Бадона"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_LONGBOW",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Longbow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Длинный лук"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_UNDEAD",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Whispering Bow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Шепчущий лук"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_BOW_WARBOW",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Warbow"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Боевой лук"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_CLOTH",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Cloth"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Ткань"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_LEATHER",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Leather"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Кожа"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_METALBARS",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Metal Bars"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Слитки"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_PLANKS",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Planks"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Брусья"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_REFINEDRESOURCES",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Refined Resources"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Обработанные ресурсы"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_STONEBLOCK",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Stone Block"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Блоки"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Sword"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Мечи"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_AVALON",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Kingmaker"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Царетворец"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_CLAYMORE",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Claymore"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Клеймор"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_CRYSTAL",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Infinity Blade"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Клинок бесконечности"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_DUALSWORD",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Dual Swords"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Парные мечи"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_HELL",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Carving Sword"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Меч резни"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_MORGANA",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Clarent Blade"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Королевский меч"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_SWORD",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Broadsword"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Палаш"
+            }
+          ]
+        },
+        {
+          "@tuid": "@MARKETPLACEGUI_ROLLOUT_SHOPSUBCATEGORY_SWORD_UNDEAD",
+          "tuv": [
+            {
+              "@xml:lang": "EN-US",
+              "seg": "Galatine Pair"
+            },
+            {
+              "@xml:lang": "RU-RU",
+              "seg": "Парные галатины"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

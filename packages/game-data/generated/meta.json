@@ -1,0 +1,43 @@
+{
+  "dumps": {
+    "repository": "ao-data/ao-bin-dumps",
+    "commit": "1a469e53de028c5f85cdd80505f10cbd0a2515cf",
+    "date": "2026-10-12T07:25:12-04:00"
+  },
+  "locales": [
+    "ar-SA",
+    "de-DE",
+    "en-US",
+    "es-ES",
+    "fr-FR",
+    "id-ID",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "pl-PL",
+    "pt-BR",
+    "ru-RU",
+    "tr-TR",
+    "zh-CN",
+    "zh-TW"
+  ],
+  "itemCounts": {
+    "trackingitem": 6,
+    "farmableitem": 109,
+    "simpleitem": 1608,
+    "consumableitem": 153,
+    "rewardtoken": 2,
+    "consumablefrominventoryitem": 1362,
+    "trashitem": 8,
+    "equipmentitem": 1149,
+    "weapon": 771,
+    "mount": 109,
+    "furnitureitem": 312,
+    "journalitem": 133,
+    "labourercontract": 77,
+    "transformationweapon": 41,
+    "crystalleagueitem": 29,
+    "siegebanner": 5,
+    "killtrophy": 9
+  }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "@apc/game-data",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./generated/*": "./generated/*"
+    },
+    "scripts": {
+        "data:fetch": "node src/cli/fetch.ts",
+        "data:build": "node src/cli/build.ts",
+        "data:update": "node src/cli/update.ts",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "zod": "^4.6.7"
+    },
+    "devDependencies": {
+        "@types/node": "^24.19.2",
+        "typescript": "~6.0.3",
+        "vitest": "^5.0.5"
+    }
+}

@@ -13,7 +13,10 @@
         "lint": "eslint .",
         "test": "vitest run",
         "format": "prettier . --write",
-        "format:check": "prettier . --check"
+        "format:check": "prettier . --check",
+        "data:fetch": "pnpm --filter @apc/game-data data:fetch",
+        "data:build": "pnpm --filter @apc/game-data data:build",
+        "data:update": "pnpm --filter @apc/game-data data:update"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",

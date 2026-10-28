@@ -1,0 +1,1368 @@
+{
+  "items": {
+    "shopcategories": {
+      "shopcategory": [
+        {
+          "@id": "weapons",
+          "@value": "1000000",
+          "shopsubcategory": [
+            {
+              "@id": "bow",
+              "@value": "10000",
+              "shopsubcategory2": [
+                {
+                  "@id": "bow_bow",
+                  "@value": "100"
+                },
+                {
+                  "@id": "bow_longbow",
+                  "@value": "200"
+                },
+                {
+                  "@id": "bow_warbow",
+                  "@value": "300"
+                },
+                {
+                  "@id": "bow_undead",
+                  "@value": "400"
+                },
+                {
+                  "@id": "bow_hell",
+                  "@value": "500"
+                },
+                {
+                  "@id": "bow_keeper",
+                  "@value": "600"
+                },
+                {
+                  "@id": "bow_avalon",
+                  "@value": "700"
+                },
+                {
+                  "@id": "bow_crystal",
+                  "@value": "800"
+                }
+              ]
+            },
+            {
+              "@id": "sword",
+              "@value": "100000",
+              "shopsubcategory2": [
+                {
+                  "@id": "sword_sword",
+                  "@value": "100"
+                },
+                {
+                  "@id": "sword_claymore",
+                  "@value": "200"
+                },
+                {
+                  "@id": "sword_dualsword",
+                  "@value": "300"
+                },
+                {
+                  "@id": "sword_morgana",
+                  "@value": "400"
+                },
+                {
+                  "@id": "sword_hell",
+                  "@value": "500"
+                },
+                {
+                  "@id": "sword_undead",
+                  "@value": "600"
+                },
+                {
+                  "@id": "sword_avalon",
+                  "@value": "700"
+                },
+                {
+                  "@id": "sword_crystal",
+                  "@value": "800"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "@id": "crafting",
+          "@value": "11000000",
+          "shopsubcategory": [
+            {
+              "@id": "refinedresources",
+              "@value": "20000",
+              "shopsubcategory2": [
+                {
+                  "@id": "cloth",
+                  "@value": "100"
+                },
+                {
+                  "@id": "leather",
+                  "@value": "200"
+                },
+                {
+                  "@id": "metalbars",
+                  "@value": "300"
+                },
+                {
+                  "@id": "stoneblock",
+                  "@value": "400"
+                },
+                {
+                  "@id": "planks",
+                  "@value": "500"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "weapon": [
+      {
+        "@uniquename": "T4_MAIN_SWORD",
+        "@maxqualitylevel": "5",
+        "@abilitypower": "138",
+        "@slottype": "mainhand",
+        "@shopcategory": "weapons",
+        "@shopsubcategory1": "sword",
+        "@attacktype": "melee",
+        "@mainhandanimationtype": "sword",
+        "@attackdamage": "33",
+        "@attackspeed": "1.35",
+        "@twohanded": "false",
+        "@attackrange": "3",
+        "@tier": "4",
+        "@weight": "5.1",
+        "@activespellslots": "3",
+        "@passivespellslots": "1",
+        "@durability": "13500",
+        "@durabilityloss_attack": "1",
+        "@durabilityloss_spelluse": "1",
+        "@durabilityloss_receivedattack": "1",
+        "@durabilityloss_receivedspell": "1",
+        "@unlockedtocraft": "false",
+        "@unlockedtoequip": "false",
+        "@hitpointsmax": "50",
+        "@itempower": "700",
+        "@hitpointsregenerationbonus": "0.05",
+        "@physicalspelldamagebonus": "0",
+        "@magicspelldamagebonus": "0",
+        "@itempowerprogressiontype": "mainhand",
+        "@focusfireprotectionpenetration": "0",
+        "@uicraftsoundstart": "Play_ui_action_craft_metal_start",
+        "@uicraftsoundfinish": "Play_ui_action_craft_metal_finish",
+        "@craftingcategory": "sword",
+        "@healmodifier": "0",
+        "@canbeovercharged": "true",
+        "@masterymodifier": "0",
+        "@combatspecachievement": "COMBAT_SWORDS_SWORD",
+        "@physicalattackdamagebonus": "0",
+        "@magicattackdamagebonus": "0",
+        "@shopsubcategory2": "sword_sword",
+        "craftingrequirements": {
+          "@silver": "0",
+          "@time": "1",
+          "@craftingfocus": "1286",
+          "craftresource": [
+            {
+              "@uniquename": "T4_METALBAR",
+              "@count": "16"
+            },
+            {
+              "@uniquename": "T4_LEATHER",
+              "@count": "8"
+            }
+          ]
+        },
+        "SocketPreset": {
+          "@name": "MAINHAND"
+        },
+        "craftingspelllist": {
+          "craftspell": [
+            {
+              "@uniquename": "HEROICSTRIKE2",
+              "@slots": "1"
+            },
+            {
+              "@uniquename": "SWORD_SPIN",
+              "@slots": "2"
+            },
+            {
+              "@uniquename": "CLEAVE",
+              "@slots": "1"
+            },
+            {
+              "@uniquename": "INTERRUPT2",
+              "@slots": "2",
+              "@tag": "C"
+            },
+            {
+              "@uniquename": "SPLITTINGSLASH",
+              "@slots": "2",
+              "@tag": "D"
+            },
+            {
+              "@uniquename": "HAMSTRINGSWORD",
+              "@slots": "2",
+              "@tag": "F"
+            },
+            {
+              "@uniquename": "PARRY",
+              "@slots": "2",
+              "@tag": "H"
+            },
+            {
+              "@uniquename": "DEFENSERUN",
+              "@slots": "2",
+              "@tag": "I"
+            },
+            {
+              "@uniquename": "MIGHTYBLOW",
+              "@slots": "3",
+              "@tag": "A"
+            },
+            {
+              "@uniquename": "PASSIVE_BLEEDCHANCE"
+            },
+            {
+              "@uniquename": "PASSIVE_REDUCE_DMG_SWORD",
+              "@tag": "B"
+            },
+            {
+              "@uniquename": "PASSIVE_HEROICSTACK",
+              "@tag": "E"
+            },
+            {
+              "@uniquename": "PASSIVE_ARMORCHANCE_SWORD",
+              "@tag": "G"
+            }
+          ]
+        },
+        "AudioInfo": {
+          "@name": "ITEM_SWORD"
+        },
+        "enchantments": {
+          "enchantment": [
+            {
+              "@enchantmentlevel": "1",
+              "@itempower": "800",
+              "@durability": "20250",
+              "craftingrequirements": {
+                "@silver": "0",
+                "@time": "1.5",
+                "@craftingfocus": "2251",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_METALBAR_LEVEL1",
+                    "@enchantmentlevel": "1",
+                    "@count": "16"
+                  },
+                  {
+                    "@uniquename": "T4_LEATHER_LEVEL1",
+                    "@enchantmentlevel": "1",
+                    "@count": "8"
+                  }
+                ]
+              },
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T4_RUNE",
+                  "@count": "288"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "2",
+              "@itempower": "900",
+              "@durability": "30375",
+              "craftingrequirements": {
+                "@silver": "0",
+                "@time": "2",
+                "@craftingfocus": "3939",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_METALBAR_LEVEL2",
+                    "@enchantmentlevel": "2",
+                    "@count": "16"
+                  },
+                  {
+                    "@uniquename": "T4_LEATHER_LEVEL2",
+                    "@enchantmentlevel": "2",
+                    "@count": "8"
+                  }
+                ]
+              },
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T4_SOUL",
+                  "@count": "288"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "3",
+              "@itempower": "1000",
+              "@durability": "45563",
+              "craftingrequirements": {
+                "@silver": "0",
+                "@time": "2.5",
+                "@craftingfocus": "6893",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_METALBAR_LEVEL3",
+                    "@enchantmentlevel": "3",
+                    "@count": "16"
+                  },
+                  {
+                    "@uniquename": "T4_LEATHER_LEVEL3",
+                    "@enchantmentlevel": "3",
+                    "@count": "8"
+                  }
+                ]
+              },
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T4_RELIC",
+                  "@count": "288"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "4",
+              "@itempower": "1100",
+              "@durability": "68344",
+              "craftingrequirements": {
+                "@silver": "0",
+                "@time": "3.75",
+                "@craftingfocus": "12064",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_METALBAR_LEVEL4",
+                    "@enchantmentlevel": "4",
+                    "@count": "16"
+                  },
+                  {
+                    "@uniquename": "T4_LEATHER_LEVEL4",
+                    "@enchantmentlevel": "4",
+                    "@count": "8"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@uniquename": "T4_MAIN_SCIMITAR_MORGANA",
+        "@maxqualitylevel": "5",
+        "@abilitypower": "138",
+        "@slottype": "mainhand",
+        "@shopcategory": "weapons",
+        "@shopsubcategory1": "sword",
+        "@attacktype": "melee",
+        "@mainhandanimationtype": "sword",
+        "@attackdamage": "33",
+        "@attackspeed": "1.35",
+        "@twohanded": "false",
+        "@attackrange": "3",
+        "@tier": "4",
+        "@weight": "5.1",
+        "@activespellslots": "3",
+        "@passivespellslots": "1",
+        "@durability": "20250",
+        "@durabilityloss_attack": "1",
+        "@durabilityloss_spelluse": "1",
+        "@durabilityloss_receivedattack": "1",
+        "@durabilityloss_receivedspell": "1",
+        "@unlockedtocraft": "false",
+        "@unlockedtoequip": "false",
+        "@hitpointsmax": "50",
+        "@itempower": "725",
+        "@hitpointsregenerationbonus": "0.05",
+        "@physicalspelldamagebonus": "0",
+        "@magicspelldamagebonus": "0",
+        "@itempowerprogressiontype": "mainhand",
+        "@focusfireprotectionpenetration": "0",
+        "@uicraftsoundstart": "Play_ui_action_craft_metal_start",
+        "@uicraftsoundfinish": "Play_ui_action_craft_metal_finish",
+        "@craftingcategory": "sword",
+        "@healmodifier": "0",
+        "@canbeovercharged": "true",
+        "@masterymodifier": "0",
+        "@destinyandjournalcraftfamefactor": "1.1",
+        "@combatspecachievement": "COMBAT_SWORDS_MORGANA",
+        "@physicalattackdamagebonus": "0",
+        "@magicattackdamagebonus": "0",
+        "@shopsubcategory2": "sword_morgana",
+        "craftingrequirements": [
+          {
+            "@silver": "0",
+            "@time": "1",
+            "@craftingfocus": "1286",
+            "craftresource": [
+              {
+                "@uniquename": "T4_METALBAR",
+                "@count": "16"
+              },
+              {
+                "@uniquename": "T4_LEATHER",
+                "@count": "8"
+              },
+              {
+                "@uniquename": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+                "@count": "1",
+                "@maxreturnamount": "0"
+              }
+            ]
+          },
+          {
+            "@craftingfocus": "1286",
+            "@time": "1",
+            "craftresource": [
+              {
+                "@uniquename": "T4_METALBAR",
+                "@count": "16"
+              },
+              {
+                "@uniquename": "T4_LEATHER",
+                "@count": "8"
+              },
+              {
+                "@uniquename": "T4_ARTEFACT_TOKEN_FAVOR_1",
+                "@count": "1",
+                "@maxreturnamount": "0"
+              }
+            ]
+          }
+        ],
+        "SocketPreset": {
+          "@name": "MAINHAND"
+        },
+        "craftingspelllist": {
+          "@reference": "T4_MAIN_SWORD",
+          "removespell": {
+            "@uniquename": "MIGHTYBLOW"
+          },
+          "craftspell": {
+            "@uniquename": "MIGHTYSWING",
+            "@slots": "3",
+            "@tag": "A"
+          }
+        },
+        "AudioInfo": {
+          "@name": "ITEM_RAPIER"
+        },
+        "enchantments": {
+          "enchantment": [
+            {
+              "@enchantmentlevel": "1",
+              "@itempower": "825",
+              "@durability": "30375",
+              "craftingrequirements": [
+                {
+                  "@silver": "0",
+                  "@time": "1.5",
+                  "@craftingfocus": "2251",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL1",
+                      "@enchantmentlevel": "1",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL1",
+                      "@enchantmentlevel": "1",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                },
+                {
+                  "@silver": "0",
+                  "@time": "1.5",
+                  "@craftingfocus": "2251",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL1",
+                      "@enchantmentlevel": "1",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL1",
+                      "@enchantmentlevel": "1",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_TOKEN_FAVOR_1",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                }
+              ],
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T4_RUNE",
+                  "@count": "288"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "2",
+              "@itempower": "925",
+              "@durability": "45563",
+              "craftingrequirements": [
+                {
+                  "@silver": "0",
+                  "@time": "2",
+                  "@craftingfocus": "3939",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL2",
+                      "@enchantmentlevel": "2",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL2",
+                      "@enchantmentlevel": "2",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                },
+                {
+                  "@silver": "0",
+                  "@time": "2",
+                  "@craftingfocus": "3939",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL2",
+                      "@enchantmentlevel": "2",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL2",
+                      "@enchantmentlevel": "2",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_TOKEN_FAVOR_1",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                }
+              ],
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T4_SOUL",
+                  "@count": "288"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "3",
+              "@itempower": "1025",
+              "@durability": "68344",
+              "craftingrequirements": [
+                {
+                  "@silver": "0",
+                  "@time": "2.5",
+                  "@craftingfocus": "6893",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL3",
+                      "@enchantmentlevel": "3",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL3",
+                      "@enchantmentlevel": "3",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                },
+                {
+                  "@silver": "0",
+                  "@time": "2.5",
+                  "@craftingfocus": "6893",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL3",
+                      "@enchantmentlevel": "3",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL3",
+                      "@enchantmentlevel": "3",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_TOKEN_FAVOR_1",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                }
+              ],
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T4_RELIC",
+                  "@count": "288"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "4",
+              "@itempower": "1125",
+              "@durability": "102516",
+              "craftingrequirements": [
+                {
+                  "@silver": "0",
+                  "@time": "3.75",
+                  "@craftingfocus": "12064",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL4",
+                      "@enchantmentlevel": "4",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL4",
+                      "@enchantmentlevel": "4",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                },
+                {
+                  "@silver": "0",
+                  "@time": "3.75",
+                  "@craftingfocus": "12064",
+                  "craftresource": [
+                    {
+                      "@uniquename": "T4_METALBAR_LEVEL4",
+                      "@enchantmentlevel": "4",
+                      "@count": "16"
+                    },
+                    {
+                      "@uniquename": "T4_LEATHER_LEVEL4",
+                      "@enchantmentlevel": "4",
+                      "@count": "8"
+                    },
+                    {
+                      "@uniquename": "T4_ARTEFACT_TOKEN_FAVOR_1",
+                      "@count": "1",
+                      "@maxreturnamount": "0"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "simpleitem": [
+      {
+        "@uniquename": "T4_METALBAR",
+        "@shopcategory": "crafting",
+        "@shopsubcategory1": "refinedresources",
+        "@craftingcategory": "ore",
+        "@tier": "4",
+        "@weight": "0.51",
+        "@maxstacksize": "999",
+        "@uicraftsoundstart": "Play_ui_action_craft_refine_ore_start",
+        "@uicraftsoundfinish": "Play_ui_action_craft_refine_ore_finish",
+        "@fasttravelfactor": "2",
+        "@itemvalue": "16",
+        "@enchantmentlevel": "0",
+        "@descriptionlocatag": "@ITEMS_REFINED_RESOURCE_DESC",
+        "@shopsubcategory2": "metalbars",
+        "craftingrequirements": [
+          {
+            "@silver": "0",
+            "@time": "0.04167",
+            "@craftingfocus": "54",
+            "@amountcrafted": "1",
+            "@craftbuttonlocaoverride": "@CRAFTBUILDING_ITEM_DETAILS_BUTTON_REFINE",
+            "craftresource": [
+              {
+                "@uniquename": "T4_ORE",
+                "@count": "2",
+                "@enchantmentlevel": "0"
+              },
+              {
+                "@uniquename": "T3_METALBAR",
+                "@count": "1",
+                "@enchantmentlevel": "0"
+              }
+            ]
+          },
+          {
+            "@silver": "0",
+            "@time": "0.04167",
+            "@craftingfocus": "54",
+            "@amountcrafted": "1",
+            "@craftbuttonlocaoverride": "@CRAFTBUILDING_ITEM_DETAILS_BUTTON_REFINE",
+            "craftresource": [
+              {
+                "@uniquename": "T4_ORE",
+                "@count": "1",
+                "@enchantmentlevel": "0"
+              },
+              {
+                "@uniquename": "T1_FACTION_MOUNTAIN_TOKEN_1",
+                "@count": "1"
+              },
+              {
+                "@uniquename": "T3_METALBAR",
+                "@count": "1",
+                "@enchantmentlevel": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "@uniquename": "T4_METALBAR_LEVEL1",
+        "@shopcategory": "crafting",
+        "@shopsubcategory1": "refinedresources",
+        "@craftingcategory": "ore",
+        "@tier": "4",
+        "@enchantmentlevel": "1",
+        "@weight": "0.51",
+        "@maxstacksize": "999",
+        "@uicraftsoundstart": "Play_ui_action_craft_refine_ore_start",
+        "@uicraftsoundfinish": "Play_ui_action_craft_refine_ore_finish",
+        "@fasttravelfactor": "4",
+        "@itemvalue": "32",
+        "@famevalue": "45",
+        "@descriptionlocatag": "@ITEMS_REFINED_RESOURCE_DESC",
+        "@shopsubcategory2": "metalbars",
+        "craftingrequirements": [
+          {
+            "@silver": "0",
+            "@time": "0.0625",
+            "@craftingfocus": "94",
+            "@amountcrafted": "1",
+            "@craftbuttonlocaoverride": "@CRAFTBUILDING_ITEM_DETAILS_BUTTON_REFINE",
+            "craftresource": [
+              {
+                "@uniquename": "T4_ORE_LEVEL1",
+                "@enchantmentlevel": "1",
+                "@count": "2"
+              },
+              {
+                "@uniquename": "T3_METALBAR",
+                "@count": "1",
+                "@enchantmentlevel": "0"
+              }
+            ]
+          },
+          {
+            "@silver": "0",
+            "@time": "0.0625",
+            "@craftingfocus": "94",
+            "@amountcrafted": "1",
+            "@craftbuttonlocaoverride": "@CRAFTBUILDING_ITEM_DETAILS_BUTTON_REFINE",
+            "craftresource": [
+              {
+                "@uniquename": "T4_ORE_LEVEL1",
+                "@enchantmentlevel": "1",
+                "@count": "1"
+              },
+              {
+                "@uniquename": "T1_FACTION_MOUNTAIN_TOKEN_1",
+                "@count": "1"
+              },
+              {
+                "@uniquename": "T3_METALBAR",
+                "@count": "1",
+                "@enchantmentlevel": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "@uniquename": "T5_WOOD",
+        "@shopcategory": "crafting",
+        "@shopsubcategory1": "resources",
+        "@tier": "5",
+        "@resourcetype": "WOOD",
+        "@weight": "0.76",
+        "@maxstacksize": "999",
+        "@unlockedtocraft": "true",
+        "@fasttravelfactor": "4",
+        "@itemvalue": "5.34",
+        "@famevalue": "22.5",
+        "@dontgivefameoncraft": "true",
+        "@enchantmentlevel": "0",
+        "@descriptionlocatag": "@ITEMS_WOOD_DESC",
+        "@shopsubcategory2": "wood",
+        "craftingrequirements": {
+          "@silver": "781",
+          "@time": "0.00625",
+          "@craftingfocus": "0",
+          "@craftbuttonlocaoverride": "@CRAFTBUILDING_ITEM_DETAILS_BUTTON_TRANSMUTE",
+          "craftresource": {
+            "@uniquename": "T4_WOOD",
+            "@count": "1",
+            "@maxreturnamount": "0",
+            "@enchantmentlevel": "0"
+          }
+        }
+      },
+      {
+        "@uniquename": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+        "@tier": "4",
+        "@weight": "2",
+        "@maxstacksize": "999",
+        "@uisprite": "ARTEFACT_MAIN_SCIMITAR_MORGANA",
+        "@shopcategory": "artefacts",
+        "@shopsubcategory1": "weapons",
+        "@descriptionlocatag": "@ITEMS_ARTEFACT_WEAPON_DESC",
+        "@descvariable0": "@ITEMS_T4_MAIN_SCIMITAR_MORGANA",
+        "@descvariable1": "@ITEMS_T4_RUNE",
+        "@unlockedtocraft": "true",
+        "@itemvalue": "96",
+        "@salvageable": "true",
+        "@shopsubcategory2": "sword",
+        "@shopsubcategory3": "sword_morgana",
+        "craftingrequirements": {
+          "@time": "0.1",
+          "craftresource": {
+            "@uniquename": "T4_RUNE",
+            "@count": "50",
+            "@enchantmentlevel": "0"
+          }
+        }
+      }
+    ],
+    "consumableitem": [
+      {
+        "@uniquename": "T4_POTION_HEAL",
+        "@uisprite": "POTION_HEALTH",
+        "@abilitypower": "186",
+        "@slottype": "potion",
+        "@consumespell": "POTION_HEAL_P3",
+        "@shopcategory": "consumables",
+        "@shopsubcategory1": "potions",
+        "@craftingcategory": "potion",
+        "@tier": "4",
+        "@dummyitempower": "700",
+        "@maxstacksize": "999",
+        "@unlockedtocraft": "false",
+        "@unlockedtoequip": "true",
+        "@uicraftsoundstart": "Play_ui_action_craft_potion_start",
+        "@uicraftsoundfinish": "Play_ui_action_craft_potion_finish",
+        "@weight": "0.3",
+        "@descriptionlocatag": "@ITEMS_POTION_HEAL_DESC",
+        "@shopsubcategory2": "heal",
+        "craftingrequirements": {
+          "@silver": "0",
+          "@amountcrafted": "5",
+          "@forcesinglecraft": "false",
+          "@craftingfocus": "210",
+          "@time": "0.48",
+          "craftresource": [
+            {
+              "@uniquename": "T4_BURDOCK",
+              "@count": "24"
+            },
+            {
+              "@uniquename": "T3_EGG",
+              "@count": "6"
+            }
+          ]
+        },
+        "enchantments": {
+          "enchantment": [
+            {
+              "@enchantmentlevel": "1",
+              "@consumespell": "POTION_HEAL_P4",
+              "@dummyitempower": "800",
+              "@abilitypower": "186",
+              "craftingrequirements": {
+                "@time": "0.48",
+                "@amountcrafted": "5",
+                "@craftingfocus": "277",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_BURDOCK",
+                    "@count": "24"
+                  },
+                  {
+                    "@uniquename": "T3_EGG",
+                    "@count": "6"
+                  },
+                  {
+                    "@uniquename": "T1_ALCHEMY_EXTRACT_LEVEL1",
+                    "@count": "15"
+                  }
+                ]
+              },
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T1_ALCHEMY_EXTRACT_LEVEL1",
+                  "@count": "3"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "2",
+              "@consumespell": "POTION_HEAL_P5",
+              "@dummyitempower": "900",
+              "@abilitypower": "186",
+              "craftingrequirements": {
+                "@time": "0.48",
+                "@amountcrafted": "5",
+                "@craftingfocus": "411",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_BURDOCK",
+                    "@count": "24"
+                  },
+                  {
+                    "@uniquename": "T3_EGG",
+                    "@count": "6"
+                  },
+                  {
+                    "@uniquename": "T1_ALCHEMY_EXTRACT_LEVEL2",
+                    "@count": "15"
+                  }
+                ]
+              },
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T1_ALCHEMY_EXTRACT_LEVEL2",
+                  "@count": "3"
+                }
+              }
+            },
+            {
+              "@enchantmentlevel": "3",
+              "@consumespell": "POTION_HEAL_P6",
+              "@dummyitempower": "1000",
+              "@abilitypower": "186",
+              "craftingrequirements": {
+                "@time": "0.48",
+                "@amountcrafted": "5",
+                "@craftingfocus": "811",
+                "craftresource": [
+                  {
+                    "@uniquename": "T4_BURDOCK",
+                    "@count": "24"
+                  },
+                  {
+                    "@uniquename": "T3_EGG",
+                    "@count": "6"
+                  },
+                  {
+                    "@uniquename": "T1_ALCHEMY_EXTRACT_LEVEL3",
+                    "@count": "15"
+                  }
+                ]
+              },
+              "upgraderequirements": {
+                "upgraderesource": {
+                  "@uniquename": "T1_ALCHEMY_EXTRACT_LEVEL3",
+                  "@count": "3"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "journalitem": [
+      {
+        "@salvageable": "false",
+        "@uniquename": "T4_JOURNAL_WARRIOR",
+        "@tier": "4",
+        "@maxfame": "3600",
+        "@baselootamount": "16",
+        "@shopcategory": "other",
+        "@shopsubcategory1": "labourers",
+        "@weight": "0.34",
+        "@unlockedtocraft": "true",
+        "@fasttravelfactor": "51",
+        "@shopsubcategory2": "journals",
+        "@shopsubcategory3": "warrior",
+        "craftingrequirements": {
+          "@silver": "2000",
+          "@time": "0",
+          "@swaptransaction": "true"
+        },
+        "famefillingmissions": {
+          "craftitemfame": {
+            "@mintier": "4",
+            "@value": "1200",
+            "validitem": [
+              {
+                "@id": "T4_OFF_SHIELD"
+              },
+              {
+                "@id": "T4_OFF_TOWERSHIELD_UNDEAD"
+              },
+              {
+                "@id": "T4_OFF_SHIELD_HELL"
+              },
+              {
+                "@id": "T4_OFF_SPIKEDSHIELD_MORGANA"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_SET1"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_SET1"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_SET1"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_SET2"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_SET2"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_SET2"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_SET3"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_SET3"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_SET3"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_UNDEAD"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_UNDEAD"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_UNDEAD"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_HELL"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_HELL"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_HELL"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_KEEPER"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_KEEPER"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_KEEPER"
+              },
+              {
+                "@id": "T4_2H_CROSSBOW"
+              },
+              {
+                "@id": "T4_2H_CROSSBOWLARGE"
+              },
+              {
+                "@id": "T4_MAIN_1HCROSSBOW"
+              },
+              {
+                "@id": "T4_2H_REPEATINGCROSSBOW_UNDEAD"
+              },
+              {
+                "@id": "T4_2H_DUALCROSSBOW_HELL"
+              },
+              {
+                "@id": "T4_2H_CROSSBOWLARGE_MORGANA"
+              },
+              {
+                "@id": "T4_MAIN_AXE"
+              },
+              {
+                "@id": "T4_2H_AXE"
+              },
+              {
+                "@id": "T4_2H_HALBERD"
+              },
+              {
+                "@id": "T4_2H_HALBERD_MORGANA"
+              },
+              {
+                "@id": "T4_2H_SCYTHE_HELL"
+              },
+              {
+                "@id": "T4_2H_DUALAXE_KEEPER"
+              },
+              {
+                "@id": "T4_MAIN_SWORD"
+              },
+              {
+                "@id": "T4_2H_CLAYMORE"
+              },
+              {
+                "@id": "T4_2H_DUALSWORD"
+              },
+              {
+                "@id": "T4_MAIN_SCIMITAR_MORGANA"
+              },
+              {
+                "@id": "T4_2H_CLEAVER_HELL"
+              },
+              {
+                "@id": "T4_2H_DUALSCIMITAR_UNDEAD"
+              },
+              {
+                "@id": "T4_MAIN_HAMMER"
+              },
+              {
+                "@id": "T4_2H_POLEHAMMER"
+              },
+              {
+                "@id": "T4_2H_HAMMER"
+              },
+              {
+                "@id": "T4_2H_HAMMER_UNDEAD"
+              },
+              {
+                "@id": "T4_2H_DUALHAMMER_HELL"
+              },
+              {
+                "@id": "T4_2H_RAM_KEEPER"
+              },
+              {
+                "@id": "T4_MAIN_MACE"
+              },
+              {
+                "@id": "T4_2H_MACE"
+              },
+              {
+                "@id": "T4_2H_FLAIL"
+              },
+              {
+                "@id": "T4_MAIN_ROCKMACE_KEEPER"
+              },
+              {
+                "@id": "T4_MAIN_MACE_HELL"
+              },
+              {
+                "@id": "T4_2H_MACE_MORGANA"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_AVALON"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_AVALON"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_AVALON"
+              },
+              {
+                "@id": "T4_2H_CROSSBOW_CANNON_AVALON"
+              },
+              {
+                "@id": "T4_2H_AXE_AVALON"
+              },
+              {
+                "@id": "T4_2H_CLAYMORE_AVALON"
+              },
+              {
+                "@id": "T4_2H_HAMMER_AVALON"
+              },
+              {
+                "@id": "T4_2H_DUALMACE_AVALON"
+              },
+              {
+                "@id": "T4_OFF_SHIELD_AVALON"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_SET1"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_SET2"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_SET3"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_MORGANA"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_HELL"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_KEEPER"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_AVALON"
+              },
+              {
+                "@id": "T4_ARMOR_PLATE_FEY"
+              },
+              {
+                "@id": "T4_SHOES_PLATE_FEY"
+              },
+              {
+                "@id": "T4_HEAD_PLATE_FEY"
+              },
+              {
+                "@id": "T4_MAIN_SWORD_CRYSTAL"
+              },
+              {
+                "@id": "T4_2H_SCYTHE_CRYSTAL"
+              },
+              {
+                "@id": "T4_MAIN_MACE_CRYSTAL"
+              },
+              {
+                "@id": "T4_2H_KNUCKLES_CRYSTAL"
+              },
+              {
+                "@id": "T4_2H_DUALCROSSBOW_CRYSTAL"
+              },
+              {
+                "@id": "T4_2H_HAMMER_CRYSTAL"
+              },
+              {
+                "@id": "T4_OFF_SHIELD_CRYSTAL"
+              }
+            ]
+          }
+        },
+        "lootlist": {
+          "loot": [
+            {
+              "@itemname": "T4_METALBAR",
+              "@itemamount": "1",
+              "@weight": "13223",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_METALBAR_LEVEL1",
+              "@itemenchantmentlevel": "1",
+              "@itemamount": "1",
+              "@weight": "700",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_METALBAR_LEVEL2",
+              "@itemenchantmentlevel": "2",
+              "@itemamount": "1",
+              "@weight": "70",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_METALBAR_LEVEL3",
+              "@itemenchantmentlevel": "3",
+              "@itemamount": "1",
+              "@weight": "7",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_PLANKS",
+              "@itemamount": "1",
+              "@weight": "3778",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_PLANKS_LEVEL1",
+              "@itemenchantmentlevel": "1",
+              "@itemamount": "1",
+              "@weight": "200",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_PLANKS_LEVEL2",
+              "@itemenchantmentlevel": "2",
+              "@itemamount": "1",
+              "@weight": "20",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_PLANKS_LEVEL3",
+              "@itemenchantmentlevel": "3",
+              "@itemamount": "1",
+              "@weight": "2",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_CLOTH",
+              "@itemamount": "1",
+              "@weight": "1889",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_CLOTH_LEVEL1",
+              "@itemenchantmentlevel": "1",
+              "@itemamount": "1",
+              "@weight": "100",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_CLOTH_LEVEL2",
+              "@itemenchantmentlevel": "2",
+              "@itemamount": "1",
+              "@weight": "10",
+              "@labourerfame": "15"
+            },
+            {
+              "@itemname": "T4_CLOTH_LEVEL3",
+              "@itemenchantmentlevel": "3",
+              "@itemamount": "1",
+              "@weight": "1",
+              "@labourerfame": "15"
+            }
+          ]
+        }
+      }
+    ],
+    "mountskin": [
+      {
+        "@uniquename": "SKIN_HORSE_FOUNDER_ASIA_CRYSTAL",
+        "@prefabname": "MOUNT_HORSE_FOUNDER_ASIA_CRYSTAL_01",
+        "@prefabscaling": "1.6",
+        "@despawneffect": "FX/ClientPrefabs/demount_fx_medium",
+        "@despawneffectscaling": "1",
+        "@vfxAddonKeyword": "mount_horse",
+        "SocketPreset": {
+          "@name": "MOUNT_HORSE"
+        },
+        "AssetVfxPreset": {
+          "@name": "UNIQUE_MOUNT_HORSE_FOUNDER_ASIA_CRYSTAL"
+        },
+        "AudioInfo": {
+          "@name": "MOUNT_HORSE"
+        },
+        "FootStepVfxPreset": {
+          "@name": "MOUNT_HORSE"
+        }
+      }
+    ]
+  }
+}

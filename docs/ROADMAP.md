@@ -40,9 +40,25 @@ packages/
 - Перенести текущий Vite-скелет в `apps/web`, заменить Gravity UI на HeroUI + Tailwind.
 - CI в GitHub Actions: lint, typecheck, test.
 
-### 1. game-data: каталог из дампов
+### 1. game-data: каталог из дампов ✅
 
 Принцип: модель каталога повторяет модель дампов, без собственных эвристик. Парсер только нормализует формат, а не придумывает структуру.
+
+Как сделано (`packages/game-data`):
+
+- Коммит дампов закреплён в `dumps.json`; `pnpm data:update` двигает его на последний коммит ao-bin-dumps.
+- `pnpm data:build` скачивает `items.json`, `formatted/items.json`, `localization.json` этого коммита в `.cache/` (или берёт локальный клон из `AO_BIN_DUMPS_DIR`, если он на том же коммите) и пишет каталог в `generated/`:
+    - `items/<раздел дампа>.json` — по предмету на строку, чтобы дифф между патчами читался;
+    - `categories.json` — дерево маркетплейса;
+    - `names/<locale>.json` — названия предметов и категорий на 15 языках;
+    - `meta.json` — коммит дампов и счётчики.
+- `generated/` коммитится: фронту и бэку не нужна сеть и 140 МБ дампов, а обновление дампов видно в диффе.
+- Market id: `@N` для энчантов, `_EMPTY`/`_FULL` для журналов; сборка падает, если какой-то id не найден в `formatted/items.json`.
+- Названия категорий — ключи `@MARKETPLACEGUI_ROLLOUT_SHOPCATEGORY_*` / `SHOPSUBCATEGORY_*` из `localization.json`.
+- Раздел `mountskin` пропущен: у скинов нет тира и категории маркета.
+- Пока не перенесены: фермерские поля (`harvest`, `grownitem`, `products`) и лут журналов — добавим, когда появятся соответствующие калькуляторы.
+
+Исходный план:
 
 - Зафиксировать коммит ao-bin-dumps (submodule или скрипт загрузки по хешу).
 - `pnpm data:build`: `items.json` + `formatted/items.json` → каталог, версия = дата дампов.

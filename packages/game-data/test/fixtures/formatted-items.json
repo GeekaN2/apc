@@ -1,0 +1,149 @@
+[
+  {
+    "UniqueName": "T4_POTION_HEAL",
+    "LocalizedNames": {
+      "EN-US": "Healing Potion",
+      "RU-RU": "Эликсир здоровья"
+    }
+  },
+  {
+    "UniqueName": "T4_POTION_HEAL@1",
+    "LocalizedNames": {
+      "EN-US": "Healing Potion",
+      "RU-RU": "Эликсир здоровья"
+    }
+  },
+  {
+    "UniqueName": "T4_POTION_HEAL@2",
+    "LocalizedNames": {
+      "EN-US": "Healing Potion",
+      "RU-RU": "Эликсир здоровья"
+    }
+  },
+  {
+    "UniqueName": "T4_POTION_HEAL@3",
+    "LocalizedNames": {
+      "EN-US": "Healing Potion",
+      "RU-RU": "Эликсир здоровья"
+    }
+  },
+  {
+    "UniqueName": "T5_WOOD",
+    "LocalizedNames": {
+      "EN-US": "Cedar Logs",
+      "RU-RU": "Бревна кедра"
+    }
+  },
+  {
+    "UniqueName": "T4_METALBAR",
+    "LocalizedNames": {
+      "EN-US": "Steel Bar",
+      "RU-RU": "Слиток стали"
+    }
+  },
+  {
+    "UniqueName": "T4_METALBAR_LEVEL1@1",
+    "LocalizedNames": {
+      "EN-US": "Uncommon Steel Bar",
+      "RU-RU": "Необычный слиток стали"
+    }
+  },
+  {
+    "UniqueName": "T4_ARTEFACT_MAIN_SCIMITAR_MORGANA",
+    "LocalizedNames": {
+      "EN-US": "Adept's Bloodforged Blade",
+      "RU-RU": "Кровавый клинок (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_JOURNAL_WARRIOR",
+    "LocalizedNames": {
+      "EN-US": "Adept Blacksmith's Journal (Partially Full)",
+      "RU-RU": "Журнал кузнеца (знаток; неполный)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SWORD",
+    "LocalizedNames": {
+      "EN-US": "Adept's Broadsword",
+      "RU-RU": "Палаш (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SWORD@1",
+    "LocalizedNames": {
+      "EN-US": "Adept's Broadsword",
+      "RU-RU": "Палаш (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SWORD@2",
+    "LocalizedNames": {
+      "EN-US": "Adept's Broadsword",
+      "RU-RU": "Палаш (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SWORD@3",
+    "LocalizedNames": {
+      "EN-US": "Adept's Broadsword",
+      "RU-RU": "Палаш (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SWORD@4",
+    "LocalizedNames": {
+      "EN-US": "Adept's Broadsword",
+      "RU-RU": "Палаш (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SCIMITAR_MORGANA",
+    "LocalizedNames": {
+      "EN-US": "Adept's Clarent Blade",
+      "RU-RU": "Королевский меч (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SCIMITAR_MORGANA@1",
+    "LocalizedNames": {
+      "EN-US": "Adept's Clarent Blade",
+      "RU-RU": "Королевский меч (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SCIMITAR_MORGANA@2",
+    "LocalizedNames": {
+      "EN-US": "Adept's Clarent Blade",
+      "RU-RU": "Королевский меч (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SCIMITAR_MORGANA@3",
+    "LocalizedNames": {
+      "EN-US": "Adept's Clarent Blade",
+      "RU-RU": "Королевский меч (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_MAIN_SCIMITAR_MORGANA@4",
+    "LocalizedNames": {
+      "EN-US": "Adept's Clarent Blade",
+      "RU-RU": "Королевский меч (знаток)"
+    }
+  },
+  {
+    "UniqueName": "T4_JOURNAL_WARRIOR_EMPTY",
+    "LocalizedNames": {
+      "EN-US": "Adept Blacksmith's Journal (Empty)",
+      "RU-RU": "Журнал кузнеца (знаток; пустой)"
+    }
+  },
+  {
+    "UniqueName": "T4_JOURNAL_WARRIOR_FULL",
+    "LocalizedNames": {
+      "EN-US": "Adept Blacksmith's Journal (Full)",
+      "RU-RU": "Журнал кузнеца (знаток; полный)"
+    }
+  }
+]

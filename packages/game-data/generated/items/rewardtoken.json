@@ -1,0 +1,4 @@
+[
+{"uniqueName":"QUESTITEM_TOKEN_SMUGGLER","kind":"rewardtoken","tier":4,"shopCategory":"crafting","shopSubcategory1":"tokens","shopSubcategory2":"other","itemValue":64,"weight":0.01,"maxStackSize":999,"resourceType":"TOKEN","tradable":false,"unlockedToCraft":true,"craftingRequirements":[],"enchantments":[]},
+{"uniqueName":"QUESTITEM_TOKEN_DRAGONS","kind":"rewardtoken","tier":4,"shopCategory":"crafting","shopSubcategory1":"tokens","shopSubcategory2":"other","itemValue":64,"weight":0.01,"maxStackSize":999,"resourceType":"TOKEN","tradable":false,"unlockedToCraft":true,"craftingRequirements":[],"enchantments":[]}
+]
