@@ -139,8 +139,10 @@ export function mapLegacyData(data: LegacyData, now: Date): LegacyImport {
     }
 
     for (const legacy of data.servers) {
-        // Public Albion Online Data servers are seeded separately
-        if (legacy.natsUrl.includes("albion-online-data.com")) {
+        // Public servers were Albion Online Data, seeded separately, and the old
+        // calculator's own relays, which are gone
+        if (legacy.state === "public") {
+            result.skipped.push(`server ${legacy.id}: public`);
             continue;
         }
 
@@ -152,7 +154,7 @@ export function mapLegacyData(data: LegacyData, now: Date): LegacyImport {
             description: legacy.description ?? null,
             natsUrl: legacy.natsUrl,
             apiUrl: null,
-            isPublic: legacy.state === "public",
+            isPublic: false,
             ownerId: ownerId && userIds.has(ownerId) ? ownerId : null,
         });
 

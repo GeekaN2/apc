@@ -89,10 +89,11 @@ describe("mapLegacyData", () => {
         });
     });
 
-    it("skips taken and empty nicknames", () => {
+    it("skips taken and empty nicknames and public servers", () => {
         expect(data.skipped).toEqual([
             "user 64a000000000000000000004: nickname geekan is taken",
             "user 64a000000000000000000005: no nickname or password",
+            "server aod_west: public",
             "server guild: no user Ghost",
         ]);
     });
