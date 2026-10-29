@@ -71,7 +71,6 @@ export const ItemPicker: React.FC<{
                 options={groupOptions}
                 value={group}
                 onChange={(subcategory) => select({ subcategory })}
-                size="sm"
             />
             <IconPicker
                 label={t("tree.item")}
