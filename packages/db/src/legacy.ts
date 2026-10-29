@@ -2,6 +2,7 @@
  * Import of users, settings and private servers from the old calculator's MongoDB
  * (database `albion`: `users`, `user_settings`, `servers`).
  */
+import type { PgTable } from "drizzle-orm/pg-core";
 import type { Db } from "./client.ts";
 import { account, serverAccess, servers, user, userSettings } from "./schema.ts";
 
@@ -170,23 +171,24 @@ export function mapLegacyData(data: LegacyData, now: Date): LegacyImport {
 }
 
 /** Writes mapped rows in one transaction; existing users and servers are left as they are */
+/** Rows per insert: one statement for thousands of users overflows the query builder */
+const IMPORT_BATCH = 500;
+
 export async function importLegacyData(db: Db, data: LegacyImport): Promise<void> {
     await db.transaction(async (tx) => {
-        if (data.users.length > 0) {
-            await tx.insert(user).values(data.users).onConflictDoNothing();
-            await tx.insert(account).values(data.accounts).onConflictDoNothing();
+        async function insert<T extends PgTable>(table: T, rows: T["$inferInsert"][]) {
+            for (let start = 0; start < rows.length; start += IMPORT_BATCH) {
+                await tx
+                    .insert(table)
+                    .values(rows.slice(start, start + IMPORT_BATCH))
+                    .onConflictDoNothing();
+            }
         }
 
-        if (data.settings.length > 0) {
-            await tx.insert(userSettings).values(data.settings).onConflictDoNothing();
-        }
-
-        if (data.servers.length > 0) {
-            await tx.insert(servers).values(data.servers).onConflictDoNothing();
-        }
-
-        if (data.access.length > 0) {
-            await tx.insert(serverAccess).values(data.access).onConflictDoNothing();
-        }
+        await insert(user, data.users);
+        await insert(account, data.accounts);
+        await insert(userSettings, data.settings);
+        await insert(servers, data.servers);
+        await insert(serverAccess, data.access);
     });
 }

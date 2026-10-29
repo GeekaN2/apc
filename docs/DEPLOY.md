@@ -4,14 +4,14 @@ Beta runs on the old production server next to the old calculator: Ubuntu 18.04,
 nginx, MongoDB and the old Nuxt site and API under root's pm2. Everything of APC
 runs as the `gpt` user:
 
-| Part          | Where                                                           |
-| ------------- | --------------------------------------------------------------- |
-| Code          | `~/apc` (main)                                                  |
-| Node 24       | `~/.local/node` (glibc 2.17 build, Ubuntu 18.04 has glibc 2.27) |
-| Web           | `~/www/apc-dev/current`, served by nginx                        |
-| API           | user service `apc-api` on 127.0.0.1:4100 (the old API has 4000) |
-| Ingest        | user service `apc-ingest`                                       |
-| PostgreSQL 15 | local socket, database `apc`, peer authentication as `gpt`      |
+| Part          | Where                                                                 |
+| ------------- | --------------------------------------------------------------------- |
+| Code          | `~/apc` (main)                                                        |
+| Node 24       | `~/.local/node` (glibc 2.17 build, Ubuntu 18.04 has glibc 2.27)       |
+| Web           | `~/www/apc-dev/current`, served by nginx                              |
+| API           | user service `apc-api` on 127.0.0.1:4100 (the old API has 4000)       |
+| Ingest        | user service `apc-ingest`                                             |
+| PostgreSQL 15 | local socket, port 5433, database `apc`, peer authentication as `gpt` |
 
 ## Once, as root
 
@@ -54,7 +54,7 @@ proxies `/api/` to the API.
 cd ~/apc
 cp apps/api/.env.example apps/api/.env        # DATABASE_URL, BETTER_AUTH_*, WEB_ORIGINS, PORT=4100
 cp apps/ingest/.env.example apps/ingest/.env  # DATABASE_URL
-# DATABASE_URL=postgres://gpt@%2Fvar%2Frun%2Fpostgresql/apc
+# DATABASE_URL=postgres://gpt@%2Fvar%2Frun%2Fpostgresql:5433/apc
 
 mkdir -p ~/.config/systemd/user
 cp deploy/systemd/*.service ~/.config/systemd/user/
@@ -64,7 +64,8 @@ systemctl --user enable apc-api apc-ingest
 deploy/deploy.sh
 ```
 
-Users of the old calculator, read from MongoDB:
+Users of the old calculator, read from MongoDB (3.6 on the server, hence the 5.x
+driver):
 
 ```bash
 (set -a && source apps/api/.env && MONGO_URI=mongodb://… pnpm --filter @apc/db db:import-legacy)
