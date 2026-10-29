@@ -71,6 +71,17 @@ driver):
 (set -a && source apps/api/.env && MONGO_URI=mongodb://… pnpm --filter @apc/db db:import-legacy)
 ```
 
+## Discord
+
+`DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` in `apps/api/.env` turn on Discord
+sign-in; the application needs the redirect
+`https://dev.albion-profit-calculator.com/api/auth/callback/discord`.
+
+`DISCORD_GUILD_ID` and `DISCORD_SUPPORTER_ROLE_IDS` (comma separated) make members
+with those roles supporters when they sign in or link Discord. The sign-in then
+asks for `guilds.members.read`; people who signed in before see the consent once
+more on their next sign-in. Roles are only raised, never lowered.
+
 ## Every release
 
 ```bash

@@ -25,11 +25,22 @@ const discord =
           }
         : undefined;
 
+const discordRoles =
+    process.env.DISCORD_GUILD_ID && process.env.DISCORD_SUPPORTER_ROLE_IDS
+        ? {
+              guildId: process.env.DISCORD_GUILD_ID,
+              supporterRoleIds: process.env.DISCORD_SUPPORTER_ROLE_IDS.split(",")
+                  .map((id) => id.trim())
+                  .filter(Boolean),
+          }
+        : undefined;
+
 const auth = createAuth(db, {
     baseURL: process.env.BETTER_AUTH_URL ?? `http://${hostname}:${port}`,
     secret: required("BETTER_AUTH_SECRET"),
     trustedOrigins,
     discord,
+    discordRoles,
 });
 
 if (!discord) {

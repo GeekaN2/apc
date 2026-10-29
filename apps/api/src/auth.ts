@@ -5,6 +5,11 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { hashPassword, verifyPassword } from "better-auth/crypto";
 import { authPlugins } from "./authPlugins.ts";
+import {
+    DISCORD_MEMBER_SCOPE,
+    type DiscordRoles,
+    syncDiscordRole,
+} from "./discordRoles.ts";
 
 export interface AuthOptions {
     /** Public URL of the API, e.g. http://127.0.0.1:4000 */
@@ -13,6 +18,8 @@ export interface AuthOptions {
     /** Frontend origins allowed to send credentials */
     trustedOrigins?: string[];
     discord?: { clientId: string; clientSecret: string };
+    /** Discord server roles that give site roles */
+    discordRoles?: DiscordRoles;
 }
 
 /**
@@ -38,7 +45,18 @@ export async function verifyAnyPassword({
  * migrated from the old calculator, who can link Discord later
  */
 export function createAuth(db: Db, options: AuthOptions) {
-    const { discord } = options;
+    const { discord, discordRoles } = options;
+    const syncRole = async (account: Parameters<typeof syncDiscordRole>[1]) => {
+        if (!discordRoles) {
+            return;
+        }
+
+        try {
+            await syncDiscordRole(db, account, discordRoles);
+        } catch (error) {
+            console.error("Failed to read Discord roles", error);
+        }
+    };
 
     return betterAuth({
         baseURL: options.baseURL,
@@ -54,6 +72,7 @@ export function createAuth(db: Db, options: AuthOptions) {
         socialProviders: discord && {
             discord: {
                 ...discord,
+                scope: discordRoles ? [DISCORD_MEMBER_SCOPE] : [],
                 // Phone-only Discord accounts have no email
                 mapProfileToUser: (profile) => ({
                     email: profile.email ?? `${profile.id}@discord.invalid`,
@@ -66,6 +85,13 @@ export function createAuth(db: Db, options: AuthOptions) {
                 // Migrated users have placeholder emails
                 allowDifferentEmails: true,
                 trustedProviders: ["discord"],
+            },
+        },
+        // Tokens are saved on every Discord sign-in and link: roles are read then
+        databaseHooks: {
+            account: {
+                create: { after: syncRole },
+                update: { after: syncRole },
             },
         },
         plugins: authPlugins(),
