@@ -1,0 +1,14 @@
+# User service of the API: ~/.config/systemd/user/apc-api.service
+# Settings and secrets are in apps/api/.env, see apps/api/.env.example
+[Unit]
+Description=APC API
+After=network-online.target
+
+[Service]
+WorkingDirectory=%h/apc/apps/api
+ExecStart=%h/.local/node/bin/node --max-old-space-size=384 --env-file=.env src/main.ts
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

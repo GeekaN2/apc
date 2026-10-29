@@ -2,7 +2,7 @@
 
 Profit calculators for the Albion Online economy: crafting, refining, food & potions, transmutations, artifacts and transportations. Item and recipe data is generated from [ao-bin-dumps](https://github.com/ao-data/ao-bin-dumps), prices come from the [Albion Online Data Project](https://www.albion-online-data.com/).
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the rewrite plan.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the rewrite plan and [docs/DEPLOY.md](docs/DEPLOY.md) for the server.
 
 ## Structure
 

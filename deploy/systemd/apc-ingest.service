@@ -1,0 +1,14 @@
+# User service of the market ingest: ~/.config/systemd/user/apc-ingest.service
+# DATABASE_URL is in apps/ingest/.env, see apps/ingest/.env.example
+[Unit]
+Description=APC market ingest
+After=network-online.target
+
+[Service]
+WorkingDirectory=%h/apc/apps/ingest
+ExecStart=%h/.local/node/bin/node --max-old-space-size=384 --env-file=.env src/main.ts
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
