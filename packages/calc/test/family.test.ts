@@ -31,6 +31,15 @@ describe("craftableFamilies", () => {
         expect(sword.items.map((item) => item.tier)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
     });
 
+    it("leaves out hidden items and prototypes", () => {
+        const keys = families.map((f) => f.key);
+
+        expect(keys).not.toContain("2H_IRONGAUNTLETS_HELL");
+        expect(keys).not.toContain("CAPE_PLATE_UNDEAD");
+        expect(keys.some((key) => key.includes("PROTOTYPE"))).toBe(false);
+        expect(keys).toContain("2H_KNUCKLES_HELL");
+    });
+
     it("keeps only craftable equipment", () => {
         expect(
             families.every((f) => EQUIPMENT_CATEGORIES.includes(f.shopCategory as never)),

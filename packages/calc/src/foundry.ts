@@ -90,6 +90,8 @@ export function foundry(
         // Souls also make hellgate and corrupted dungeon maps, which are not artifacts
         if (
             artifact.shopCategory !== "artefacts" ||
+            // Hidden from the marketplace: can't be sold
+            artifact.showInMarketplace === false ||
             !recipe ||
             !recipe.craftResource.some(
                 (r) => r.uniqueName === `T${artifact.tier}_${fragment}`,

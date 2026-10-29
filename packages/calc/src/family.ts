@@ -29,6 +29,14 @@ export interface ItemFamily {
 
 const TIER_PREFIX = /^T(\d)_/;
 
+/**
+ * Items nobody can trade or craft for profit: hidden from the marketplace by the
+ * game, or prototypes the dumps list as regular items
+ */
+function isOffMarket(item: Item): boolean {
+    return item.showInMarketplace === false || item.uniqueName.includes("PROTOTYPE");
+}
+
 export function familyKey(item: Item): string {
     return item.uniqueName.replace(TIER_PREFIX, "");
 }
@@ -44,6 +52,7 @@ export function craftableFamilies(
         if (
             !shopCategories.includes(item.shopCategory) ||
             !TIER_PREFIX.test(item.uniqueName) ||
+            isOffMarket(item) ||
             item.craftingRequirements.length === 0
         ) {
             continue;
