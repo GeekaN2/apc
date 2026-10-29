@@ -23,7 +23,11 @@ export const TreePage: React.FC = () => {
                     <Spinner size="sm" /> {t("profit.loadingCatalog")}
                 </div>
             ) : (
-                <ItemPicker families={tree.families} names={tree.names} />
+                <ItemPicker
+                    families={tree.families}
+                    places={tree.places}
+                    names={tree.names}
+                />
             )}
             <div className="grid items-start gap-6 lg:grid-cols-[17rem_minmax(0,1fr)]">
                 <TreeSettingsPanel />

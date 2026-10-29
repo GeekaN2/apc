@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useEquipmentCatalog, useNames } from "../../catalog/catalog";
 import { useTreeStore } from "../../store/tree";
 import { useFamilyCraft } from "../Craft/useFamilyCraft";
+import { placeFamilies } from "./branches";
 
 export function useTree() {
     const { family: familyKey, variant, settings } = useTreeStore();
@@ -11,6 +12,10 @@ export function useTree() {
     const families = useMemo(
         () => (catalog.data ? craftableFamilies(catalog.data, EQUIPMENT_CATEGORIES) : []),
         [catalog.data],
+    );
+    const places = useMemo(
+        () => (catalog.data ? placeFamilies(catalog.data, families) : new Map()),
+        [catalog.data, families],
     );
     const family = families.find((f) => f.key === familyKey);
     const variants = family ? recipeVariantCount(family) : 1;
@@ -28,6 +33,7 @@ export function useTree() {
         catalog: catalog.data,
         names: names.data,
         families,
+        places,
         family,
         variants,
         recipeVariant,

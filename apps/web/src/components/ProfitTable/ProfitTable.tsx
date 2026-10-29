@@ -153,6 +153,10 @@ const Breakdown: React.FC<{ cell: ProfitTableCell; name?: string; now: number }>
     );
 };
 
+const LEVEL_COLUMN_REM = 7;
+/** Fits "−1 234 567" and its percentage */
+const TIER_COLUMN_REM = 7.5;
+
 /** Cells by tier (columns) and enchantment level (rows) */
 export function TierGrid<C extends { tier: number; enchantmentLevel: number }>({
     cells,
@@ -171,7 +175,20 @@ export function TierGrid<C extends { tier: number; enchantmentLevel: number }>({
 
     return (
         <div className="overflow-x-auto rounded-xl border border-separator">
-            <table className="w-full border-collapse text-sm whitespace-nowrap">
+            {/* Fixed layout: the table spans the width and every tier column is as
+                wide as the others, whatever the numbers; narrow screens scroll */}
+            <table
+                className="w-full table-fixed border-collapse text-sm whitespace-nowrap"
+                style={{
+                    minWidth: `${LEVEL_COLUMN_REM + tiers.length * TIER_COLUMN_REM}rem`,
+                }}
+            >
+                <colgroup>
+                    <col style={{ width: `${LEVEL_COLUMN_REM}rem` }} />
+                    {tiers.map((tier) => (
+                        <col key={tier} />
+                    ))}
+                </colgroup>
                 <thead>
                     <tr className="border-b border-separator text-muted">
                         <th className="px-3 py-2 text-left font-normal">

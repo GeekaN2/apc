@@ -7,8 +7,9 @@ import {
     type TreeSettings,
 } from "./treeSettings";
 
-/** What is shown: marketplace category, subcategory and item family */
+/** What is shown: crafting station, group of items and item family */
 export interface TreeSelection {
+    /** Crafting station, see `BRANCHES` of the tree */
     category: string;
     subcategory?: string;
     family?: string;
@@ -26,7 +27,7 @@ interface TreeState extends TreeSelection {
 export const useTreeStore = create<TreeState>()(
     persist(
         (set) => ({
-            category: "weapons",
+            category: "WARRIOR",
             subcategory: undefined,
             family: undefined,
             variant: 0,

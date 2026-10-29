@@ -246,7 +246,17 @@ export const FoundryPage: React.FC = () => {
                                 names={foundry.names}
                             />
                             <div className="overflow-x-auto rounded-xl border border-separator">
-                                <table className="w-full border-collapse text-sm whitespace-nowrap">
+                                {/* Fixed layout like the profit tables: equal tier columns */}
+                                <table
+                                    className="w-full table-fixed border-collapse text-sm whitespace-nowrap"
+                                    style={{ minWidth: `${11 + TIERS.length * 7.5}rem` }}
+                                >
+                                    <colgroup>
+                                        <col style={{ width: "11rem" }} />
+                                        {TIERS.map((tier) => (
+                                            <col key={tier} />
+                                        ))}
+                                    </colgroup>
                                     <thead>
                                         <tr className="border-b border-separator text-muted">
                                             <th className="px-3 py-2 text-left font-normal">

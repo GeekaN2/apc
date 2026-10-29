@@ -1,58 +1,56 @@
-import { EQUIPMENT_CATEGORIES, type ItemFamily } from "@apc/calc";
+import type { ItemFamily } from "@apc/calc";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { CRAFTING_CITIES, type CraftingCity, type Names } from "../../catalog/catalog";
+import type { Names } from "../../catalog/catalog";
 import { useTreeStore } from "../../store/tree";
-import { type IconOption, IconPicker } from "../IconPicker/IconPicker";
 import { familyIcon, familyName } from "../Craft/familyName";
+import { type IconOption, IconPicker } from "../IconPicker/IconPicker";
+import { BRANCHES, type Branch, type TreePlace } from "./branches";
 
-/** A typical item of each category for its icon */
-const CATEGORY_ICONS: Record<(typeof EQUIPMENT_CATEGORIES)[number], string> = {
-    weapons: "T4_MAIN_SWORD",
-    armors: "T4_ARMOR_PLATE_SET1",
-    head: "T4_HEAD_PLATE_SET1",
-    shoes: "T4_SHOES_PLATE_SET1",
-    offhands: "T4_OFF_SHIELD",
-    capes: "T4_CAPE",
-    bags: "T4_BAG",
-    gathering: "T4_2H_TOOL_PICK",
+/** Journals stand for the crafting stations */
+const BRANCH_ICONS: Record<Branch, string> = {
+    WARRIOR: "T4_JOURNAL_WARRIOR_FULL",
+    HUNTER: "T4_JOURNAL_HUNTER_FULL",
+    MAGE: "T4_JOURNAL_MAGE_FULL",
+    TOOLMAKER: "T4_JOURNAL_TOOLMAKER_FULL",
 };
 
-/** City capes have no names in the dumps: `accessoires_capes_fortsterling` */
-function capeCity(id: string, name: (city: CraftingCity) => string): string | undefined {
-    const city = CRAFTING_CITIES.find(
-        (c) => id === `accessoires_capes_${c.toLowerCase().replace(" ", "")}`,
-    );
-
-    return city && name(city);
-}
-
-/** Category → subcategory → item as rows of icons, like the old tree */
-export const ItemPicker: React.FC<{ families: ItemFamily[]; names?: Names }> = ({
-    families,
-    names,
-}) => {
+/** Station → group of items → item as rows of icons, like the old tree */
+export const ItemPicker: React.FC<{
+    families: ItemFamily[];
+    places: ReadonlyMap<string, TreePlace>;
+    names?: Names;
+}> = ({ families, places, names }) => {
     const { t } = useTranslation();
     const { category, subcategory, family, select } = useTreeStore();
-    const categoryName = (id: string) =>
-        names?.categories[id] ?? capeCity(id, (city) => t(`cities.${city}`)) ?? id;
-    const inCategory = families.filter((f) => f.shopCategory === category);
-    const subcategories = [...new Set(inCategory.map((f) => f.shopSubcategory1))];
-    const currentSubcategory =
-        subcategory && subcategories.includes(subcategory)
-            ? subcategory
-            : subcategories[0];
-    const items = inCategory.filter((f) => f.shopSubcategory1 === currentSubcategory);
+    // Saved before the tree had stations, `category` may hold a marketplace category
+    const branch: Branch = BRANCHES.find((b) => b === category) ?? BRANCHES[0];
+    const inBranch = families.filter((f) => places.get(f.key)?.branch === branch);
+    const groupOf = (f: ItemFamily) => places.get(f.key)!.group;
+    const groups = [...new Set(inBranch.map(groupOf))];
+    const group = subcategory && groups.includes(subcategory) ? subcategory : groups[0];
+    const items = inBranch.filter((f) => groupOf(f) === group);
     const selected = items.find((f) => f.key === family);
+    const groupName = (id: string) => names?.categories[id] ?? id;
 
-    const categoryOptions: IconOption<string>[] = EQUIPMENT_CATEGORIES.map((id) => ({
+    // A row of one item: pick it right away instead of one more click
+    const single = items.length === 1 ? items[0]!.key : undefined;
+
+    useEffect(() => {
+        if (single && single !== family) {
+            select({ family: single, variant: 0 });
+        }
+    }, [single, family, select]);
+
+    const branchOptions: IconOption<Branch>[] = BRANCHES.map((id) => ({
         id,
-        icon: CATEGORY_ICONS[id],
-        label: categoryName(id),
+        icon: BRANCH_ICONS[id],
+        label: t(`foundry.rows.${id}`),
     }));
-    const subcategoryOptions: IconOption<string>[] = subcategories.map((id) => ({
+    const groupOptions: IconOption<string>[] = groups.map((id) => ({
         id,
-        icon: familyIcon(inCategory.find((f) => f.shopSubcategory1 === id)!),
-        label: categoryName(id),
+        icon: familyIcon(inBranch.find((f) => groupOf(f) === id)!),
+        label: groupName(id),
     }));
     const itemOptions: IconOption<string>[] = items.map((f) => ({
         id: f.key,
@@ -64,19 +62,17 @@ export const ItemPicker: React.FC<{ families: ItemFamily[]; names?: Names }> = (
         <div className="flex flex-col gap-2">
             <IconPicker
                 label={t("tree.category")}
-                options={categoryOptions}
-                value={category}
+                options={branchOptions}
+                value={branch}
                 onChange={(category) => select({ category, subcategory: undefined })}
             />
-            {subcategoryOptions.length > 1 && (
-                <IconPicker
-                    label={t("tree.subcategory")}
-                    options={subcategoryOptions}
-                    value={currentSubcategory}
-                    onChange={(subcategory) => select({ subcategory })}
-                    size="sm"
-                />
-            )}
+            <IconPicker
+                label={t("tree.subcategory")}
+                options={groupOptions}
+                value={group}
+                onChange={(subcategory) => select({ subcategory })}
+                size="sm"
+            />
             <IconPicker
                 label={t("tree.item")}
                 options={itemOptions}
@@ -85,8 +81,8 @@ export const ItemPicker: React.FC<{ families: ItemFamily[]; names?: Names }> = (
             />
             <p className="text-sm text-muted">
                 {[
-                    categoryName(category),
-                    currentSubcategory && categoryName(currentSubcategory),
+                    t(`foundry.rows.${branch}`),
+                    group && groupName(group),
                     selected && familyName(selected, names?.items),
                 ]
                     .filter(Boolean)
