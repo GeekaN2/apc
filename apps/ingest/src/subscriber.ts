@@ -16,12 +16,13 @@ export interface Subscriber {
     close(): Promise<void>;
 }
 
-/** Credentials go in the URL: nats://user:pass@host:port */
+/** Supports NATS URLs with optional credentials and explicit TLS. */
 function connectionOptions(natsUrl: string) {
     const url = new URL(natsUrl);
 
     return {
         servers: `${url.hostname}:${url.port || 4222}`,
+        tls: url.protocol === "tls:" ? {} : undefined,
         user: url.username ? decodeURIComponent(url.username) : undefined,
         pass: url.password ? decodeURIComponent(url.password) : undefined,
     };

@@ -139,8 +139,7 @@ export function mapLegacyData(data: LegacyData, now: Date): LegacyImport {
     }
 
     for (const legacy of data.servers) {
-        // Public servers were Albion Online Data, seeded separately, and the old
-        // calculator's own relays, which are gone
+        // Public feeds are seeded separately with their current addresses
         if (legacy.state === "public") {
             result.skipped.push(`server ${legacy.id}: public`);
             continue;

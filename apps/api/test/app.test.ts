@@ -58,6 +58,9 @@ describe("api", () => {
             { id: "west", name: "Americas", isPublic: true },
             { id: "east", name: "Asia", isPublic: true },
             { id: "europe", name: "Europe", isPublic: true },
+            { id: "apc_west", name: "Americas APC", isPublic: true },
+            { id: "apc_east", name: "Asia APC", isPublic: true },
+            { id: "europe_apc", name: "Europe APC", isPublic: true },
         ]);
     });
 

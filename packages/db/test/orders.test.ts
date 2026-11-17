@@ -1,8 +1,9 @@
+import { eq } from "drizzle-orm";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { Db } from "../src/client.ts";
 import { cityOfLocation, normalizeLocationId } from "../src/markets.ts";
 import { bestPrices, deleteExpiredOrders, upsertOrders } from "../src/orders.ts";
-import type { MarketOrder } from "../src/schema.ts";
+import { type MarketOrder, servers } from "../src/schema.ts";
 import { listServers, seedServers } from "../src/servers.ts";
 import { createTestDb } from "../src/testing.ts";
 
@@ -49,14 +50,30 @@ describe("markets", () => {
 });
 
 describe("servers", () => {
-    it("seeds the public Albion Online Data servers once", async () => {
+    it("seeds all public feeds and refreshes the address of an existing APC feed", async () => {
+        await db
+            .update(servers)
+            .set({ natsUrl: "nats://old.example:34222" })
+            .where(eq(servers.id, "europe_apc"));
         await seedServers(db);
 
-        expect((await listServers(db)).map((s) => s.id)).toEqual([
-            "west",
-            "east",
-            "europe",
-        ]);
+        const publicServers = await listServers(db, { publicOnly: true });
+        expect(
+            Object.fromEntries(
+                publicServers.map((s) => {
+                    const url = new URL(s.natsUrl);
+
+                    return [s.id, `${url.protocol}//${url.host}`];
+                }),
+            ),
+        ).toEqual({
+            west: "nats://nats.albion-online-data.com:4222",
+            east: "nats://nats.albion-online-data.com:24222",
+            europe: "nats://nats.albion-online-data.com:34222",
+            apc_west: "tls://nats.albion-profit-calculator.com:4222",
+            apc_east: "tls://nats.albion-profit-calculator.com:24222",
+            europe_apc: "tls://nats.albion-profit-calculator.com:34222",
+        });
     });
 });
 

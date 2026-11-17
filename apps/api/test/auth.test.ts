@@ -150,13 +150,16 @@ describe("private servers", () => {
                 headers,
             });
 
-        expect(await servers()).toEqual(["west", "east", "europe"]);
-        expect(await servers({ Cookie: cookie! })).toEqual([
+        const publicIds = [
             "west",
             "east",
             "europe",
-            "guild",
-        ]);
+            "apc_west",
+            "apc_east",
+            "europe_apc",
+        ];
+        expect(await servers()).toEqual(publicIds);
+        expect(await servers({ Cookie: cookie! })).toEqual([...publicIds, "guild"]);
         expect((await prices()).status).toBe(404);
         expect((await prices({ Cookie: cookie! })).status).toBe(200);
     });
