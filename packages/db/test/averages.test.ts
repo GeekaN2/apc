@@ -56,11 +56,16 @@ function offer(orderId: number, unitPriceSilver: number): MarketOrder {
 
 describe("servers", () => {
     it("know the price history API of public servers", async () => {
-        expect((await listServers(db)).map((s) => s.apiUrl)).toEqual([
-            "https://west.albion-online-data.com",
-            "https://east.albion-online-data.com",
-            "https://europe.albion-online-data.com",
-        ]);
+        expect(
+            Object.fromEntries((await listServers(db)).map((s) => [s.id, s.apiUrl])),
+        ).toEqual({
+            west: "https://west.albion-online-data.com",
+            east: "https://east.albion-online-data.com",
+            europe: "https://europe.albion-online-data.com",
+            apc_west: "https://west.albion-online-data.com",
+            apc_east: "https://east.albion-online-data.com",
+            europe_apc: "https://europe.albion-online-data.com",
+        });
     });
 });
 

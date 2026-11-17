@@ -10,7 +10,7 @@ See [docs/ROADMAP.md](docs/ROADMAP.md) for the rewrite plan and [docs/DEPLOY.md]
 apps/
   web/        frontend: React, Vite, HeroUI, Tailwind, Zustand
   api/        HTTP API: Hono
-  ingest/     market orders from Albion Online Data NATS into Postgres
+  ingest/     market orders from Albion Online Data and APC NATS into Postgres
 packages/
   game-data/  item catalog generated from ao-bin-dumps
   calc/       profit calculations over the catalog
@@ -27,7 +27,7 @@ pnpm --filter @apc/db db:dev
 ```
 
 ```bash
-# apply migrations and add the public Albion Online Data servers
+# apply migrations and register the public Albion Online Data and APC feeds
 DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/db db:migrate
 ```
 
@@ -35,6 +35,16 @@ DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter 
 # market orders ingest
 DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter @apc/ingest start
 ```
+
+APC market orders come from `nats.albion-profit-calculator.com` over TLS on three ports. The feeds allow anonymous subscriptions.
+
+| Region   | Server ID    | NATS port |
+| -------- | ------------ | --------- |
+| Americas | `apc_west`   | `4222`    |
+| Asia     | `apc_east`   | `24222`   |
+| Europe   | `europe_apc` | `34222`   |
+
+For an existing database, rerun `db:migrate` and restart ingest to pick up the new addresses. The APC feeds use the matching regional Albion Online Data charts APIs for 30-day averages.
 
 The API on 127.0.0.1:4000 reads `apps/api/.env`; copy `apps/api/.env.example` and set `BETTER_AUTH_SECRET`. Discord sign-in needs a Discord application, without `DISCORD_CLIENT_ID` it is disabled.
 

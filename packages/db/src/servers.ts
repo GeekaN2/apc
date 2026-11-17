@@ -28,11 +28,38 @@ export const AODP_SERVERS: (typeof servers.$inferInsert)[] = [
     },
 ];
 
+const APC_NATS_URL = "tls://nats.albion-profit-calculator.com";
+
+/** APC's regional feeds keep the ids used by the old calculator. */
+const APC_SERVERS: (typeof servers.$inferInsert)[] = [
+    {
+        id: "apc_west",
+        name: "Americas APC",
+        natsUrl: `${APC_NATS_URL}:4222`,
+        apiUrl: "https://west.albion-online-data.com",
+        isPublic: true,
+    },
+    {
+        id: "apc_east",
+        name: "Asia APC",
+        natsUrl: `${APC_NATS_URL}:24222`,
+        apiUrl: "https://east.albion-online-data.com",
+        isPublic: true,
+    },
+    {
+        id: "europe_apc",
+        name: "Europe APC",
+        natsUrl: `${APC_NATS_URL}:34222`,
+        apiUrl: "https://europe.albion-online-data.com",
+        isPublic: true,
+    },
+];
+
 /** Adds the public servers or updates their names and addresses */
 export async function seedServers(db: Db): Promise<void> {
     await db
         .insert(servers)
-        .values(AODP_SERVERS)
+        .values([...AODP_SERVERS, ...APC_SERVERS])
         .onConflictDoUpdate({
             target: servers.id,
             set: {
