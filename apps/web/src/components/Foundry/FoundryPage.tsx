@@ -1,7 +1,7 @@
 import { FRAGMENT_TYPES, type FoundryGroup } from "@apc/calc";
 import { Alert, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import { CRAFTING_CITIES, type Names, itemIconUrl } from "../../catalog/catalog";
+import { CRAFTING_CITIES, type Names, itemIconProps } from "../../catalog/catalog";
 import { useFoundryStore } from "../../store/foundry";
 import { IconPicker } from "../IconPicker/IconPicker";
 import { PriceBar } from "../PriceBar/PriceBar";
@@ -139,7 +139,7 @@ const Details: React.FC<{
                             className="flex items-center gap-3 border-b border-separator py-1.5 text-sm last:border-0"
                         >
                             <img
-                                src={itemIconUrl(line.marketId, 40)}
+                                {...itemIconProps(line.marketId)}
                                 alt=""
                                 loading="lazy"
                                 className="size-9 shrink-0"
@@ -283,7 +283,7 @@ export const FoundryPage: React.FC = () => {
                                                     <span className="flex items-center gap-2">
                                                         {ROW_ICONS[row] && (
                                                             <img
-                                                                src={itemIconUrl(
+                                                                {...itemIconProps(
                                                                     ROW_ICONS[row],
                                                                     32,
                                                                 )}

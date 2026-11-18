@@ -1,4 +1,4 @@
-import { itemIconUrl } from "../../catalog/catalog";
+import { itemIconProps } from "../../catalog/catalog";
 
 export interface IconOption<T extends string> {
     id: T;
@@ -44,7 +44,7 @@ export function IconPicker<T extends string>({
                         }`}
                     >
                         <img
-                            src={itemIconUrl(option.icon, 64)}
+                            {...itemIconProps(option.icon)}
                             alt=""
                             loading="lazy"
                             className={iconSize}

@@ -46,7 +46,12 @@ echo '/swapfile none swap sw 0 0' >> /etc/fstab
 ```
 
 nginx: `deploy/nginx/dev.albion-profit-calculator.com` serves the web build and
-proxies `/api/` to the API.
+proxies `/api/` to the API. `/item-icons/` serves icons through an nginx disk
+cache capped at 1 GB in `/var/lib/nginx/apc-item-icons`. Successful images are
+cached for seven days on the server and one day in browsers. Icons are fetched
+on first use, and the cache persists across web releases. Install this nginx
+configuration and run `nginx -t && systemctl reload nginx` before publishing a
+web build that uses these image URLs.
 
 ## Once, as gpt
 

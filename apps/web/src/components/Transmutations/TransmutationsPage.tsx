@@ -13,7 +13,7 @@ import { usePrices } from "../../api/prices";
 import {
     CRAFTING_CITIES,
     type Names,
-    itemIconUrl,
+    itemIconProps,
     useNames,
     useResourceCatalog,
 } from "../../catalog/catalog";
@@ -103,7 +103,7 @@ const Details: React.FC<{ cell: Cell; names?: Names; now: number }> = ({
                             <span key={id} className="flex items-center gap-0.5">
                                 {index > 0 && <span className="text-muted">→</span>}
                                 <img
-                                    src={itemIconUrl(toMarketId(id), 32)}
+                                    {...itemIconProps(toMarketId(id), 32)}
                                     alt=""
                                     title={name(toMarketId(id))}
                                     className="size-7"

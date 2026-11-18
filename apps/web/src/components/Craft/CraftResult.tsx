@@ -1,7 +1,7 @@
 import { type Catalog, type ItemFamily, familyRecipe, resourceMarketId } from "@apc/calc";
 import { Alert, Label, Spinner, ToggleButton, ToggleButtonGroup } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import { type Names, itemIconUrl } from "../../catalog/catalog";
+import { type Names, itemIconProps } from "../../catalog/catalog";
 import { PriceBar } from "../PriceBar/PriceBar";
 import { ProfitTable } from "../ProfitTable/ProfitTable";
 import { familyIcon, familyName } from "./familyName";
@@ -60,7 +60,7 @@ const VariantPicker: React.FC<{
                                 ? ids.map((id) => (
                                       <img
                                           key={id}
-                                          src={itemIconUrl(id, 40)}
+                                          {...itemIconProps(id, 32)}
                                           alt=""
                                           className="size-7"
                                       />
@@ -91,11 +91,7 @@ export const CraftResult: React.FC<{
     return (
         <>
             <div className="flex items-center gap-3">
-                <img
-                    src={itemIconUrl(familyIcon(family), 64)}
-                    alt=""
-                    className="size-12"
-                />
+                <img {...itemIconProps(familyIcon(family))} alt="" className="size-12" />
                 <h2 className="text-xl font-medium">{name}</h2>
             </div>
             {variants > 1 && (

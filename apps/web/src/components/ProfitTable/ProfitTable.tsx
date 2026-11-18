@@ -1,7 +1,7 @@
 import type { CraftResult } from "@apc/calc";
 import { Tooltip } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import { itemIconUrl } from "../../catalog/catalog";
+import { itemIconProps } from "../../catalog/catalog";
 import type { SalePrice, UsedPrice } from "../../prices/priceBook";
 import { formatAge, formatNumber, formatPercent, formatSilver, isStale } from "./format";
 
@@ -43,7 +43,7 @@ export const Line: React.FC<{
 }> = ({ icon, label, value }) => (
     <div className="flex items-center justify-between gap-6 whitespace-nowrap">
         <span className="flex items-center gap-1.5">
-            {icon && <img src={itemIconUrl(icon, 32)} alt="" className="size-6" />}
+            {icon && <img {...itemIconProps(icon, 32)} alt="" className="size-6" />}
             {label}
         </span>
         <span className="tabular-nums">{value}</span>

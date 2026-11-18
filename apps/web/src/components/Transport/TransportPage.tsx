@@ -9,7 +9,7 @@ import {
     CRAFTING_CITIES,
     type City,
     type Names,
-    itemIconUrl,
+    itemIconProps,
     useNames,
     useTradeCatalog,
 } from "../../catalog/catalog";
@@ -173,7 +173,7 @@ const RouteRow: React.FC<{ route: Route; names?: Names; now: number }> = ({
     return (
         <div className="flex h-full items-center gap-3 border-b border-separator px-2 text-sm">
             <img
-                src={itemIconUrl(route.marketId, 48, route.quality)}
+                {...itemIconProps(route.marketId, 48, route.quality)}
                 alt=""
                 loading="lazy"
                 className="size-11 shrink-0"

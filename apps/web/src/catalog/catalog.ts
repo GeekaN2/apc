@@ -5,6 +5,7 @@ import { languages, useLanguageStore } from "../i18n/i18n";
 import type { CraftingCity } from "./cities";
 
 export * from "./cities";
+export { itemIconProps } from "./itemIcons";
 
 const ITEM_FILES = {
     simpleitem: () => import("@apc/game-data/generated/items/simpleitem.json"),
@@ -105,11 +106,4 @@ export function useNames() {
 export function clusterIdOf(catalog: Catalog, city: CraftingCity): string | undefined {
     return catalog.modifiers.craftingLocation.find((l) => l.clusterName === city)
         ?.clusterId;
-}
-
-/** Item icon from the official render service */
-export function itemIconUrl(marketId: string, size = 64, quality = 1): string {
-    const url = `https://render.albiononline.com/v1/item/${encodeURIComponent(marketId)}.png?size=${size}`;
-
-    return quality > 1 ? `${url}&quality=${quality}` : url;
 }

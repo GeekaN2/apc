@@ -3,7 +3,7 @@ import { Input, Popover } from "@heroui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCurrentServer } from "../../api/servers";
-import { type Names, itemIconUrl } from "../../catalog/catalog";
+import { type Names, itemIconProps } from "../../catalog/catalog";
 import type { PriceGroup, PriceRow } from "../../prices/priceBook";
 import { useManualPrices, useManualPricesStore } from "../../store/manualPrices";
 
@@ -224,7 +224,7 @@ export const PriceBar: React.FC<{ groups: readonly PriceGroup[]; names?: Names }
                                 className="relative rounded-lg p-0.5 hover:bg-default"
                             >
                                 <img
-                                    src={itemIconUrl(icon.marketId, 64)}
+                                    {...itemIconProps(icon.marketId)}
                                     alt=""
                                     className="size-10"
                                 />
