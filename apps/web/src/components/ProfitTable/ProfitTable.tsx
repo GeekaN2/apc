@@ -1,5 +1,6 @@
 import type { CraftResult } from "@apc/calc";
-import { Tooltip } from "@heroui/react";
+import { Popover, Tooltip } from "@heroui/react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { itemIconProps } from "../../catalog/catalog";
 import type { SalePrice, UsedPrice } from "../../prices/priceBook";
@@ -41,12 +42,14 @@ export const Line: React.FC<{
     label: React.ReactNode;
     value: React.ReactNode;
 }> = ({ icon, label, value }) => (
-    <div className="flex items-center justify-between gap-6 whitespace-nowrap">
+    <div className="flex items-center justify-between gap-x-4">
         <span className="flex items-center gap-1.5">
-            {icon && <img {...itemIconProps(icon, 32)} alt="" className="size-6" />}
+            {icon && (
+                <img {...itemIconProps(icon, 32)} alt="" className="size-6 shrink-0" />
+            )}
             {label}
         </span>
-        <span className="tabular-nums">{value}</span>
+        <span className="text-end tabular-nums">{value}</span>
     </div>
 );
 
@@ -77,7 +80,7 @@ const Breakdown: React.FC<{ cell: ProfitTableCell; name?: string; now: number }>
     return (
         <div className="flex flex-col gap-1.5 text-sm">
             {name && (
-                <div className="font-medium whitespace-nowrap">
+                <div className="font-medium">
                     {name} {cell.tier}.{cell.enchantmentLevel}
                 </div>
             )}
@@ -229,38 +232,55 @@ export function TierGrid<C extends { tier: number; enchantmentLevel: number }>({
     );
 }
 
-/** A profit and its percentage, coloured by sign, with details on hover */
+/** Profit with a quick preview on hover and a dismissible breakdown on press. */
 export const ProfitButton: React.FC<{
     profit?: number;
     percentage?: number;
     details: React.ReactNode;
 }> = ({ profit, percentage, details }) => {
     const { t, i18n } = useTranslation();
+    const [isOpen, setOpen] = useState(false);
     const color =
         profit === undefined ? "text-muted" : profit > 0 ? "text-success" : "text-danger";
 
     return (
-        <Tooltip delay={150} closeDelay={0}>
-            {/* The trigger is HeroUI's inline-block focusable div: stretched over the cell
-                it keeps the numbers right under the right aligned tier headers */}
-            <Tooltip.Trigger className="flex w-full flex-col items-end rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2">
-                <span className={`font-medium ${color}`}>
-                    {profit === undefined ? (
-                        <span aria-label={t("profit.noPrices")}>—</span>
-                    ) : (
-                        formatSilver(profit, i18n.language)
-                    )}
-                </span>
-                {percentage !== undefined && (
-                    <span className={`text-xs ${color}`}>
-                        {formatPercent(percentage, i18n.language)}%
+        <Popover isOpen={isOpen} onOpenChange={setOpen}>
+            <Tooltip delay={150} closeDelay={0} isDisabled={isOpen}>
+                <Popover.Trigger<"button">
+                    type="button"
+                    render={(props) => <button {...props} />}
+                    aria-haspopup="dialog"
+                    className="flex w-full flex-col items-end justify-center rounded-md px-3 py-2 whitespace-nowrap tabular-nums hover:bg-default focus-visible:outline-2 pointer-coarse:min-h-11"
+                >
+                    <span className={`font-medium ${color}`}>
+                        {profit === undefined ? (
+                            <span aria-label={t("profit.noPrices")}>—</span>
+                        ) : (
+                            formatSilver(profit, i18n.language)
+                        )}
                     </span>
-                )}
-            </Tooltip.Trigger>
-            <Tooltip.Content placement="bottom" className="max-w-none break-normal">
-                {details}
-            </Tooltip.Content>
-        </Tooltip>
+                    {percentage !== undefined && (
+                        <span className={`text-xs ${color}`}>
+                            {formatPercent(percentage, i18n.language)}%
+                        </span>
+                    )}
+                </Popover.Trigger>
+                <Tooltip.Content
+                    placement="bottom"
+                    className="max-w-[calc(100vw-2rem)] break-normal"
+                >
+                    {details}
+                </Tooltip.Content>
+            </Tooltip>
+            <Popover.Content
+                placement="bottom"
+                className="max-w-[calc(100vw-2rem)] overflow-auto"
+            >
+                <Popover.Dialog aria-label={t("profit.details")}>
+                    {details}
+                </Popover.Dialog>
+            </Popover.Content>
+        </Popover>
     );
 };
 

@@ -75,9 +75,7 @@ const Details: React.FC<{ cell: Cell; names?: Names; now: number }> = ({
 
     return (
         <div className="flex flex-col gap-1.5 text-sm">
-            <div className="font-medium whitespace-nowrap">
-                {name(itemMarketId(cell.item))}
-            </div>
+            <div className="font-medium">{name(itemMarketId(cell.item))}</div>
             <Line
                 icon={itemMarketId(cell.item)}
                 label={`${t("profit.sale")} (${
