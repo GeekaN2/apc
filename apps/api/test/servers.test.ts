@@ -1,4 +1,11 @@
-import { type Db, seedServers, upsertOrders, user } from "@apc/db";
+import {
+    type Db,
+    recordIngestHealth,
+    seedServers,
+    storeIngestBatch,
+    upsertOrders,
+    user,
+} from "@apc/db";
 import { createTestDb } from "@apc/db/testing";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { MAX_PRIVATE_SERVERS, createApp } from "../src/app.ts";
@@ -99,6 +106,74 @@ describe("private servers", () => {
 
         expect(servers.find((s) => s.id === "guild-eu")?.natsUrl).toBe(SERVER.natsUrl);
         expect(servers.find((s) => s.id === "europe")?.natsUrl).toBeUndefined();
+    });
+
+    it("shows 60 activity buckets for public and authorized private servers", async () => {
+        await as("owner")("/api/servers", { method: "POST", body: SERVER });
+        const order = {
+            serverId: SERVER.id,
+            orderId: 42,
+            itemId: "T4_MAIN_SWORD",
+            locationId: "3005",
+            qualityLevel: 1,
+            unitPriceSilver: 5000,
+            amount: 1,
+            auctionType: "offer" as const,
+            expiresAt: new Date("2026-10-29T12:00:00Z"),
+        };
+        await storeIngestBatch(db, [
+            { ...order, updatedAt: new Date("2026-10-28T11:00:59Z") },
+        ]);
+        await storeIngestBatch(db, [
+            { ...order, updatedAt: new Date("2026-10-28T11:01:00Z") },
+        ]);
+        await storeIngestBatch(db, [
+            { ...order, updatedAt: new Date("2026-10-28T11:01:59Z") },
+        ]);
+        await storeIngestBatch(db, [{ ...order, updatedAt: NOW }]);
+        await recordIngestHealth(db, SERVER, true, NOW);
+        await recordIngestHealth(
+            db,
+            { ...SERVER, natsUrl: "nats://old.example" },
+            false,
+            NOW,
+        );
+
+        const response = await as("friend")("/api/servers/activity");
+        expect(response.status).toBe(200);
+        const activity = await response.json();
+        expect(activity).toMatchObject({
+            from: "2026-10-28T11:01:00.000Z",
+            servers: expect.arrayContaining([
+                {
+                    id: "guild-eu",
+                    connected: true,
+                    ordersByMinute: [2, ...Array(58).fill(0), 1],
+                },
+            ]),
+        });
+
+        const anonymous = await (await as()("/api/servers/activity")).json();
+        expect(anonymous).toMatchObject({
+            servers: expect.not.arrayContaining([
+                expect.objectContaining({ id: "guild-eu" }),
+            ]),
+        });
+
+        const later = createApp(db, {
+            now: () => new Date("2026-10-28T12:04:00Z"),
+            user: async () => USERS.friend,
+        });
+        const laterActivity = await (await later.request("/api/servers/activity")).json();
+        expect(laterActivity).toMatchObject({
+            servers: expect.arrayContaining([
+                {
+                    id: "guild-eu",
+                    connected: null,
+                    ordersByMinute: [...Array(55).fill(0), 1, 0, 0, 0, 0],
+                },
+            ]),
+        });
     });
 
     it("are not for regular users", async () => {

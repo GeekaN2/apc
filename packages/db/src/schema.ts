@@ -26,7 +26,22 @@ export const servers = pgTable("servers", {
     isPublic: boolean("is_public").notNull().default(true),
     /** Supporter who runs a private server */
     ownerId: text("owner_id").references(() => user.id, { onDelete: "set null" }),
+    ingestConnected: boolean("ingest_connected"),
+    ingestCheckedAt: timestamp("ingest_checked_at", { withTimezone: true }),
 });
+
+/** Successfully stored orders per UTC minute, including updates to known orders. */
+export const serverOrderActivity = pgTable(
+    "server_order_activity",
+    {
+        serverId: text("server_id")
+            .notNull()
+            .references(() => servers.id, { onDelete: "cascade" }),
+        minute: timestamp({ withTimezone: true }).notNull(),
+        orders: integer().notNull(),
+    },
+    (table) => [primaryKey({ columns: [table.serverId, table.minute] })],
+);
 
 /** Users allowed to see a private server besides its owner */
 export const serverAccess = pgTable(

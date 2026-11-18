@@ -13,6 +13,7 @@ export interface SubscriberStats {
 
 export interface Subscriber {
     stats: SubscriberStats;
+    readonly connected: boolean;
     close(): Promise<void>;
 }
 
@@ -42,33 +43,53 @@ export async function subscribe(
         maxReconnectAttempts: -1,
     });
     const subscription = nc.subscribe(ORDERS_SUBJECT);
+    let connected = true;
 
     log(`[${server.id}] subscribed to ${ORDERS_SUBJECT}`);
 
     void (async () => {
-        for await (const message of subscription) {
-            try {
-                const { orders, invalid } = parseBulk(
-                    server.id,
-                    message.json(),
-                    new Date(),
-                );
-
-                await onOrders(orders);
-                stats.messages++;
-                stats.orders += orders.length;
-                stats.invalid += invalid;
-            } catch (error) {
-                stats.errors++;
-                log(`[${server.id}] failed to store orders: ${String(error)}`);
+        for await (const status of nc.status()) {
+            if (status.type === "disconnect" || status.type === "close") {
+                connected = false;
+            } else if (status.type === "reconnect") {
+                connected = true;
             }
+        }
+    })();
+
+    const receiving = (async () => {
+        try {
+            for await (const message of subscription) {
+                try {
+                    const { orders, invalid } = parseBulk(
+                        server.id,
+                        message.json(),
+                        new Date(),
+                    );
+
+                    await onOrders(orders);
+                    stats.messages++;
+                    stats.orders += orders.length;
+                    stats.invalid += invalid;
+                } catch (error) {
+                    stats.errors++;
+                    log(`[${server.id}] failed to store orders: ${String(error)}`);
+                }
+            }
+        } catch (error) {
+            stats.errors++;
+            log(`[${server.id}] order subscription failed: ${String(error)}`);
         }
     })();
 
     return {
         stats,
+        get connected() {
+            return connected && !nc.isClosed() && !subscription.isClosed();
+        },
         close: async () => {
             await nc.drain();
+            await receiving;
         },
     };
 }
