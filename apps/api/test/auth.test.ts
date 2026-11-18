@@ -151,12 +151,12 @@ describe("private servers", () => {
             });
 
         const publicIds = [
-            "west",
-            "east",
             "europe",
-            "apc_west",
-            "apc_east",
             "europe_apc",
+            "west",
+            "apc_west",
+            "east",
+            "apc_east",
         ];
         expect(await servers()).toEqual(publicIds);
         expect(await servers({ Cookie: cookie! })).toEqual([...publicIds, "guild"]);

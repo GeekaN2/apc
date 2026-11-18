@@ -130,25 +130,58 @@ export function createApp(
     db: Db,
     { now = () => new Date(), auth, user: getUser, trustedOrigins }: AppOptions = {},
 ) {
-    const marketCache = new Map<string, { expires: number; snapshot: MarketSnapshot }>();
+    const marketCache = new Map<
+        string,
+        { expires: number; snapshot: Promise<MarketSnapshot> }
+    >();
 
-    async function marketSnapshot(
+    function marketSnapshot(
         serverId: string,
         city: (typeof CITIES)[number],
     ): Promise<MarketSnapshot> {
         const key = `${serverId}|${city}`;
         const at = now();
+        const nowMs = at.getTime();
+
+        for (const [cacheKey, entry] of marketCache) {
+            if (entry.expires <= nowMs) {
+                marketCache.delete(cacheKey);
+            }
+        }
+
         const cached = marketCache.get(key);
 
-        if (cached && cached.expires > at.getTime()) {
+        if (cached) {
             return cached.snapshot;
         }
 
+        const entry = {
+            expires: Infinity,
+            snapshot: loadMarketSnapshot(serverId, city, at),
+        };
+        marketCache.set(key, entry);
+        void entry.snapshot.then(
+            () => {
+                entry.expires = nowMs + MARKET_CACHE_MS;
+            },
+            () => {
+                marketCache.delete(key);
+            },
+        );
+
+        return entry.snapshot;
+    }
+
+    async function loadMarketSnapshot(
+        serverId: string,
+        city: (typeof CITIES)[number],
+        at: Date,
+    ): Promise<MarketSnapshot> {
         const [quotes, averages] = await Promise.all([
             cityPrices(db, { serverId, city, now: at }),
             cityAverages(db, { serverId, city }),
         ]);
-        const snapshot: MarketSnapshot = {
+        return {
             city,
             generatedAt: at.toISOString(),
             items: quotes.map((q) => q.itemId),
@@ -163,10 +196,6 @@ export function createApp(
                 averagePrice: averages.map((a) => Math.round(a.averagePrice)),
             },
         };
-
-        marketCache.set(key, { expires: at.getTime() + MARKET_CACHE_MS, snapshot });
-
-        return snapshot;
     }
 
     /** Only the owner of a private server or an admin may change it */

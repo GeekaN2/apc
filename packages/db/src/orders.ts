@@ -1,4 +1,4 @@
-import { and, eq, gt, inArray, lte, sql } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import type { Db } from "./client.ts";
 import { type City, MARKETS, cityOfLocation } from "./markets.ts";
 import { getAveragePrices } from "./averages.ts";
@@ -168,40 +168,52 @@ export async function cityPrices(
     db: Db,
     query: { serverId: string; city: City; now: Date },
 ): Promise<Quote[]> {
-    const orders = await db
+    type PriceAndTime = [price: string | number | null, time: string | number] | null;
+    const price = marketOrders.unitPriceSilver;
+    const side = marketOrders.auctionType;
+    const time = sql`(extract(epoch from ${marketOrders.updatedAt}) * 1000)::bigint`;
+    // PostgreSQL compares the price first and the timestamp second. Negate time
+    // for sells so that min() chooses the newest order when prices tie.
+    const rows = await db
         .select({
             itemId: marketOrders.itemId,
-            locationId: marketOrders.locationId,
-            qualityLevel: marketOrders.qualityLevel,
-            unitPriceSilver: marketOrders.unitPriceSilver,
-            auctionType: marketOrders.auctionType,
-            updatedAt: marketOrders.updatedAt,
+            quality: marketOrders.qualityLevel,
+            sell: sql<PriceAndTime>`min(array[nullif(${price}, 0), -${time}]) filter (where ${side} = 'offer')`,
+            buy: sql<PriceAndTime>`max(array[${price}, ${time}]) filter (where ${side} = 'request')`,
         })
         .from(marketOrders)
+        .leftJoin(
+            averagePrices,
+            and(
+                eq(averagePrices.serverId, marketOrders.serverId),
+                eq(averagePrices.itemId, marketOrders.itemId),
+                eq(averagePrices.city, query.city),
+            ),
+        )
         .where(
             and(
                 eq(marketOrders.serverId, query.serverId),
                 inArray(marketOrders.locationId, [...MARKETS[query.city]]),
                 gt(marketOrders.expiresAt, query.now),
+                or(
+                    eq(side, "request"),
+                    isNull(averagePrices.averagePrice),
+                    eq(averagePrices.averagePrice, 0),
+                    lte(price, sql`${averagePrices.averagePrice} * ${OVERPRICED_FACTOR}`),
+                ),
             ),
-        );
-    const averages = await db
-        .select({
-            itemId: averagePrices.itemId,
-            averagePrice: averagePrices.averagePrice,
-        })
-        .from(averagePrices)
-        .where(
-            and(
-                eq(averagePrices.serverId, query.serverId),
-                eq(averagePrices.city, query.city),
-            ),
-        );
+        )
+        .groupBy(marketOrders.itemId, marketOrders.qualityLevel);
 
-    return aggregateQuotes(
-        orders,
-        new Map(averages.map((a) => [`${a.itemId}|${query.city}`, a.averagePrice])),
-    );
+    return rows.map(({ itemId, quality, sell, buy }) => ({
+        itemId,
+        city: query.city,
+        quality,
+        sellPriceMin: Number(sell?.[0] ?? 0),
+        sellPriceMinDate: sell?.[0] ? new Date(-Number(sell[1])) : null,
+        buyPriceMax: Number(buy?.[0] ?? 0),
+        buyPriceMaxDate: buy && Number(buy[0]) > 0 ? new Date(Number(buy[1])) : null,
+    }));
 }
 
 export interface OrderStats {

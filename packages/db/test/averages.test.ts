@@ -5,7 +5,12 @@ import {
     upsertAveragePrices,
 } from "../src/averages.ts";
 import type { Db } from "../src/client.ts";
-import { OVERPRICED_FACTOR, bestPrices, upsertOrders } from "../src/orders.ts";
+import {
+    OVERPRICED_FACTOR,
+    bestPrices,
+    cityPrices,
+    upsertOrders,
+} from "../src/orders.ts";
 import type { AveragePrice, MarketOrder } from "../src/schema.ts";
 import { listServers, seedServers } from "../src/servers.ts";
 import { createTestDb } from "../src/testing.ts";
@@ -110,6 +115,33 @@ describe("overpriced orders", () => {
         qualities: [1],
         now: NOW,
     };
+
+    it("uses the freshest quotes at the best eligible city prices", async () => {
+        const old = new Date(NOW.getTime() - DAY / 2);
+        await upsertAveragePrices(db, [average()]);
+        await upsertOrders(db, [
+            { ...offer(1, 9000), updatedAt: old },
+            offer(2, 9000),
+            { ...offer(3, 100), expiresAt: NOW },
+            { ...offer(4, 11000), qualityLevel: 2 },
+            { ...offer(5, 12000), auctionType: "request", updatedAt: old },
+            { ...offer(6, 12000), auctionType: "request" },
+        ]);
+
+        expect(
+            await cityPrices(db, { serverId: "europe", city: "Caerleon", now: NOW }),
+        ).toEqual([
+            {
+                itemId: "T4_BAG",
+                city: "Caerleon",
+                quality: 1,
+                sellPriceMin: 9000,
+                sellPriceMinDate: NOW,
+                buyPriceMax: 12000,
+                buyPriceMaxDate: NOW,
+            },
+        ]);
+    });
 
     it("ignores sell orders priced far above the average", async () => {
         await upsertAveragePrices(db, [average({ averagePrice: 2000 })]);

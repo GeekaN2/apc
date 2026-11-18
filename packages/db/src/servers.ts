@@ -7,7 +7,7 @@ import { averagePrices, marketOrders, serverAccess, servers } from "./schema.ts"
 export const AODP_SERVERS: (typeof servers.$inferInsert)[] = [
     {
         id: "west",
-        name: "Americas",
+        name: "America",
         natsUrl: "nats://public:thenewalbiondata@nats.albion-online-data.com:4222",
         apiUrl: "https://west.albion-online-data.com",
         isPublic: true,
@@ -34,7 +34,7 @@ const APC_NATS_URL = "tls://nats.albion-profit-calculator.com";
 const APC_SERVERS: (typeof servers.$inferInsert)[] = [
     {
         id: "apc_west",
-        name: "Americas APC",
+        name: "America APC",
         natsUrl: `${APC_NATS_URL}:4222`,
         apiUrl: "https://west.albion-online-data.com",
         isPublic: true,
@@ -98,7 +98,15 @@ export async function listVisibleServers(db: Db, userId?: string) {
           )
         : eq(servers.isPublic, true);
 
-    return db.select().from(servers).where(visible);
+    return db
+        .select()
+        .from(servers)
+        .where(visible)
+        .orderBy(
+            sql`array_position(array['europe', 'europe_apc', 'west', 'apc_west', 'east', 'apc_east'], ${servers.id}) nulls last`,
+            servers.name,
+            servers.id,
+        );
 }
 
 /** Private server as its owner edits it */

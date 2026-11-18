@@ -53,28 +53,28 @@ describe("api", () => {
         expect(await (await request("/api/health")).json()).toEqual({ ok: true });
     });
 
-    it("lists public servers without NATS credentials", async () => {
+    it("lists public servers in regional pairs without NATS credentials", async () => {
         expect(await (await request("/api/servers")).json()).toEqual([
-            { id: "west", name: "Americas", isPublic: true },
-            { id: "east", name: "Asia", isPublic: true },
             { id: "europe", name: "Europe", isPublic: true },
-            {
-                id: "apc_west",
-                name: "Americas APC",
-                isPublic: true,
-                uploadUrl: "nats://nats.albion-profit-calculator.com:4222",
-            },
-            {
-                id: "apc_east",
-                name: "Asia APC",
-                isPublic: true,
-                uploadUrl: "nats://nats.albion-profit-calculator.com:24222",
-            },
             {
                 id: "europe_apc",
                 name: "Europe APC",
                 isPublic: true,
                 uploadUrl: "nats://nats.albion-profit-calculator.com:34222",
+            },
+            { id: "west", name: "America", isPublic: true },
+            {
+                id: "apc_west",
+                name: "America APC",
+                isPublic: true,
+                uploadUrl: "nats://nats.albion-profit-calculator.com:4222",
+            },
+            { id: "east", name: "Asia", isPublic: true },
+            {
+                id: "apc_east",
+                name: "Asia APC",
+                isPublic: true,
+                uploadUrl: "nats://nats.albion-profit-calculator.com:24222",
             },
         ]);
     });
@@ -217,6 +217,19 @@ describe("market", () => {
         now = new Date(NOW.getTime() + 61_000);
 
         expect(await sell()).toEqual([4500]);
+    });
+
+    it("shares a market snapshot between simultaneous requests for the same city", async () => {
+        let time = NOW.getTime();
+        const app = createApp(db, { now: () => new Date(time++) });
+        const path = "/api/market?server=europe&city=Caerleon";
+        const responses = await Promise.all([app.request(path), app.request(path)]);
+        const [first, second] = await Promise.all(
+            responses.map((response) => response.json()),
+        );
+
+        expect(responses.map((response) => response.status)).toEqual([200, 200]);
+        expect(second).toEqual(first);
     });
 
     it("hides private servers", async () => {

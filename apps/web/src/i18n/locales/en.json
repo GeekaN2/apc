@@ -13,6 +13,7 @@
         "dark": "Dark theme"
     },
     "language": "Language",
+    "supportOnBoosty": "Support on Boosty",
     "server": {
         "label": "Server",
         "loading": "Loading servers",
@@ -214,7 +215,6 @@
         "getClient": "Download and install Albion Data Client.",
         "apcCommandHint": "Run the command for your game region. On Windows, use albiondata-client.exe or add the -i option to the client shortcut.",
         "apcMarketHint": "Open the market in game and load the listings you need. After the orders are processed, activity will appear on the APC chart.",
-        "apcKeepsAod": "These commands also keep the default uploads to AOD enabled.",
         "public": "public",
         "private": "private",
         "client": "Sending data to a private server",

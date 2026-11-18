@@ -38,11 +38,11 @@ DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres pnpm --filter 
 
 APC market orders come from `nats.albion-profit-calculator.com` over TLS on three ports. The feeds allow anonymous subscriptions.
 
-| Region   | Server ID    | NATS port |
-| -------- | ------------ | --------- |
-| Americas | `apc_west`   | `4222`    |
-| Asia     | `apc_east`   | `24222`   |
-| Europe   | `europe_apc` | `34222`   |
+| Region  | Server ID    | NATS port |
+| ------- | ------------ | --------- |
+| Europe  | `europe_apc` | `34222`   |
+| America | `apc_west`   | `4222`    |
+| Asia    | `apc_east`   | `24222`   |
 
 For an existing database, rerun `db:migrate` and restart ingest to pick up the new addresses. The APC feeds use the matching regional Albion Online Data charts APIs for 30-day averages.
 

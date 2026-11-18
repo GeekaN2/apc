@@ -27,7 +27,6 @@ interface PrivateServer {
 }
 
 const SERVER_ROLES = ["supporter", "admin"];
-const DEFAULT_AOD_UPLOAD = "https+pow://albion-online-data.com";
 const STATUS_COLORS = {
     connected: "success",
     disconnected: "danger",
@@ -387,13 +386,12 @@ export const ServersPage: React.FC = () => {
                             <li key={server.id} className="min-w-0 space-y-1">
                                 <div className="text-sm font-medium">{server.name}</div>
                                 <CopyLine
-                                    text={`albiondata-client -i "${DEFAULT_AOD_UPLOAD},${server.url}"`}
+                                    text={`albiondata-client -i "${server.url}"`}
                                     wrap
                                 />
                             </li>
                         ))}
                     </ul>
-                    <p className="text-sm text-muted">{t("serversPage.apcKeepsAod")}</p>
                 </section>
             )}
             {privateUrls.length > 0 && (
