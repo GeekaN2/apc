@@ -29,6 +29,13 @@
       "when": 1793222219361,
       "tag": "0003_market_orders_city",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794986848308,
+      "tag": "0004_server_activity",
+      "breakpoints": true
     }
   ]
 }

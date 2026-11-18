@@ -6,9 +6,11 @@ import {
     type Server,
     createDb,
     deleteExpiredOrders,
+    deleteOldServerActivity,
     lastAveragesUpdate,
     listServers,
-    upsertOrders,
+    recordIngestHealth,
+    storeIngestBatch,
 } from "@apc/db";
 import { readItems } from "@apc/game-data/node";
 import { tradableMarketIds } from "./averages.ts";
@@ -35,6 +37,14 @@ const retryTimers = new Map<string, NodeJS.Timeout>();
 /** NATS URL each server was started with, to restart it when the URL changes */
 const started = new Map<string, string>();
 
+async function reportHealth(server: Server, connected: boolean) {
+    try {
+        await recordIngestHealth(db, server, connected, new Date());
+    } catch {
+        log(`[${server.id}] failed to report ingest health`);
+    }
+}
+
 /** Connects to a server, retrying until the first connection succeeds */
 async function start(server: Server) {
     started.set(server.id, server.natsUrl);
@@ -42,7 +52,7 @@ async function start(server: Server) {
     try {
         const subscriber = await subscribe(
             server,
-            (orders) => upsertOrders(db, orders),
+            (orders) => storeIngestBatch(db, orders),
             log,
         );
 
@@ -54,8 +64,14 @@ async function start(server: Server) {
         }
 
         subscribers.set(server.id, subscriber);
+        void reportHealth(server, subscriber.connected);
     } catch (error) {
+        if (started.get(server.id) !== server.natsUrl) {
+            return;
+        }
+
         log(`[${server.id}] failed to connect, retrying in a minute: ${String(error)}`);
+        void reportHealth(server, false);
 
         retryTimers.set(
             server.id,
@@ -98,6 +114,12 @@ async function syncServers() {
             const natsUrl = started.get(server.id);
 
             if (natsUrl === server.natsUrl) {
+                const subscriber = subscribers.get(server.id);
+
+                if (subscriber || retryTimers.has(server.id)) {
+                    void reportHealth(server, subscriber?.connected ?? false);
+                }
+
                 continue;
             }
 
@@ -129,7 +151,13 @@ const statsTimer = setInterval(() => {
 
 const cleanupTimer = setInterval(async () => {
     try {
-        log(`deleted ${await deleteExpiredOrders(db, new Date())} expired orders`);
+        const now = new Date();
+        const [deleted] = await Promise.all([
+            deleteExpiredOrders(db, now),
+            deleteOldServerActivity(db, now),
+        ]);
+
+        log(`deleted ${deleted} expired orders`);
     } catch (error) {
         log(`failed to delete expired orders: ${String(error)}`);
     }

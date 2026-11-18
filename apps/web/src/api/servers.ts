@@ -22,6 +22,25 @@ export function useServers() {
     });
 }
 
+export function useServerActivity() {
+    const { data: session } = useSession();
+
+    return useQuery({
+        queryKey: ["servers", "activity", session?.user.id ?? null],
+        queryFn: async () => {
+            const response = await api.servers.activity.$get();
+
+            if (!response.ok) {
+                throw new Error(`Failed to load server activity: ${response.status}`);
+            }
+
+            return response.json();
+        },
+        staleTime: 30_000,
+        refetchInterval: 30_000,
+    });
+}
+
 /**
  * Selected server; falls back to the first visible one when nothing is selected
  * or the selected private server is no longer visible

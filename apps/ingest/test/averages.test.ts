@@ -29,6 +29,8 @@ const EUROPE: Server = {
     isPublic: true,
     description: null,
     ownerId: null,
+    ingestConnected: null,
+    ingestCheckedAt: null,
 };
 
 describe("aggregateCharts", () => {

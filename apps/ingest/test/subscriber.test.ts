@@ -38,6 +38,8 @@ it.each([
             apiUrl: null,
             isPublic: true,
             ownerId: null,
+            ingestConnected: null,
+            ingestCheckedAt: null,
         };
         const error = new Error("Test connection stopped");
         vi.mocked(connect).mockRejectedValueOnce(error);

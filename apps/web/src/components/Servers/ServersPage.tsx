@@ -15,7 +15,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSession } from "../../api/auth";
 import { api } from "../../api/client";
-import { useServers } from "../../api/servers";
+import { useServerActivity, useServers } from "../../api/servers";
+import { ServerActivityChart } from "./ServerActivityChart";
 
 interface PrivateServer {
     id: string;
@@ -26,15 +27,24 @@ interface PrivateServer {
 }
 
 const SERVER_ROLES = ["supporter", "admin"];
+const DEFAULT_AOD_UPLOAD = "https+pow://albion-online-data.com";
+const STATUS_COLORS = {
+    connected: "success",
+    disconnected: "danger",
+    unchecked: "default",
+} as const;
 
 /** A command or an address with a copy button */
-const CopyLine: React.FC<{ text: string }> = ({ text }) => {
+const CopyLine: React.FC<{ text: string; wrap?: boolean }> = ({ text, wrap }) => {
     const { t } = useTranslation();
     const [copied, setCopied] = useState(false);
 
     return (
         <div className="flex items-center gap-2 rounded-lg bg-default px-3 py-1.5">
-            <code className="min-w-0 flex-1 truncate text-sm" title={text}>
+            <code
+                className={`min-w-0 flex-1 text-sm ${wrap ? "wrap-anywhere whitespace-pre-wrap" : "truncate"}`}
+                title={wrap ? undefined : text}
+            >
                 {text}
             </code>
             <Button
@@ -286,9 +296,16 @@ export const ServersPage: React.FC = () => {
     const { t } = useTranslation();
     const { data: session } = useSession();
     const { data: servers = [] } = useServers();
+    const { data: activity, isError: activityFailed } = useServerActivity();
+    const activityById = new Map(activity?.servers.map((server) => [server.id, server]));
     const role = (session?.user as { role?: string } | undefined)?.role;
     const privateUrls = servers.flatMap((server) =>
         "natsUrl" in server && server.natsUrl ? [server.natsUrl] : [],
+    );
+    const apcServers = servers.flatMap((server) =>
+        "uploadUrl" in server && server.uploadUrl
+            ? [{ id: server.id, name: server.name, url: server.uploadUrl }]
+            : [],
     );
 
     return (
@@ -297,25 +314,88 @@ export const ServersPage: React.FC = () => {
             <section className="flex flex-col gap-3">
                 <h2 className="text-lg font-medium">{t("serversPage.available")}</h2>
                 <p className="text-sm text-muted">{t("serversPage.availableHint")}</p>
-                <ul className="flex flex-col">
-                    {servers.map((server) => (
-                        <li
-                            key={server.id}
-                            className="flex items-center justify-between gap-3 border-b border-separator py-2 last:border-0"
-                        >
-                            <span>{server.name}</span>
-                            <Chip
-                                size="sm"
-                                color={server.isPublic ? "default" : "accent"}
+                {activityFailed && (
+                    <p role="status" className="text-sm text-muted">
+                        {t("serversPage.activityFailed")}
+                    </p>
+                )}
+                <ul className="grid gap-3 sm:grid-cols-2">
+                    {servers.map((server) => {
+                        const stats = activityById.get(server.id);
+                        const connected = activityFailed ? null : stats?.connected;
+                        const status =
+                            connected == null
+                                ? "unchecked"
+                                : connected
+                                  ? "connected"
+                                  : "disconnected";
+
+                        return (
+                            <li
+                                key={server.id}
+                                className="min-w-0 space-y-3 rounded-xl border border-separator p-3"
                             >
-                                {server.isPublic
-                                    ? t("serversPage.public")
-                                    : t("serversPage.private")}
-                            </Chip>
-                        </li>
-                    ))}
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                    <span className="font-medium break-all">
+                                        {server.name}
+                                    </span>
+                                    <div className="flex items-center gap-1.5">
+                                        <Chip
+                                            size="sm"
+                                            color={server.isPublic ? "default" : "accent"}
+                                        >
+                                            {t(
+                                                server.isPublic
+                                                    ? "serversPage.public"
+                                                    : "serversPage.private",
+                                            )}
+                                        </Chip>
+                                        <Chip size="sm" color={STATUS_COLORS[status]}>
+                                            {t(`serversPage.${status}`)}
+                                        </Chip>
+                                    </div>
+                                </div>
+                                {activity && stats && (
+                                    <ServerActivityChart
+                                        from={activity.from}
+                                        orders={stats.ordersByMinute}
+                                    />
+                                )}
+                            </li>
+                        );
+                    })}
                 </ul>
             </section>
+            {apcServers.length > 0 && (
+                <section className="flex flex-col gap-3">
+                    <h2 className="text-lg font-medium">{t("serversPage.apcClient")}</h2>
+                    <p className="text-sm text-muted">{t("serversPage.apcBenefit")}</p>
+                    <ol className="list-decimal space-y-1 ps-5 text-sm">
+                        <li>
+                            <a
+                                href="https://www.albion-online-data.com/client"
+                                className="text-accent underline"
+                            >
+                                {t("serversPage.getClient")}
+                            </a>
+                        </li>
+                        <li>{t("serversPage.apcCommandHint")}</li>
+                        <li>{t("serversPage.apcMarketHint")}</li>
+                    </ol>
+                    <ul className="flex flex-col gap-2">
+                        {apcServers.map((server) => (
+                            <li key={server.id} className="min-w-0 space-y-1">
+                                <div className="text-sm font-medium">{server.name}</div>
+                                <CopyLine
+                                    text={`albiondata-client -i "${DEFAULT_AOD_UPLOAD},${server.url}"`}
+                                    wrap
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="text-sm text-muted">{t("serversPage.apcKeepsAod")}</p>
+                </section>
+            )}
             {privateUrls.length > 0 && (
                 <section className="flex flex-col gap-3">
                     <h2 className="text-lg font-medium">{t("serversPage.client")}</h2>

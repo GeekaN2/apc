@@ -55,6 +55,11 @@ const APC_SERVERS: (typeof servers.$inferInsert)[] = [
     },
 ];
 
+/** Albion Data Client recognizes nats:// and upgrades when the broker requires TLS. */
+export const APC_UPLOAD_URLS = new Map(
+    APC_SERVERS.map(({ id, natsUrl }) => [id, natsUrl.replace("tls:", "nats:")]),
+);
+
 /** Adds the public servers or updates their names and addresses */
 export async function seedServers(db: Db): Promise<void> {
     await db
@@ -66,6 +71,7 @@ export async function seedServers(db: Db): Promise<void> {
                 name: sql`excluded.name`,
                 natsUrl: sql`excluded.nats_url`,
                 apiUrl: sql`excluded.api_url`,
+                ingestCheckedAt: sql`case when ${servers.natsUrl} = excluded.nats_url then ${servers.ingestCheckedAt} end`,
             },
         });
 }
@@ -223,6 +229,7 @@ export async function updatePrivateServer(
                 name: input.name,
                 description: input.description ?? null,
                 natsUrl: input.natsUrl,
+                ingestCheckedAt: sql`case when ${servers.natsUrl} = ${input.natsUrl} then ${servers.ingestCheckedAt} end`,
             })
             .where(eq(servers.id, id));
 

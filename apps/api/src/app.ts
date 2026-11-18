@@ -1,4 +1,5 @@
 import {
+    APC_UPLOAD_URLS,
     CITIES,
     type Db,
     bestPrices,
@@ -16,6 +17,7 @@ import {
     getTreeSettings,
     listVisibleServers,
     saveTreeSettings,
+    serverActivity,
 } from "@apc/db";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
@@ -226,9 +228,17 @@ export function createApp(
             return c.json(
                 // Private servers show their NATS URL: users send data to it
                 servers.map(({ id, name, isPublic, natsUrl }) =>
-                    isPublic ? { id, name, isPublic } : { id, name, isPublic, natsUrl },
+                    isPublic
+                        ? { id, name, isPublic, uploadUrl: APC_UPLOAD_URLS.get(id) }
+                        : { id, name, isPublic, natsUrl },
                 ),
             );
+        })
+        .get("/servers/activity", async (c) => {
+            const visible = await listVisibleServers(db, c.get("userId"));
+
+            c.header("Cache-Control", "private, no-store");
+            return c.json(await serverActivity(db, visible, now()));
         })
         .get("/admin/stats", async (c) => {
             if (c.get("user")?.role !== "admin") {
