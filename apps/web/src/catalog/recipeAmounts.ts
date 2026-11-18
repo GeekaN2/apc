@@ -65,11 +65,11 @@ export function formatRecipeAmount(
     const format = new Intl.NumberFormat(language, { maximumFractionDigits: 2 });
 
     if (typeof amount === "number") {
-        return `×${format.format(amount)}`;
+        return format.format(amount);
     }
 
     const min = format.format(amount.min);
     const max = format.format(amount.max);
 
-    return min === max ? `×${min}` : `×${min}–${max}`;
+    return min === max ? min : `${min}–${max}`;
 }

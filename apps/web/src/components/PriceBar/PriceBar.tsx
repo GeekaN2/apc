@@ -3,7 +3,7 @@ import { Input, Popover } from "@heroui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCurrentServer } from "../../api/servers";
-import { type Names, itemIconProps } from "../../catalog/catalog";
+import type { Names } from "../../catalog/catalog";
 import {
     type RecipeIngredient,
     formatRecipeAmount,
@@ -12,7 +12,7 @@ import {
 } from "../../catalog/recipeAmounts";
 import type { PriceGroup, PriceRow } from "../../prices/priceBook";
 import { useManualPrices, useManualPricesStore } from "../../store/manualPrices";
-import { RecipeCount } from "../RecipeIcon/RecipeIcon";
+import { RecipeIcon } from "../RecipeIcon/RecipeIcon";
 
 interface Variant extends PriceRow {
     tier?: number;
@@ -199,7 +199,7 @@ export const PriceBar: React.FC<{
                 const name = kindName(names, kind);
                 const amount = amounts.get(kind.key);
                 const count = amount && formatRecipeAmount(amount, i18n.language);
-                const title = count ? `${name} ${count}` : name;
+                const title = count ? `${name} ×${count}` : name;
                 const icon =
                     kind.variants.find((v) => v.tier === 4 && v.enchantmentLevel === 0) ??
                     kind.variants[0]!;
@@ -216,12 +216,12 @@ export const PriceBar: React.FC<{
                                 title={title}
                                 className="relative flex flex-col items-center rounded-lg p-0.5 hover:bg-default"
                             >
-                                <img
-                                    {...itemIconProps(icon.marketId)}
-                                    alt=""
-                                    className="size-10"
+                                <RecipeIcon
+                                    marketId={icon.marketId}
+                                    name=""
+                                    size={40}
+                                    amount={count}
                                 />
-                                {count && <RecipeCount>{count}</RecipeCount>}
                                 {hasOwn && (
                                     <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-accent" />
                                 )}

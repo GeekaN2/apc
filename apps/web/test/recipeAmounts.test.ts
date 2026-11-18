@@ -24,6 +24,6 @@ it("shows exact totals and ranges across tiers and enchantment levels", () => {
         min: 1,
         max: 10,
     });
-    expect(formatRecipeAmount(amounts.get("CLOTH")!, "en")).toBe("×8");
-    expect(formatRecipeAmount(amounts.get("QUESTITEM_TOKEN_ROYAL")!, "en")).toBe("×1–10");
+    expect(formatRecipeAmount(amounts.get("CLOTH")!, "en")).toBe("8");
+    expect(formatRecipeAmount(amounts.get("QUESTITEM_TOKEN_ROYAL")!, "en")).toBe("1–10");
 });
