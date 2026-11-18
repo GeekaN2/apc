@@ -1,9 +1,10 @@
 import { ArrowRotateLeft } from "@gravity-ui/icons";
 import { Input, Popover } from "@heroui/react";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCurrentServer } from "../../api/servers";
 import type { Names } from "../../catalog/catalog";
+import { itemIconProps } from "../../catalog/itemIcons";
 import {
     type RecipeIngredient,
     formatRecipeAmount,
@@ -25,10 +26,10 @@ interface Kind {
     variants: Variant[];
 }
 
-function kindsOf(groups: readonly PriceGroup[]): Kind[] {
+function kindsOf(rows: readonly PriceRow[]): Kind[] {
     const kinds = new Map<string, Kind>();
 
-    for (const row of groups.flatMap((group) => group.rows)) {
+    for (const row of rows) {
         const { key, ...variant } = marketVariant(row.marketId);
         const kind = kinds.get(key) ?? { key, variants: [] };
 
@@ -174,15 +175,82 @@ const KindPrices: React.FC<{ kind: Kind; name: string; serverId: string }> = ({
     );
 };
 
+const PriceIcon: React.FC<{
+    kind: Kind;
+    name: string;
+    count?: string;
+    serverId: string;
+    hasOwn: boolean;
+    className?: string;
+    children: ReactNode;
+}> = ({ kind, name, count, serverId, hasOwn, className = "", children }) => {
+    const { t } = useTranslation();
+    const title = count ? `${name} ×${count}` : name;
+
+    return (
+        <Popover>
+            <Popover.Trigger<"button">
+                render={(props) => <button {...props} />}
+                type="button"
+                aria-label={`${t("prices.title")}: ${title}`}
+                title={title}
+                className={`relative inline-flex items-center rounded-lg hover:bg-default ${className}`}
+            >
+                {children}
+                {hasOwn && (
+                    <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-accent" />
+                )}
+            </Popover.Trigger>
+            <Popover.Content placement="bottom start">
+                <Popover.Dialog className="max-w-[calc(100vw-2rem)]">
+                    <KindPrices kind={kind} name={name} serverId={serverId} />
+                </Popover.Dialog>
+            </Popover.Content>
+        </Popover>
+    );
+};
+
+/** Edit the sale price from the product icon in the heading. */
+export const ProductPriceIcon: React.FC<{
+    marketId: string;
+    name: string;
+    rows: readonly PriceRow[];
+}> = ({ marketId, name, rows }) => {
+    const serverId = useCurrentServer()?.id;
+    const manual = useManualPrices();
+    const { key } = marketVariant(marketId);
+    const kind = kindsOf(rows).find((kind) => kind.key === key);
+    const icon = <img {...itemIconProps(marketId)} alt="" className="size-12 shrink-0" />;
+
+    if (!serverId || !kind) {
+        return icon;
+    }
+
+    return (
+        <PriceIcon
+            kind={kind}
+            name={name}
+            serverId={serverId}
+            hasOwn={kind.variants.some(
+                (variant) => manual(variant.marketId) !== undefined,
+            )}
+            className="shrink-0"
+        >
+            {icon}
+        </PriceIcon>
+    );
+};
+
 /**
- * The product and ingredients as icons; one opens own prices for its tiers and
+ * Items as icons; each opens own prices for its tiers and
  * enchantment levels. A dot marks icons with own prices.
  */
 export const PriceBar: React.FC<{
     groups: readonly PriceGroup[];
     names?: Names;
     recipes: readonly (readonly RecipeIngredient[])[];
-}> = ({ groups, names, recipes }) => {
+    label?: string;
+}> = ({ groups, names, recipes, label }) => {
     const { t, i18n } = useTranslation();
     const serverId = useCurrentServer()?.id;
     const manual = useManualPrices();
@@ -191,15 +259,19 @@ export const PriceBar: React.FC<{
         return null;
     }
 
-    const amounts = summarizeRecipeAmounts(recipes);
+    const kinds = kindsOf(groups.flatMap((group) => group.rows));
 
-    return (
+    if (kinds.length === 0) {
+        return null;
+    }
+
+    const amounts = summarizeRecipeAmounts(recipes);
+    const icons = (
         <div className="flex flex-wrap items-start gap-1" aria-label={t("prices.title")}>
-            {kindsOf(groups).map((kind) => {
+            {kinds.map((kind) => {
                 const name = kindName(names, kind);
                 const amount = amounts.get(kind.key);
                 const count = amount && formatRecipeAmount(amount, i18n.language);
-                const title = count ? `${name} ×${count}` : name;
                 const icon =
                     kind.variants.find((v) => v.tier === 4 && v.enchantmentLevel === 0) ??
                     kind.variants[0]!;
@@ -208,33 +280,33 @@ export const PriceBar: React.FC<{
                 );
 
                 return (
-                    <Popover key={kind.key}>
-                        <Popover.Trigger>
-                            <button
-                                type="button"
-                                aria-label={`${t("prices.title")}: ${title}`}
-                                title={title}
-                                className="relative flex flex-col items-center rounded-lg p-0.5 hover:bg-default"
-                            >
-                                <RecipeIcon
-                                    marketId={icon.marketId}
-                                    name=""
-                                    size={40}
-                                    amount={count}
-                                />
-                                {hasOwn && (
-                                    <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-accent" />
-                                )}
-                            </button>
-                        </Popover.Trigger>
-                        <Popover.Content placement="bottom start">
-                            <Popover.Dialog className="max-w-[calc(100vw-2rem)]">
-                                <KindPrices kind={kind} name={name} serverId={serverId} />
-                            </Popover.Dialog>
-                        </Popover.Content>
-                    </Popover>
+                    <PriceIcon
+                        key={kind.key}
+                        kind={kind}
+                        name={name}
+                        count={count}
+                        serverId={serverId}
+                        hasOwn={hasOwn}
+                        className="p-0.5"
+                    >
+                        <RecipeIcon
+                            marketId={icon.marketId}
+                            name=""
+                            size={40}
+                            amount={count}
+                        />
+                    </PriceIcon>
                 );
             })}
         </div>
+    );
+
+    return label ? (
+        <section className="flex flex-col gap-1.5" aria-label={label}>
+            <h3 className="text-sm text-muted">{label}</h3>
+            {icons}
+        </section>
+    ) : (
+        icons
     );
 };

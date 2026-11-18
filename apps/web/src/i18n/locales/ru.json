@@ -122,6 +122,7 @@
         "own": "своя"
     },
     "food": {
+        "ingredients": "Ингредиенты",
         "groups": {
             "food": "Еда",
             "potions": "Зелья"

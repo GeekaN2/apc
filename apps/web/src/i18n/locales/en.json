@@ -122,6 +122,7 @@
         "own": "own"
     },
     "food": {
+        "ingredients": "Ingredients",
         "groups": {
             "food": "Food",
             "potions": "Potions"

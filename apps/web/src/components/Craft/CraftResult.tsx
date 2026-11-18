@@ -9,7 +9,7 @@ import { Alert, Label, Spinner, ToggleButton, ToggleButtonGroup } from "@heroui/
 import { useTranslation } from "react-i18next";
 import { type Names, itemIconProps } from "../../catalog/catalog";
 import { formatRecipeAmount, summarizeRecipeAmounts } from "../../catalog/recipeAmounts";
-import { PriceBar } from "../PriceBar/PriceBar";
+import { PriceBar, ProductPriceIcon } from "../PriceBar/PriceBar";
 import { ProfitTable } from "../ProfitTable/ProfitTable";
 import { RecipeIcon } from "../RecipeIcon/RecipeIcon";
 import { familyIcon, familyName } from "./familyName";
@@ -102,14 +102,37 @@ export const CraftResult: React.FC<{
     onVariantChange: (variant: number) => void;
     crafts: number;
     craft: ReturnType<typeof useFamilyCraft>;
-}> = ({ catalog, family, names, variants, variant, onVariantChange, crafts, craft }) => {
+    separateProduct?: boolean;
+}> = ({
+    catalog,
+    family,
+    names,
+    variants,
+    variant,
+    onVariantChange,
+    crafts,
+    craft,
+    separateProduct,
+}) => {
     const { t } = useTranslation();
     const name = familyName(family, names?.items);
+    const marketId = familyIcon(family);
 
     return (
         <>
             <div className="flex items-center gap-3">
-                <img {...itemIconProps(familyIcon(family))} alt="" className="size-12" />
+                {separateProduct ? (
+                    <ProductPriceIcon
+                        marketId={marketId}
+                        name={name}
+                        rows={
+                            craft.priceGroups.find(({ key }) => key === "products")
+                                ?.rows ?? []
+                        }
+                    />
+                ) : (
+                    <img {...itemIconProps(marketId)} alt="" className="size-12" />
+                )}
                 <h2 className="text-xl font-medium">{name}</h2>
             </div>
             {variants > 1 && (
@@ -141,9 +164,14 @@ export const CraftResult: React.FC<{
                 </Alert>
             )}
             <PriceBar
-                groups={craft.priceGroups}
+                groups={
+                    separateProduct
+                        ? craft.priceGroups.filter(({ key }) => key !== "products")
+                        : craft.priceGroups
+                }
                 names={names}
                 recipes={craft.cells.map(({ result }) => result.resources)}
+                label={separateProduct ? t("food.ingredients") : undefined}
             />
             <ProfitTable cells={craft.cells} now={craft.now} name={name} />
         </>

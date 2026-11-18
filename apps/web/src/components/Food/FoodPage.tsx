@@ -191,6 +191,7 @@ export const FoodPage: React.FC = () => {
                             onVariantChange={() => {}}
                             crafts={settings.crafts}
                             craft={result}
+                            separateProduct
                         />
                     ) : (
                         !catalog.isPending && (
