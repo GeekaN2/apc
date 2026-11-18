@@ -1,9 +1,17 @@
-import { type Catalog, type ItemFamily, familyRecipe, resourceMarketId } from "@apc/calc";
+import {
+    type Catalog,
+    type ItemFamily,
+    enchantmentLevels,
+    familyRecipe,
+    resourceMarketId,
+} from "@apc/calc";
 import { Alert, Label, Spinner, ToggleButton, ToggleButtonGroup } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { type Names, itemIconProps } from "../../catalog/catalog";
+import { formatRecipeAmount, summarizeRecipeAmounts } from "../../catalog/recipeAmounts";
 import { PriceBar } from "../PriceBar/PriceBar";
 import { ProfitTable } from "../ProfitTable/ProfitTable";
+import { RecipeIcon } from "../RecipeIcon/RecipeIcon";
 import { familyIcon, familyName } from "./familyName";
 import type { useFamilyCraft } from "./useFamilyCraft";
 
@@ -16,12 +24,11 @@ const VariantPicker: React.FC<{
     family: ItemFamily;
     variants: number;
     value: number;
+    crafts: number;
+    names?: Names;
     onChange: (variant: number) => void;
-}> = ({ catalog, family, variants, value, onChange }) => {
-    const { t } = useTranslation();
-    const item =
-        family.items.find((i) => i.craftingRequirements.length === variants) ??
-        family.items[0]!;
+}> = ({ catalog, family, variants, value, crafts, names, onChange }) => {
+    const { t, i18n } = useTranslation();
 
     return (
         <div className="flex flex-col gap-1.5">
@@ -41,28 +48,39 @@ const VariantPicker: React.FC<{
                 className="flex-wrap"
             >
                 {Array.from({ length: variants }, (_, variant) => {
-                    const ids = (familyRecipe(item, 0, variant)?.craftResource ?? [])
-                        .map(resourceMarketId)
-                        .filter(
-                            (id) =>
-                                catalog.item(id.split("@")[0]!)?.shopSubcategory1 !==
-                                "refinedresources",
-                        );
+                    const recipes = family.items.flatMap((item) =>
+                        enchantmentLevels(item).map((level) =>
+                            (familyRecipe(item, level, variant)?.craftResource ?? [])
+                                .filter(
+                                    (resource) =>
+                                        catalog.item(resource.uniqueName)
+                                            ?.shopSubcategory1 !== "refinedresources",
+                                )
+                                .map((resource) => ({
+                                    marketId: resourceMarketId(resource),
+                                    count: resource.count * crafts,
+                                })),
+                        ),
+                    );
+                    const ingredients = [...summarizeRecipeAmounts(recipes).values()];
 
                     return (
                         <ToggleButton
                             key={variant}
                             id={String(variant)}
                             aria-label={`${t("tree.recipe")} ${variant + 1}`}
-                            className="gap-1"
+                            className="h-auto gap-1 py-1"
                         >
-                            {ids.length > 0
-                                ? ids.map((id) => (
-                                      <img
-                                          key={id}
-                                          {...itemIconProps(id, 32)}
-                                          alt=""
-                                          className="size-7"
+                            {ingredients.length > 0
+                                ? ingredients.map((ingredient) => (
+                                      <RecipeIcon
+                                          key={ingredient.marketId}
+                                          marketId={ingredient.marketId}
+                                          name={names?.items[ingredient.marketId]}
+                                          amount={formatRecipeAmount(
+                                              ingredient,
+                                              i18n.language,
+                                          )}
                                       />
                                   ))
                                 : variant + 1}
@@ -100,6 +118,8 @@ export const CraftResult: React.FC<{
                     family={family}
                     variants={variants}
                     value={variant}
+                    crafts={crafts}
+                    names={names}
                     onChange={onVariantChange}
                 />
             )}
@@ -120,7 +140,11 @@ export const CraftResult: React.FC<{
                     </Alert.Content>
                 </Alert>
             )}
-            <PriceBar groups={craft.priceGroups} names={names} />
+            <PriceBar
+                groups={craft.priceGroups}
+                names={names}
+                recipes={craft.cells.map(({ result }) => result.resources)}
+            />
             <ProfitTable cells={craft.cells} now={craft.now} name={name} />
         </>
     );

@@ -2,6 +2,7 @@ import { FRAGMENT_TYPES, type FoundryGroup } from "@apc/calc";
 import { Alert, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { CRAFTING_CITIES, type Names, itemIconProps } from "../../catalog/catalog";
+import { formatRecipeAmount } from "../../catalog/recipeAmounts";
 import { useFoundryStore } from "../../store/foundry";
 import { IconPicker } from "../IconPicker/IconPicker";
 import { PriceBar } from "../PriceBar/PriceBar";
@@ -12,6 +13,7 @@ import {
     formatSilver,
     isStale,
 } from "../ProfitTable/format";
+import { RecipeIcon } from "../RecipeIcon/RecipeIcon";
 import { CitySelect, NumberInput, Toggle } from "../SettingsControls/SettingsControls";
 import { type FoundryLine, TIERS, useFoundry } from "./useFoundry";
 
@@ -172,6 +174,19 @@ const Details: React.FC<{
                                     {line.soldPerDay !== undefined &&
                                         ` · ${formatNumber(line.soldPerDay, i18n.language, 0)}/${t("foundry.day")}`}
                                 </span>
+                                <div className="mt-1 flex flex-wrap gap-1">
+                                    {line.result.resources.map((resource) => (
+                                        <RecipeIcon
+                                            key={resource.marketId}
+                                            marketId={resource.marketId}
+                                            name={names?.items[resource.marketId]}
+                                            amount={formatRecipeAmount(
+                                                resource.count,
+                                                i18n.language,
+                                            )}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                             <div className="flex flex-col items-end whitespace-nowrap tabular-nums">
                                 <span className={`font-medium ${profitColor(profit)}`}>
@@ -244,6 +259,7 @@ export const FoundryPage: React.FC = () => {
                             <PriceBar
                                 groups={foundry.priceGroups}
                                 names={foundry.names}
+                                recipes={foundry.recipes}
                             />
                             <div className="overflow-x-auto rounded-xl border border-separator">
                                 {/* Fixed layout like the profit tables: equal tier columns */}

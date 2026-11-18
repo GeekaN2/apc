@@ -4,8 +4,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCurrentServer } from "../../api/servers";
 import { type Names, itemIconProps } from "../../catalog/catalog";
+import {
+    type RecipeIngredient,
+    formatRecipeAmount,
+    marketVariant,
+    summarizeRecipeAmounts,
+} from "../../catalog/recipeAmounts";
 import type { PriceGroup, PriceRow } from "../../prices/priceBook";
 import { useManualPrices, useManualPricesStore } from "../../store/manualPrices";
+import { RecipeCount } from "../RecipeIcon/RecipeIcon";
 
 interface Variant extends PriceRow {
     tier?: number;
@@ -18,31 +25,11 @@ interface Kind {
     variants: Variant[];
 }
 
-/**
- * `T5_METALBAR_LEVEL2@2` → METALBAR, tier 5, level 2;
- * `QUESTITEM_TOKEN_ROYAL_T6` → QUESTITEM_TOKEN_ROYAL, tier 6
- */
-function parse(row: PriceRow): { key: string } & Omit<Variant, keyof PriceRow> {
-    const [id, level] = row.marketId.split("@");
-    const prefix = /^T(\d)_/.exec(id!);
-    const suffix = /_T(\d)$/.exec(id!);
-    const key = id!
-        .replace(/^T\d_/, "")
-        .replace(/_LEVEL\d$/, "")
-        .replace(/_T\d$/, "");
-
-    return {
-        key,
-        tier: Number(prefix?.[1] ?? suffix?.[1]) || undefined,
-        enchantmentLevel: Number(level ?? 0),
-    };
-}
-
 function kindsOf(groups: readonly PriceGroup[]): Kind[] {
     const kinds = new Map<string, Kind>();
 
     for (const row of groups.flatMap((group) => group.rows)) {
-        const { key, ...variant } = parse(row);
+        const { key, ...variant } = marketVariant(row.marketId);
         const kind = kinds.get(key) ?? { key, variants: [] };
 
         kind.variants.push({ ...row, ...variant });
@@ -191,11 +178,12 @@ const KindPrices: React.FC<{ kind: Kind; name: string; serverId: string }> = ({
  * The product and ingredients as icons; one opens own prices for its tiers and
  * enchantment levels. A dot marks icons with own prices.
  */
-export const PriceBar: React.FC<{ groups: readonly PriceGroup[]; names?: Names }> = ({
-    groups,
-    names,
-}) => {
-    const { t } = useTranslation();
+export const PriceBar: React.FC<{
+    groups: readonly PriceGroup[];
+    names?: Names;
+    recipes: readonly (readonly RecipeIngredient[])[];
+}> = ({ groups, names, recipes }) => {
+    const { t, i18n } = useTranslation();
     const serverId = useCurrentServer()?.id;
     const manual = useManualPrices();
 
@@ -203,10 +191,15 @@ export const PriceBar: React.FC<{ groups: readonly PriceGroup[]; names?: Names }
         return null;
     }
 
+    const amounts = summarizeRecipeAmounts(recipes);
+
     return (
-        <div className="flex flex-wrap items-center gap-1" aria-label={t("prices.title")}>
+        <div className="flex flex-wrap items-start gap-1" aria-label={t("prices.title")}>
             {kindsOf(groups).map((kind) => {
                 const name = kindName(names, kind);
+                const amount = amounts.get(kind.key);
+                const count = amount && formatRecipeAmount(amount, i18n.language);
+                const title = count ? `${name} ${count}` : name;
                 const icon =
                     kind.variants.find((v) => v.tier === 4 && v.enchantmentLevel === 0) ??
                     kind.variants[0]!;
@@ -219,15 +212,16 @@ export const PriceBar: React.FC<{ groups: readonly PriceGroup[]; names?: Names }
                         <Popover.Trigger>
                             <button
                                 type="button"
-                                aria-label={`${t("prices.title")}: ${name}`}
-                                title={name}
-                                className="relative rounded-lg p-0.5 hover:bg-default"
+                                aria-label={`${t("prices.title")}: ${title}`}
+                                title={title}
+                                className="relative flex flex-col items-center rounded-lg p-0.5 hover:bg-default"
                             >
                                 <img
                                     {...itemIconProps(icon.marketId)}
                                     alt=""
                                     className="size-10"
                                 />
+                                {count && <RecipeCount>{count}</RecipeCount>}
                                 {hasOwn && (
                                     <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-accent" />
                                 )}

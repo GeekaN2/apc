@@ -70,12 +70,12 @@ export function useFoundry() {
     const quotes = prices.data;
     const now = prices.dataUpdatedAt;
 
-    const { groups, priceGroups } = useMemo(() => {
+    const { groups, priceGroups, recipes } = useMemo(() => {
         const data = catalog.data;
         const groups = new Map<string, FoundryGroup & { artifacts: FoundryLine[] }>();
 
         if (!data) {
-            return { groups, priceGroups: [] as PriceGroup[] };
+            return { groups, priceGroups: [] as PriceGroup[], recipes: [] };
         }
 
         const book = createPriceBook({
@@ -125,7 +125,11 @@ export function useFoundry() {
             },
         ];
 
-        return { groups, priceGroups };
+        return {
+            groups,
+            priceGroups,
+            recipes: lines.map(({ result }) => result.resources),
+        };
     }, [
         catalog.data,
         fragment,
@@ -153,6 +157,7 @@ export function useFoundry() {
         rows,
         group: (row: string, tier: number) => groups.get(`${row}|${tier}`),
         priceGroups,
+        recipes,
         fragmentIds,
         names: names.data,
         now,

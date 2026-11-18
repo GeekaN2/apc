@@ -51,7 +51,11 @@ export const RefiningPage: React.FC = () => {
                     )}
                     {cells.length > 0 && (
                         <>
-                            <PriceBar groups={priceGroups} names={names} />
+                            <PriceBar
+                                groups={priceGroups}
+                                names={names}
+                                recipes={cells.map(({ result }) => result.resources)}
+                            />
                             <ProfitTable cells={cells} now={now} />
                         </>
                     )}

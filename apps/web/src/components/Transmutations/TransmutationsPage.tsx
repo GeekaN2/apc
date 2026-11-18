@@ -3,6 +3,7 @@ import {
     bestTransmutations,
     calibrateSilverFactor,
     itemMarketId,
+    resourceMarketId,
     transmutableResources,
     transmutationRecipes,
 } from "@apc/calc";
@@ -13,10 +14,10 @@ import { usePrices } from "../../api/prices";
 import {
     CRAFTING_CITIES,
     type Names,
-    itemIconProps,
     useNames,
     useResourceCatalog,
 } from "../../catalog/catalog";
+import { formatRecipeAmount } from "../../catalog/recipeAmounts";
 import {
     type PriceGroup,
     type SalePrice,
@@ -29,6 +30,7 @@ import { IconPicker } from "../IconPicker/IconPicker";
 import { PriceBar } from "../PriceBar/PriceBar";
 import { Line, PriceAge, ProfitButton, TierGrid } from "../ProfitTable/ProfitTable";
 import { formatNumber, formatSilver } from "../ProfitTable/format";
+import { RecipeIcon } from "../RecipeIcon/RecipeIcon";
 import { CitySelect, NumberInput, Toggle } from "../SettingsControls/SettingsControls";
 
 /** The recipe the game cost is calibrated by */
@@ -63,6 +65,13 @@ const Details: React.FC<{ cell: Cell; names?: Names; now: number }> = ({
             <span className="text-danger">{t("profit.noPrices")}</span>
         );
     const name = (id: string) => names?.items[id] ?? id;
+    const path = best?.path.steps ?? [];
+    const ingredients = path.flatMap((step) =>
+        step.recipe.craftResource.map((resource) => ({
+            marketId: resourceMarketId(resource),
+            count: resource.count,
+        })),
+    );
 
     return (
         <div className="flex flex-col gap-1.5 text-sm">
@@ -95,18 +104,20 @@ const Details: React.FC<{ cell: Cell; names?: Names; now: number }> = ({
                         )}`}
                         value={silver(best.path.cost)}
                     />
-                    <div className="flex items-center gap-0.5 py-1">
+                    <div className="flex flex-wrap items-center gap-0.5 py-1">
                         {[
-                            best.source.uniqueName,
-                            ...best.path.steps.map((s) => s.to),
-                        ].map((id, index) => (
-                            <span key={id} className="flex items-center gap-0.5">
+                            ...ingredients,
+                            {
+                                marketId: itemMarketId(cell.item),
+                                count: path.at(-1)?.recipe.amountCrafted ?? 1,
+                            },
+                        ].map(({ marketId, count }, index) => (
+                            <span key={marketId} className="flex items-center gap-0.5">
                                 {index > 0 && <span className="text-muted">→</span>}
-                                <img
-                                    {...itemIconProps(toMarketId(id), 32)}
-                                    alt=""
-                                    title={name(toMarketId(id))}
-                                    className="size-7"
+                                <RecipeIcon
+                                    marketId={marketId}
+                                    name={name(marketId)}
+                                    amount={formatRecipeAmount(count, i18n.language)}
                                 />
                             </span>
                         ))}
@@ -121,13 +132,6 @@ const Details: React.FC<{ cell: Cell; names?: Names; now: number }> = ({
         </div>
     );
 };
-
-/** `T5_ORE_LEVEL2` → `T5_ORE_LEVEL2@2` */
-function toMarketId(uniqueName: string): string {
-    const level = /_LEVEL(\d)$/.exec(uniqueName)?.[1];
-
-    return level ? `${uniqueName}@${level}` : uniqueName;
-}
 
 const SettingsPanel: React.FC<{ factor: number }> = ({ factor }) => {
     const { t, i18n } = useTranslation();
@@ -233,11 +237,11 @@ export const TransmutationsPage: React.FC = () => {
             : 1;
     }, [catalog.data, settings.observedCost, settings.fee]);
 
-    const { cells, priceGroups } = useMemo(() => {
+    const { cells, priceGroups, recipes } = useMemo(() => {
         const data = catalog.data;
 
         if (!data) {
-            return { cells: [] as Cell[], priceGroups: [] as PriceGroup[] };
+            return { cells: [] as Cell[], priceGroups: [] as PriceGroup[], recipes: [] };
         }
 
         const book = createPriceBook({
@@ -271,8 +275,16 @@ export const TransmutationsPage: React.FC = () => {
                 })),
             },
         ];
+        const recipes = transmutableResources(data, resource)
+            .flatMap(transmutationRecipes)
+            .map((recipe) =>
+                recipe.craftResource.map((ingredient) => ({
+                    marketId: resourceMarketId(ingredient),
+                    count: ingredient.count,
+                })),
+            );
 
-        return { cells, priceGroups };
+        return { cells, priceGroups, recipes };
     }, [
         catalog.data,
         quotes,
@@ -332,7 +344,11 @@ export const TransmutationsPage: React.FC = () => {
                     )}
                     {cells.length > 0 && (
                         <>
-                            <PriceBar groups={priceGroups} names={names.data} />
+                            <PriceBar
+                                groups={priceGroups}
+                                names={names.data}
+                                recipes={recipes}
+                            />
                             <TierGrid
                                 cells={cells}
                                 renderCell={(cell) => (
